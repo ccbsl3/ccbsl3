@@ -50,6 +50,8 @@
                     new StringField('Id_Voluntario', true, true)
                 )
             );
+            $this->dataset->AddLookupField('Id_grupo', 'grupoccb', new IntegerField('Id_grupo'), new StringField('Ds_grupo', false, false, false, false, 'Id_grupo_Ds_grupo', 'Id_grupo_Ds_grupo_grupoccb'), 'Id_grupo_Ds_grupo_grupoccb');
+            $this->dataset->AddLookupField('Id_Voluntario', 'cadvoluntarios', new IntegerField('ID_AUX'), new StringField('NM_VOLUNTARIO', false, false, false, false, 'Id_Voluntario_NM_VOLUNTARIO', 'Id_Voluntario_NM_VOLUNTARIO_cadvoluntarios'), 'Id_Voluntario_NM_VOLUNTARIO_cadvoluntarios');
         }
     
         protected function DoPrepare() {
@@ -80,8 +82,8 @@
         protected function getFiltersColumns()
         {
             return array(
-                new FilterColumn($this->dataset, 'Id_grupo', 'Id_grupo', 'Id Grupo'),
-                new FilterColumn($this->dataset, 'Id_Voluntario', 'Id_Voluntario', 'Id Voluntario')
+                new FilterColumn($this->dataset, 'Id_grupo', 'Id_grupo_Ds_grupo', 'Id Grupo'),
+                new FilterColumn($this->dataset, 'Id_Voluntario', 'Id_Voluntario_NM_VOLUNTARIO', 'Id Voluntario')
             );
         }
     
@@ -94,12 +96,21 @@
     
         protected function setupColumnFilter(ColumnFilter $columnFilter)
         {
-    
+            $columnFilter
+                ->setOptionsFor('Id_grupo')
+                ->setOptionsFor('Id_Voluntario');
         }
     
         protected function setupFilterBuilder(FilterBuilder $filterBuilder, FixedKeysArray $columns)
         {
-            $main_editor = new TextEdit('id_grupo_edit');
+            $main_editor = new DynamicCombobox('id_grupo_edit', $this->CreateLinkBuilder());
+            $main_editor->setAllowClear(true);
+            $main_editor->setMinimumInputLength(0);
+            $main_editor->SetAllowNullValue(false);
+            $main_editor->SetHandlerName('filter_builder_grupovoluntarios_Id_grupo_search');
+            
+            $multi_value_select_editor = new RemoteMultiValueSelect('Id_grupo', $this->CreateLinkBuilder());
+            $multi_value_select_editor->SetHandlerName('filter_builder_grupovoluntarios_Id_grupo_search');
             
             $filterBuilder->addColumn(
                 $columns['Id_grupo'],
@@ -112,13 +123,23 @@
                     FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
                     FilterConditionOperator::IS_BETWEEN => $main_editor,
                     FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::IN => $multi_value_select_editor,
+                    FilterConditionOperator::NOT_IN => $multi_value_select_editor,
                     FilterConditionOperator::IS_BLANK => null,
                     FilterConditionOperator::IS_NOT_BLANK => null
                 )
             );
             
-            $main_editor = new TextEdit('id_voluntario_edit');
-            $main_editor->SetMaxLength(15);
+            $main_editor = new DynamicCombobox('id_voluntario_edit', $this->CreateLinkBuilder());
+            $main_editor->setAllowClear(true);
+            $main_editor->setMinimumInputLength(0);
+            $main_editor->SetAllowNullValue(false);
+            $main_editor->SetHandlerName('filter_builder_grupovoluntarios_Id_Voluntario_search');
+            
+            $multi_value_select_editor = new RemoteMultiValueSelect('Id_Voluntario', $this->CreateLinkBuilder());
+            $multi_value_select_editor->SetHandlerName('filter_builder_grupovoluntarios_Id_Voluntario_search');
+            
+            $text_editor = new TextEdit('Id_Voluntario');
             
             $filterBuilder->addColumn(
                 $columns['Id_Voluntario'],
@@ -131,12 +152,14 @@
                     FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
                     FilterConditionOperator::IS_BETWEEN => $main_editor,
                     FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
-                    FilterConditionOperator::CONTAINS => $main_editor,
-                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
-                    FilterConditionOperator::BEGINS_WITH => $main_editor,
-                    FilterConditionOperator::ENDS_WITH => $main_editor,
-                    FilterConditionOperator::IS_LIKE => $main_editor,
-                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::CONTAINS => $text_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $text_editor,
+                    FilterConditionOperator::BEGINS_WITH => $text_editor,
+                    FilterConditionOperator::ENDS_WITH => $text_editor,
+                    FilterConditionOperator::IS_LIKE => $text_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $text_editor,
+                    FilterConditionOperator::IN => $multi_value_select_editor,
+                    FilterConditionOperator::NOT_IN => $multi_value_select_editor,
                     FilterConditionOperator::IS_BLANK => null,
                     FilterConditionOperator::IS_NOT_BLANK => null
                 )
@@ -185,22 +208,19 @@
         protected function AddFieldColumns(Grid $grid, $withDetails = true)
         {
             //
-            // View column for Id_grupo field
+            // View column for Ds_grupo field
             //
-            $column = new NumberViewColumn('Id_grupo', 'Id_grupo', 'Id Grupo', $this->dataset);
+            $column = new TextViewColumn('Id_grupo', 'Id_grupo_Ds_grupo', 'Id Grupo', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
             $column->SetFixedWidth(null);
             $grid->AddViewColumn($column);
             
             //
-            // View column for Id_Voluntario field
+            // View column for NM_VOLUNTARIO field
             //
-            $column = new TextViewColumn('Id_Voluntario', 'Id_Voluntario', 'Id Voluntario', $this->dataset);
+            $column = new TextViewColumn('Id_Voluntario', 'Id_Voluntario_NM_VOLUNTARIO', 'Id Voluntario', $this->dataset);
             $column->SetOrderable(true);
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
@@ -211,19 +231,16 @@
         protected function AddSingleRecordViewColumns(Grid $grid)
         {
             //
-            // View column for Id_grupo field
+            // View column for Ds_grupo field
             //
-            $column = new NumberViewColumn('Id_grupo', 'Id_grupo', 'Id Grupo', $this->dataset);
+            $column = new TextViewColumn('Id_grupo', 'Id_grupo_Ds_grupo', 'Id Grupo', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
             $grid->AddSingleRecordViewColumn($column);
             
             //
-            // View column for Id_Voluntario field
+            // View column for NM_VOLUNTARIO field
             //
-            $column = new TextViewColumn('Id_Voluntario', 'Id_Voluntario', 'Id Voluntario', $this->dataset);
+            $column = new TextViewColumn('Id_Voluntario', 'Id_Voluntario_NM_VOLUNTARIO', 'Id Voluntario', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddSingleRecordViewColumn($column);
         }
@@ -233,8 +250,26 @@
             //
             // Edit column for Id_grupo field
             //
-            $editor = new TextEdit('id_grupo_edit');
-            $editColumn = new CustomEditColumn('Id Grupo', 'Id_grupo', $editor, $this->dataset);
+            $editor = new DynamicCombobox('id_grupo_edit', $this->CreateLinkBuilder());
+            $editor->setAllowClear(true);
+            $editor->setMinimumInputLength(0);
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`grupoccb`');
+            $lookupDataset->addFields(
+                array(
+                    new IntegerField('Id_grupo', true, true, true),
+                    new StringField('Ds_grupo'),
+                    new StringField('Id_CCB'),
+                    new StringField('Tipo'),
+                    new StringField('Status'),
+                    new DateField('Dt_Inicio'),
+                    new DateField('Ft_Fim')
+                )
+            );
+            $lookupDataset->setOrderByField('Ds_grupo', 'ASC');
+            $editColumn = new DynamicLookupEditColumn('Id Grupo', 'Id_grupo', 'Id_grupo_Ds_grupo', 'edit_grupovoluntarios_Id_grupo_search', $editor, $this->dataset, $lookupDataset, 'Id_grupo', 'Ds_grupo', '');
             $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
             $editor->GetValidatorCollection()->AddValidator($validator);
             $this->ApplyCommonColumnEditProperties($editColumn);
@@ -243,9 +278,71 @@
             //
             // Edit column for Id_Voluntario field
             //
-            $editor = new TextEdit('id_voluntario_edit');
-            $editor->SetMaxLength(15);
-            $editColumn = new CustomEditColumn('Id Voluntario', 'Id_Voluntario', $editor, $this->dataset);
+            $editor = new DynamicCombobox('id_voluntario_edit', $this->CreateLinkBuilder());
+            $editor->setAllowClear(true);
+            $editor->setMinimumInputLength(0);
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`cadvoluntarios`');
+            $lookupDataset->addFields(
+                array(
+                    new StringField('Id_voluntario'),
+                    new StringField('NM_VOLUNTARIO'),
+                    new StringField('CD_RG_VOLUNTARIO'),
+                    new StringField('NM_PROFISSAO'),
+                    new StringField('Id_CCB'),
+                    new StringField('NM_COMUM_CCB'),
+                    new StringField('DS_ENDERECO_VOLUNTARIO'),
+                    new StringField('CEP_VOLUNTARIO'),
+                    new StringField('TEL1_VOLUNTARIO'),
+                    new StringField('TEL2_VOLUNTARIO'),
+                    new StringField('TEL3_VOLUNTARIO'),
+                    new StringField('CD_SEXO'),
+                    new StringField('EST_CIVIL'),
+                    new StringField('DS_DISPONIBILIDADE_VOLUNTARIO'),
+                    new StringField('DS_EMAIL_VOLUNTARIO'),
+                    new IntegerField('ID_FUNCAO1'),
+                    new IntegerField('ID_FUNCAO2'),
+                    new IntegerField('ID_FUNCAO3'),
+                    new StringField('DS_HABILIDADES'),
+                    new StringField('DT_APRESENTACAO'),
+                    new StringField('DT_BATISMO_VOLUNTARIO'),
+                    new StringField('DT_NASC_VOLUNTARIO'),
+                    new StringField('DS_ATIVIDADE_QUE_PARTICIPA'),
+                    new StringField('ST_APOSENTADO'),
+                    new StringField('ST_CONHECIMENTO_NIVEL_PROFISSIONAL'),
+                    new StringField('ST_CURSO_EM_ANDAMENTO'),
+                    new StringField('ST_ESTADO_CIVIL_VOLUNTARIO'),
+                    new StringField('ST_PARTICPA_ATIV_MANUT_IGREJA'),
+                    new StringField('ST_PENSIONISTA'),
+                    new StringField('ST_PERMISSAO_TRABALHO_VOLUNTARIO'),
+                    new StringField('ST_POSSUI_VINCULO_INSS'),
+                    new StringField('DS_OBSERVACOES'),
+                    new StringField('DS_TAMANHO_LUVA'),
+                    new StringField('NR_BOTA_UTILIZAR'),
+                    new StringField('ST_JA_REALIZOU_ASO'),
+                    new StringField('ST_PARTICIPOU_NR35'),
+                    new StringField('ST_PARTICIPOU_SEG_TRABALHO'),
+                    new StringField('ST_QUER_PARTICIPAR_LINHA_VIDA'),
+                    new IntegerField('ID_AUX', true, true, true),
+                    new StringField('foto_voluntario'),
+                    new StringField('foto_carta'),
+                    new StringField('foto_nr35'),
+                    new StringField('foto_tst'),
+                    new StringField('foto_aso'),
+                    new StringField('thumb_voluntario'),
+                    new StringField('thumb_carta'),
+                    new StringField('thumb_nr35'),
+                    new StringField('thumb_tst'),
+                    new StringField('thumb_aso'),
+                    new StringField('Ds_SubSetor'),
+                    new StringField('CPF_VOLUNTARIO'),
+                    new DateTimeField('DT_ALTERACAO')
+                )
+            );
+            $lookupDataset->setOrderByField('NM_VOLUNTARIO', 'ASC');
+            $editColumn = new DynamicLookupEditColumn('Id Voluntario', 'Id_Voluntario', 'Id_Voluntario_NM_VOLUNTARIO', 'edit_grupovoluntarios_Id_Voluntario_search', $editor, $this->dataset, $lookupDataset, 'ID_AUX', 'NM_VOLUNTARIO', '');
             $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
             $editor->GetValidatorCollection()->AddValidator($validator);
             $this->ApplyCommonColumnEditProperties($editColumn);
@@ -262,8 +359,26 @@
             //
             // Edit column for Id_grupo field
             //
-            $editor = new TextEdit('id_grupo_edit');
-            $editColumn = new CustomEditColumn('Id Grupo', 'Id_grupo', $editor, $this->dataset);
+            $editor = new DynamicCombobox('id_grupo_edit', $this->CreateLinkBuilder());
+            $editor->setAllowClear(true);
+            $editor->setMinimumInputLength(0);
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`grupoccb`');
+            $lookupDataset->addFields(
+                array(
+                    new IntegerField('Id_grupo', true, true, true),
+                    new StringField('Ds_grupo'),
+                    new StringField('Id_CCB'),
+                    new StringField('Tipo'),
+                    new StringField('Status'),
+                    new DateField('Dt_Inicio'),
+                    new DateField('Ft_Fim')
+                )
+            );
+            $lookupDataset->setOrderByField('Ds_grupo', 'ASC');
+            $editColumn = new DynamicLookupEditColumn('Id Grupo', 'Id_grupo', 'Id_grupo_Ds_grupo', 'insert_grupovoluntarios_Id_grupo_search', $editor, $this->dataset, $lookupDataset, 'Id_grupo', 'Ds_grupo', '');
             $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
             $editor->GetValidatorCollection()->AddValidator($validator);
             $this->ApplyCommonColumnEditProperties($editColumn);
@@ -272,9 +387,71 @@
             //
             // Edit column for Id_Voluntario field
             //
-            $editor = new TextEdit('id_voluntario_edit');
-            $editor->SetMaxLength(15);
-            $editColumn = new CustomEditColumn('Id Voluntario', 'Id_Voluntario', $editor, $this->dataset);
+            $editor = new DynamicCombobox('id_voluntario_edit', $this->CreateLinkBuilder());
+            $editor->setAllowClear(true);
+            $editor->setMinimumInputLength(0);
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`cadvoluntarios`');
+            $lookupDataset->addFields(
+                array(
+                    new StringField('Id_voluntario'),
+                    new StringField('NM_VOLUNTARIO'),
+                    new StringField('CD_RG_VOLUNTARIO'),
+                    new StringField('NM_PROFISSAO'),
+                    new StringField('Id_CCB'),
+                    new StringField('NM_COMUM_CCB'),
+                    new StringField('DS_ENDERECO_VOLUNTARIO'),
+                    new StringField('CEP_VOLUNTARIO'),
+                    new StringField('TEL1_VOLUNTARIO'),
+                    new StringField('TEL2_VOLUNTARIO'),
+                    new StringField('TEL3_VOLUNTARIO'),
+                    new StringField('CD_SEXO'),
+                    new StringField('EST_CIVIL'),
+                    new StringField('DS_DISPONIBILIDADE_VOLUNTARIO'),
+                    new StringField('DS_EMAIL_VOLUNTARIO'),
+                    new IntegerField('ID_FUNCAO1'),
+                    new IntegerField('ID_FUNCAO2'),
+                    new IntegerField('ID_FUNCAO3'),
+                    new StringField('DS_HABILIDADES'),
+                    new StringField('DT_APRESENTACAO'),
+                    new StringField('DT_BATISMO_VOLUNTARIO'),
+                    new StringField('DT_NASC_VOLUNTARIO'),
+                    new StringField('DS_ATIVIDADE_QUE_PARTICIPA'),
+                    new StringField('ST_APOSENTADO'),
+                    new StringField('ST_CONHECIMENTO_NIVEL_PROFISSIONAL'),
+                    new StringField('ST_CURSO_EM_ANDAMENTO'),
+                    new StringField('ST_ESTADO_CIVIL_VOLUNTARIO'),
+                    new StringField('ST_PARTICPA_ATIV_MANUT_IGREJA'),
+                    new StringField('ST_PENSIONISTA'),
+                    new StringField('ST_PERMISSAO_TRABALHO_VOLUNTARIO'),
+                    new StringField('ST_POSSUI_VINCULO_INSS'),
+                    new StringField('DS_OBSERVACOES'),
+                    new StringField('DS_TAMANHO_LUVA'),
+                    new StringField('NR_BOTA_UTILIZAR'),
+                    new StringField('ST_JA_REALIZOU_ASO'),
+                    new StringField('ST_PARTICIPOU_NR35'),
+                    new StringField('ST_PARTICIPOU_SEG_TRABALHO'),
+                    new StringField('ST_QUER_PARTICIPAR_LINHA_VIDA'),
+                    new IntegerField('ID_AUX', true, true, true),
+                    new StringField('foto_voluntario'),
+                    new StringField('foto_carta'),
+                    new StringField('foto_nr35'),
+                    new StringField('foto_tst'),
+                    new StringField('foto_aso'),
+                    new StringField('thumb_voluntario'),
+                    new StringField('thumb_carta'),
+                    new StringField('thumb_nr35'),
+                    new StringField('thumb_tst'),
+                    new StringField('thumb_aso'),
+                    new StringField('Ds_SubSetor'),
+                    new StringField('CPF_VOLUNTARIO'),
+                    new DateTimeField('DT_ALTERACAO')
+                )
+            );
+            $lookupDataset->setOrderByField('NM_VOLUNTARIO', 'ASC');
+            $editColumn = new DynamicLookupEditColumn('Id Voluntario', 'Id_Voluntario', 'Id_Voluntario_NM_VOLUNTARIO', 'insert_grupovoluntarios_Id_Voluntario_search', $editor, $this->dataset, $lookupDataset, 'ID_AUX', 'NM_VOLUNTARIO', '');
             $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
             $editor->GetValidatorCollection()->AddValidator($validator);
             $this->ApplyCommonColumnEditProperties($editColumn);
@@ -290,19 +467,16 @@
         protected function AddPrintColumns(Grid $grid)
         {
             //
-            // View column for Id_grupo field
+            // View column for Ds_grupo field
             //
-            $column = new NumberViewColumn('Id_grupo', 'Id_grupo', 'Id Grupo', $this->dataset);
+            $column = new TextViewColumn('Id_grupo', 'Id_grupo_Ds_grupo', 'Id Grupo', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
             $grid->AddPrintColumn($column);
             
             //
-            // View column for Id_Voluntario field
+            // View column for NM_VOLUNTARIO field
             //
-            $column = new TextViewColumn('Id_Voluntario', 'Id_Voluntario', 'Id Voluntario', $this->dataset);
+            $column = new TextViewColumn('Id_Voluntario', 'Id_Voluntario_NM_VOLUNTARIO', 'Id Voluntario', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddPrintColumn($column);
         }
@@ -310,19 +484,16 @@
         protected function AddExportColumns(Grid $grid)
         {
             //
-            // View column for Id_grupo field
+            // View column for Ds_grupo field
             //
-            $column = new NumberViewColumn('Id_grupo', 'Id_grupo', 'Id Grupo', $this->dataset);
+            $column = new TextViewColumn('Id_grupo', 'Id_grupo_Ds_grupo', 'Id Grupo', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
             $grid->AddExportColumn($column);
             
             //
-            // View column for Id_Voluntario field
+            // View column for NM_VOLUNTARIO field
             //
-            $column = new TextViewColumn('Id_Voluntario', 'Id_Voluntario', 'Id Voluntario', $this->dataset);
+            $column = new TextViewColumn('Id_Voluntario', 'Id_Voluntario_NM_VOLUNTARIO', 'Id Voluntario', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddExportColumn($column);
         }
@@ -330,19 +501,16 @@
         private function AddCompareColumns(Grid $grid)
         {
             //
-            // View column for Id_grupo field
+            // View column for Ds_grupo field
             //
-            $column = new NumberViewColumn('Id_grupo', 'Id_grupo', 'Id Grupo', $this->dataset);
+            $column = new TextViewColumn('Id_grupo', 'Id_grupo_Ds_grupo', 'Id Grupo', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
             $grid->AddCompareColumn($column);
             
             //
-            // View column for Id_Voluntario field
+            // View column for NM_VOLUNTARIO field
             //
-            $column = new TextViewColumn('Id_Voluntario', 'Id_Voluntario', 'Id Voluntario', $this->dataset);
+            $column = new TextViewColumn('Id_Voluntario', 'Id_Voluntario_NM_VOLUNTARIO', 'Id Voluntario', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddCompareColumn($column);
         }
@@ -436,8 +604,254 @@
         }
     
         protected function doRegisterHandlers() {
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`grupoccb`');
+            $lookupDataset->addFields(
+                array(
+                    new IntegerField('Id_grupo', true, true, true),
+                    new StringField('Ds_grupo'),
+                    new StringField('Id_CCB'),
+                    new StringField('Tipo'),
+                    new StringField('Status'),
+                    new DateField('Dt_Inicio'),
+                    new DateField('Ft_Fim')
+                )
+            );
+            $lookupDataset->setOrderByField('Ds_grupo', 'ASC');
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'insert_grupovoluntarios_Id_grupo_search', 'Id_grupo', 'Ds_grupo', null, 20);
+            GetApplication()->RegisterHTTPHandler($handler);
             
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`cadvoluntarios`');
+            $lookupDataset->addFields(
+                array(
+                    new StringField('Id_voluntario'),
+                    new StringField('NM_VOLUNTARIO'),
+                    new StringField('CD_RG_VOLUNTARIO'),
+                    new StringField('NM_PROFISSAO'),
+                    new StringField('Id_CCB'),
+                    new StringField('NM_COMUM_CCB'),
+                    new StringField('DS_ENDERECO_VOLUNTARIO'),
+                    new StringField('CEP_VOLUNTARIO'),
+                    new StringField('TEL1_VOLUNTARIO'),
+                    new StringField('TEL2_VOLUNTARIO'),
+                    new StringField('TEL3_VOLUNTARIO'),
+                    new StringField('CD_SEXO'),
+                    new StringField('EST_CIVIL'),
+                    new StringField('DS_DISPONIBILIDADE_VOLUNTARIO'),
+                    new StringField('DS_EMAIL_VOLUNTARIO'),
+                    new IntegerField('ID_FUNCAO1'),
+                    new IntegerField('ID_FUNCAO2'),
+                    new IntegerField('ID_FUNCAO3'),
+                    new StringField('DS_HABILIDADES'),
+                    new StringField('DT_APRESENTACAO'),
+                    new StringField('DT_BATISMO_VOLUNTARIO'),
+                    new StringField('DT_NASC_VOLUNTARIO'),
+                    new StringField('DS_ATIVIDADE_QUE_PARTICIPA'),
+                    new StringField('ST_APOSENTADO'),
+                    new StringField('ST_CONHECIMENTO_NIVEL_PROFISSIONAL'),
+                    new StringField('ST_CURSO_EM_ANDAMENTO'),
+                    new StringField('ST_ESTADO_CIVIL_VOLUNTARIO'),
+                    new StringField('ST_PARTICPA_ATIV_MANUT_IGREJA'),
+                    new StringField('ST_PENSIONISTA'),
+                    new StringField('ST_PERMISSAO_TRABALHO_VOLUNTARIO'),
+                    new StringField('ST_POSSUI_VINCULO_INSS'),
+                    new StringField('DS_OBSERVACOES'),
+                    new StringField('DS_TAMANHO_LUVA'),
+                    new StringField('NR_BOTA_UTILIZAR'),
+                    new StringField('ST_JA_REALIZOU_ASO'),
+                    new StringField('ST_PARTICIPOU_NR35'),
+                    new StringField('ST_PARTICIPOU_SEG_TRABALHO'),
+                    new StringField('ST_QUER_PARTICIPAR_LINHA_VIDA'),
+                    new IntegerField('ID_AUX', true, true, true),
+                    new StringField('foto_voluntario'),
+                    new StringField('foto_carta'),
+                    new StringField('foto_nr35'),
+                    new StringField('foto_tst'),
+                    new StringField('foto_aso'),
+                    new StringField('thumb_voluntario'),
+                    new StringField('thumb_carta'),
+                    new StringField('thumb_nr35'),
+                    new StringField('thumb_tst'),
+                    new StringField('thumb_aso'),
+                    new StringField('Ds_SubSetor'),
+                    new StringField('CPF_VOLUNTARIO'),
+                    new DateTimeField('DT_ALTERACAO')
+                )
+            );
+            $lookupDataset->setOrderByField('NM_VOLUNTARIO', 'ASC');
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'insert_grupovoluntarios_Id_Voluntario_search', 'ID_AUX', 'NM_VOLUNTARIO', null, 20);
+            GetApplication()->RegisterHTTPHandler($handler);
             
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`grupoccb`');
+            $lookupDataset->addFields(
+                array(
+                    new IntegerField('Id_grupo', true, true, true),
+                    new StringField('Ds_grupo'),
+                    new StringField('Id_CCB'),
+                    new StringField('Tipo'),
+                    new StringField('Status'),
+                    new DateField('Dt_Inicio'),
+                    new DateField('Ft_Fim')
+                )
+            );
+            $lookupDataset->setOrderByField('Ds_grupo', 'ASC');
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'filter_builder_grupovoluntarios_Id_grupo_search', 'Id_grupo', 'Ds_grupo', null, 20);
+            GetApplication()->RegisterHTTPHandler($handler);
+            
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`cadvoluntarios`');
+            $lookupDataset->addFields(
+                array(
+                    new StringField('Id_voluntario'),
+                    new StringField('NM_VOLUNTARIO'),
+                    new StringField('CD_RG_VOLUNTARIO'),
+                    new StringField('NM_PROFISSAO'),
+                    new StringField('Id_CCB'),
+                    new StringField('NM_COMUM_CCB'),
+                    new StringField('DS_ENDERECO_VOLUNTARIO'),
+                    new StringField('CEP_VOLUNTARIO'),
+                    new StringField('TEL1_VOLUNTARIO'),
+                    new StringField('TEL2_VOLUNTARIO'),
+                    new StringField('TEL3_VOLUNTARIO'),
+                    new StringField('CD_SEXO'),
+                    new StringField('EST_CIVIL'),
+                    new StringField('DS_DISPONIBILIDADE_VOLUNTARIO'),
+                    new StringField('DS_EMAIL_VOLUNTARIO'),
+                    new IntegerField('ID_FUNCAO1'),
+                    new IntegerField('ID_FUNCAO2'),
+                    new IntegerField('ID_FUNCAO3'),
+                    new StringField('DS_HABILIDADES'),
+                    new StringField('DT_APRESENTACAO'),
+                    new StringField('DT_BATISMO_VOLUNTARIO'),
+                    new StringField('DT_NASC_VOLUNTARIO'),
+                    new StringField('DS_ATIVIDADE_QUE_PARTICIPA'),
+                    new StringField('ST_APOSENTADO'),
+                    new StringField('ST_CONHECIMENTO_NIVEL_PROFISSIONAL'),
+                    new StringField('ST_CURSO_EM_ANDAMENTO'),
+                    new StringField('ST_ESTADO_CIVIL_VOLUNTARIO'),
+                    new StringField('ST_PARTICPA_ATIV_MANUT_IGREJA'),
+                    new StringField('ST_PENSIONISTA'),
+                    new StringField('ST_PERMISSAO_TRABALHO_VOLUNTARIO'),
+                    new StringField('ST_POSSUI_VINCULO_INSS'),
+                    new StringField('DS_OBSERVACOES'),
+                    new StringField('DS_TAMANHO_LUVA'),
+                    new StringField('NR_BOTA_UTILIZAR'),
+                    new StringField('ST_JA_REALIZOU_ASO'),
+                    new StringField('ST_PARTICIPOU_NR35'),
+                    new StringField('ST_PARTICIPOU_SEG_TRABALHO'),
+                    new StringField('ST_QUER_PARTICIPAR_LINHA_VIDA'),
+                    new IntegerField('ID_AUX', true, true, true),
+                    new StringField('foto_voluntario'),
+                    new StringField('foto_carta'),
+                    new StringField('foto_nr35'),
+                    new StringField('foto_tst'),
+                    new StringField('foto_aso'),
+                    new StringField('thumb_voluntario'),
+                    new StringField('thumb_carta'),
+                    new StringField('thumb_nr35'),
+                    new StringField('thumb_tst'),
+                    new StringField('thumb_aso'),
+                    new StringField('Ds_SubSetor'),
+                    new StringField('CPF_VOLUNTARIO'),
+                    new DateTimeField('DT_ALTERACAO')
+                )
+            );
+            $lookupDataset->setOrderByField('NM_VOLUNTARIO', 'ASC');
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'filter_builder_grupovoluntarios_Id_Voluntario_search', 'ID_AUX', 'NM_VOLUNTARIO', null, 20);
+            GetApplication()->RegisterHTTPHandler($handler);
+            
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`grupoccb`');
+            $lookupDataset->addFields(
+                array(
+                    new IntegerField('Id_grupo', true, true, true),
+                    new StringField('Ds_grupo'),
+                    new StringField('Id_CCB'),
+                    new StringField('Tipo'),
+                    new StringField('Status'),
+                    new DateField('Dt_Inicio'),
+                    new DateField('Ft_Fim')
+                )
+            );
+            $lookupDataset->setOrderByField('Ds_grupo', 'ASC');
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'edit_grupovoluntarios_Id_grupo_search', 'Id_grupo', 'Ds_grupo', null, 20);
+            GetApplication()->RegisterHTTPHandler($handler);
+            
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`cadvoluntarios`');
+            $lookupDataset->addFields(
+                array(
+                    new StringField('Id_voluntario'),
+                    new StringField('NM_VOLUNTARIO'),
+                    new StringField('CD_RG_VOLUNTARIO'),
+                    new StringField('NM_PROFISSAO'),
+                    new StringField('Id_CCB'),
+                    new StringField('NM_COMUM_CCB'),
+                    new StringField('DS_ENDERECO_VOLUNTARIO'),
+                    new StringField('CEP_VOLUNTARIO'),
+                    new StringField('TEL1_VOLUNTARIO'),
+                    new StringField('TEL2_VOLUNTARIO'),
+                    new StringField('TEL3_VOLUNTARIO'),
+                    new StringField('CD_SEXO'),
+                    new StringField('EST_CIVIL'),
+                    new StringField('DS_DISPONIBILIDADE_VOLUNTARIO'),
+                    new StringField('DS_EMAIL_VOLUNTARIO'),
+                    new IntegerField('ID_FUNCAO1'),
+                    new IntegerField('ID_FUNCAO2'),
+                    new IntegerField('ID_FUNCAO3'),
+                    new StringField('DS_HABILIDADES'),
+                    new StringField('DT_APRESENTACAO'),
+                    new StringField('DT_BATISMO_VOLUNTARIO'),
+                    new StringField('DT_NASC_VOLUNTARIO'),
+                    new StringField('DS_ATIVIDADE_QUE_PARTICIPA'),
+                    new StringField('ST_APOSENTADO'),
+                    new StringField('ST_CONHECIMENTO_NIVEL_PROFISSIONAL'),
+                    new StringField('ST_CURSO_EM_ANDAMENTO'),
+                    new StringField('ST_ESTADO_CIVIL_VOLUNTARIO'),
+                    new StringField('ST_PARTICPA_ATIV_MANUT_IGREJA'),
+                    new StringField('ST_PENSIONISTA'),
+                    new StringField('ST_PERMISSAO_TRABALHO_VOLUNTARIO'),
+                    new StringField('ST_POSSUI_VINCULO_INSS'),
+                    new StringField('DS_OBSERVACOES'),
+                    new StringField('DS_TAMANHO_LUVA'),
+                    new StringField('NR_BOTA_UTILIZAR'),
+                    new StringField('ST_JA_REALIZOU_ASO'),
+                    new StringField('ST_PARTICIPOU_NR35'),
+                    new StringField('ST_PARTICIPOU_SEG_TRABALHO'),
+                    new StringField('ST_QUER_PARTICIPAR_LINHA_VIDA'),
+                    new IntegerField('ID_AUX', true, true, true),
+                    new StringField('foto_voluntario'),
+                    new StringField('foto_carta'),
+                    new StringField('foto_nr35'),
+                    new StringField('foto_tst'),
+                    new StringField('foto_aso'),
+                    new StringField('thumb_voluntario'),
+                    new StringField('thumb_carta'),
+                    new StringField('thumb_nr35'),
+                    new StringField('thumb_tst'),
+                    new StringField('thumb_aso'),
+                    new StringField('Ds_SubSetor'),
+                    new StringField('CPF_VOLUNTARIO'),
+                    new DateTimeField('DT_ALTERACAO')
+                )
+            );
+            $lookupDataset->setOrderByField('NM_VOLUNTARIO', 'ASC');
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'edit_grupovoluntarios_Id_Voluntario_search', 'ID_AUX', 'NM_VOLUNTARIO', null, 20);
+            GetApplication()->RegisterHTTPHandler($handler);
         }
        
         protected function doCustomRenderColumn($fieldName, $fieldData, $rowData, &$customText, &$handled)

@@ -31,24 +31,23 @@
     
     
     
-    class funcoesdevoluntariosPage extends Page
+    class tipofuncaoPage extends Page
     {
         protected function DoBeforeCreate()
         {
-            $this->SetTitle('Funcoesdevoluntarios');
-            $this->SetMenuLabel('Funcoesdevoluntarios');
+            $this->SetTitle('Tipo Função');
+            $this->SetMenuLabel('Tipo Função');
             $this->SetHeader(GetPagesHeader());
             $this->SetFooter(GetPagesFooter());
     
             $this->dataset = new TableDataset(
                 MySqlIConnectionFactory::getInstance(),
                 GetConnectionOptions(),
-                '`funcoesdevoluntarios`');
+                '`tipofuncao`');
             $this->dataset->addFields(
                 array(
-                    new IntegerField('Id_Voluntario', true, true),
-                    new IntegerField('Id_Funcao', true, true),
-                    new StringField('St_NivelConhecimento')
+                    new IntegerField('id_tipofuncao', true, true, true),
+                    new StringField('tp_funcao')
                 )
             );
         }
@@ -81,18 +80,16 @@
         protected function getFiltersColumns()
         {
             return array(
-                new FilterColumn($this->dataset, 'Id_Voluntario', 'Id_Voluntario', 'Id Voluntario'),
-                new FilterColumn($this->dataset, 'Id_Funcao', 'Id_Funcao', 'Id Funcao'),
-                new FilterColumn($this->dataset, 'St_NivelConhecimento', 'St_NivelConhecimento', 'St Nivel Conhecimento')
+                new FilterColumn($this->dataset, 'id_tipofuncao', 'id_tipofuncao', 'Id Tipofuncao'),
+                new FilterColumn($this->dataset, 'tp_funcao', 'tp_funcao', 'Tipo Função')
             );
         }
     
         protected function setupQuickFilter(QuickFilter $quickFilter, FixedKeysArray $columns)
         {
             $quickFilter
-                ->addColumn($columns['Id_Voluntario'])
-                ->addColumn($columns['Id_Funcao'])
-                ->addColumn($columns['St_NivelConhecimento']);
+                ->addColumn($columns['id_tipofuncao'])
+                ->addColumn($columns['tp_funcao']);
         }
     
         protected function setupColumnFilter(ColumnFilter $columnFilter)
@@ -102,10 +99,10 @@
     
         protected function setupFilterBuilder(FilterBuilder $filterBuilder, FixedKeysArray $columns)
         {
-            $main_editor = new TextEdit('id_voluntario_edit');
+            $main_editor = new TextEdit('id_tipofuncao_edit');
             
             $filterBuilder->addColumn(
-                $columns['Id_Voluntario'],
+                $columns['id_tipofuncao'],
                 array(
                     FilterConditionOperator::EQUALS => $main_editor,
                     FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
@@ -120,29 +117,11 @@
                 )
             );
             
-            $main_editor = new TextEdit('id_funcao_edit');
+            $main_editor = new TextEdit('tp_funcao_edit');
+            $main_editor->SetMaxLength(45);
             
             $filterBuilder->addColumn(
-                $columns['Id_Funcao'],
-                array(
-                    FilterConditionOperator::EQUALS => $main_editor,
-                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
-                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
-                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
-                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
-                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
-                    FilterConditionOperator::IS_BETWEEN => $main_editor,
-                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
-                    FilterConditionOperator::IS_BLANK => null,
-                    FilterConditionOperator::IS_NOT_BLANK => null
-                )
-            );
-            
-            $main_editor = new TextEdit('st_nivelconhecimento_edit');
-            $main_editor->SetMaxLength(15);
-            
-            $filterBuilder->addColumn(
-                $columns['St_NivelConhecimento'],
+                $columns['tp_funcao'],
                 array(
                     FilterConditionOperator::EQUALS => $main_editor,
                     FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
@@ -206,9 +185,9 @@
         protected function AddFieldColumns(Grid $grid, $withDetails = true)
         {
             //
-            // View column for Id_Voluntario field
+            // View column for id_tipofuncao field
             //
-            $column = new NumberViewColumn('Id_Voluntario', 'Id_Voluntario', 'Id Voluntario', $this->dataset);
+            $column = new NumberViewColumn('id_tipofuncao', 'id_tipofuncao', 'Id Tipofuncao', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
             $column->setThousandsSeparator(',');
@@ -219,22 +198,9 @@
             $grid->AddViewColumn($column);
             
             //
-            // View column for Id_Funcao field
+            // View column for tp_funcao field
             //
-            $column = new NumberViewColumn('Id_Funcao', 'Id_Funcao', 'Id Funcao', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
-            $column->setMinimalVisibility(ColumnVisibility::PHONE);
-            $column->SetDescription('');
-            $column->SetFixedWidth(null);
-            $grid->AddViewColumn($column);
-            
-            //
-            // View column for St_NivelConhecimento field
-            //
-            $column = new TextViewColumn('St_NivelConhecimento', 'St_NivelConhecimento', 'St Nivel Conhecimento', $this->dataset);
+            $column = new TextViewColumn('tp_funcao', 'tp_funcao', 'Tipo Função', $this->dataset);
             $column->SetOrderable(true);
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
@@ -245,9 +211,9 @@
         protected function AddSingleRecordViewColumns(Grid $grid)
         {
             //
-            // View column for Id_Voluntario field
+            // View column for id_tipofuncao field
             //
-            $column = new NumberViewColumn('Id_Voluntario', 'Id_Voluntario', 'Id Voluntario', $this->dataset);
+            $column = new NumberViewColumn('id_tipofuncao', 'id_tipofuncao', 'Id Tipofuncao', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
             $column->setThousandsSeparator(',');
@@ -255,19 +221,9 @@
             $grid->AddSingleRecordViewColumn($column);
             
             //
-            // View column for Id_Funcao field
+            // View column for tp_funcao field
             //
-            $column = new NumberViewColumn('Id_Funcao', 'Id_Funcao', 'Id Funcao', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
-            $grid->AddSingleRecordViewColumn($column);
-            
-            //
-            // View column for St_NivelConhecimento field
-            //
-            $column = new TextViewColumn('St_NivelConhecimento', 'St_NivelConhecimento', 'St Nivel Conhecimento', $this->dataset);
+            $column = new TextViewColumn('tp_funcao', 'tp_funcao', 'Tipo Função', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddSingleRecordViewColumn($column);
         }
@@ -275,30 +231,11 @@
         protected function AddEditColumns(Grid $grid)
         {
             //
-            // Edit column for Id_Voluntario field
+            // Edit column for tp_funcao field
             //
-            $editor = new TextEdit('id_voluntario_edit');
-            $editColumn = new CustomEditColumn('Id Voluntario', 'Id_Voluntario', $editor, $this->dataset);
-            $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
-            $editor->GetValidatorCollection()->AddValidator($validator);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddEditColumn($editColumn);
-            
-            //
-            // Edit column for Id_Funcao field
-            //
-            $editor = new TextEdit('id_funcao_edit');
-            $editColumn = new CustomEditColumn('Id Funcao', 'Id_Funcao', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddEditColumn($editColumn);
-            
-            //
-            // Edit column for St_NivelConhecimento field
-            //
-            $editor = new TextEdit('st_nivelconhecimento_edit');
-            $editor->SetMaxLength(15);
-            $editColumn = new CustomEditColumn('St Nivel Conhecimento', 'St_NivelConhecimento', $editor, $this->dataset);
+            $editor = new TextEdit('tp_funcao_edit');
+            $editor->SetMaxLength(45);
+            $editColumn = new CustomEditColumn('Tipo Função', 'tp_funcao', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddEditColumn($editColumn);
@@ -306,53 +243,17 @@
     
         protected function AddMultiEditColumns(Grid $grid)
         {
-            //
-            // Edit column for Id_Funcao field
-            //
-            $editor = new TextEdit('id_funcao_edit');
-            $editColumn = new CustomEditColumn('Id Funcao', 'Id_Funcao', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddMultiEditColumn($editColumn);
-            
-            //
-            // Edit column for St_NivelConhecimento field
-            //
-            $editor = new TextEdit('st_nivelconhecimento_edit');
-            $editor->SetMaxLength(15);
-            $editColumn = new CustomEditColumn('St Nivel Conhecimento', 'St_NivelConhecimento', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddMultiEditColumn($editColumn);
+    
         }
     
         protected function AddInsertColumns(Grid $grid)
         {
             //
-            // Edit column for Id_Voluntario field
+            // Edit column for tp_funcao field
             //
-            $editor = new TextEdit('id_voluntario_edit');
-            $editColumn = new CustomEditColumn('Id Voluntario', 'Id_Voluntario', $editor, $this->dataset);
-            $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
-            $editor->GetValidatorCollection()->AddValidator($validator);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddInsertColumn($editColumn);
-            
-            //
-            // Edit column for Id_Funcao field
-            //
-            $editor = new TextEdit('id_funcao_edit');
-            $editColumn = new CustomEditColumn('Id Funcao', 'Id_Funcao', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddInsertColumn($editColumn);
-            
-            //
-            // Edit column for St_NivelConhecimento field
-            //
-            $editor = new TextEdit('st_nivelconhecimento_edit');
-            $editor->SetMaxLength(15);
-            $editColumn = new CustomEditColumn('St Nivel Conhecimento', 'St_NivelConhecimento', $editor, $this->dataset);
+            $editor = new TextEdit('tp_funcao_edit');
+            $editor->SetMaxLength(45);
+            $editColumn = new CustomEditColumn('Tipo Função', 'tp_funcao', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddInsertColumn($editColumn);
@@ -367,9 +268,9 @@
         protected function AddPrintColumns(Grid $grid)
         {
             //
-            // View column for Id_Voluntario field
+            // View column for id_tipofuncao field
             //
-            $column = new NumberViewColumn('Id_Voluntario', 'Id_Voluntario', 'Id Voluntario', $this->dataset);
+            $column = new NumberViewColumn('id_tipofuncao', 'id_tipofuncao', 'Id Tipofuncao', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
             $column->setThousandsSeparator(',');
@@ -377,19 +278,9 @@
             $grid->AddPrintColumn($column);
             
             //
-            // View column for Id_Funcao field
+            // View column for tp_funcao field
             //
-            $column = new NumberViewColumn('Id_Funcao', 'Id_Funcao', 'Id Funcao', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
-            $grid->AddPrintColumn($column);
-            
-            //
-            // View column for St_NivelConhecimento field
-            //
-            $column = new TextViewColumn('St_NivelConhecimento', 'St_NivelConhecimento', 'St Nivel Conhecimento', $this->dataset);
+            $column = new TextViewColumn('tp_funcao', 'tp_funcao', 'Tipo Função', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddPrintColumn($column);
         }
@@ -397,9 +288,9 @@
         protected function AddExportColumns(Grid $grid)
         {
             //
-            // View column for Id_Voluntario field
+            // View column for id_tipofuncao field
             //
-            $column = new NumberViewColumn('Id_Voluntario', 'Id_Voluntario', 'Id Voluntario', $this->dataset);
+            $column = new NumberViewColumn('id_tipofuncao', 'id_tipofuncao', 'Id Tipofuncao', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
             $column->setThousandsSeparator(',');
@@ -407,19 +298,9 @@
             $grid->AddExportColumn($column);
             
             //
-            // View column for Id_Funcao field
+            // View column for tp_funcao field
             //
-            $column = new NumberViewColumn('Id_Funcao', 'Id_Funcao', 'Id Funcao', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
-            $grid->AddExportColumn($column);
-            
-            //
-            // View column for St_NivelConhecimento field
-            //
-            $column = new TextViewColumn('St_NivelConhecimento', 'St_NivelConhecimento', 'St Nivel Conhecimento', $this->dataset);
+            $column = new TextViewColumn('tp_funcao', 'tp_funcao', 'Tipo Função', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddExportColumn($column);
         }
@@ -427,29 +308,9 @@
         private function AddCompareColumns(Grid $grid)
         {
             //
-            // View column for Id_Voluntario field
+            // View column for tp_funcao field
             //
-            $column = new NumberViewColumn('Id_Voluntario', 'Id_Voluntario', 'Id Voluntario', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
-            $grid->AddCompareColumn($column);
-            
-            //
-            // View column for Id_Funcao field
-            //
-            $column = new NumberViewColumn('Id_Funcao', 'Id_Funcao', 'Id Funcao', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
-            $grid->AddCompareColumn($column);
-            
-            //
-            // View column for St_NivelConhecimento field
-            //
-            $column = new TextViewColumn('St_NivelConhecimento', 'St_NivelConhecimento', 'St Nivel Conhecimento', $this->dataset);
+            $column = new TextViewColumn('tp_funcao', 'tp_funcao', 'Tipo Função', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddCompareColumn($column);
         }
@@ -693,8 +554,8 @@
 
     try
     {
-        $Page = new funcoesdevoluntariosPage("funcoesdevoluntarios", "funcoesdevoluntarios.php", GetCurrentUserPermissionSetForDataSource("funcoesdevoluntarios"), 'UTF-8');
-        $Page->SetRecordPermission(GetCurrentUserRecordPermissionsForDataSource("funcoesdevoluntarios"));
+        $Page = new tipofuncaoPage("tipofuncao", "tipofuncao.php", GetCurrentUserPermissionSetForDataSource("tipofuncao"), 'UTF-8');
+        $Page->SetRecordPermission(GetCurrentUserRecordPermissionsForDataSource("tipofuncao"));
         GetApplication()->SetMainPage($Page);
         GetApplication()->Run();
     }

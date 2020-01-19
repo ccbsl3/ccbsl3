@@ -55,6 +55,7 @@
                     new StringField('Ds_AtaEvento')
                 )
             );
+            $this->dataset->AddLookupField('id_CCB', 'cadcongregacoes', new StringField('Id_CCB'), new StringField('Ds_CCB', false, false, false, false, 'id_CCB_Ds_CCB', 'id_CCB_Ds_CCB_cadcongregacoes'), 'id_CCB_Ds_CCB_cadcongregacoes');
         }
     
         protected function DoPrepare() {
@@ -86,7 +87,7 @@
         {
             return array(
                 new FilterColumn($this->dataset, 'id_Evento', 'id_Evento', 'Id Evento'),
-                new FilterColumn($this->dataset, 'id_CCB', 'id_CCB', 'Id CCB'),
+                new FilterColumn($this->dataset, 'id_CCB', 'id_CCB_Ds_CCB', 'Id CCB'),
                 new FilterColumn($this->dataset, 'Ds_Evento', 'Ds_Evento', 'Ds Evento'),
                 new FilterColumn($this->dataset, 'Dt_Evento', 'Dt_Evento', 'Dt Evento'),
                 new FilterColumn($this->dataset, 'Hr_Inicio', 'Hr_Inicio', 'Hr Inicio'),
@@ -110,6 +111,7 @@
         protected function setupColumnFilter(ColumnFilter $columnFilter)
         {
             $columnFilter
+                ->setOptionsFor('id_CCB')
                 ->setOptionsFor('Dt_Evento')
                 ->setOptionsFor('Hr_Inicio')
                 ->setOptionsFor('Hr_Termino');
@@ -135,7 +137,14 @@
                 )
             );
             
-            $main_editor = new TextEdit('id_ccb_edit');
+            $main_editor = new DynamicCombobox('id_ccb_edit', $this->CreateLinkBuilder());
+            $main_editor->setAllowClear(true);
+            $main_editor->setMinimumInputLength(0);
+            $main_editor->SetAllowNullValue(false);
+            $main_editor->SetHandlerName('filter_builder_eventos_id_CCB_search');
+            
+            $multi_value_select_editor = new RemoteMultiValueSelect('id_CCB', $this->CreateLinkBuilder());
+            $multi_value_select_editor->SetHandlerName('filter_builder_eventos_id_CCB_search');
             
             $filterBuilder->addColumn(
                 $columns['id_CCB'],
@@ -148,6 +157,8 @@
                     FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
                     FilterConditionOperator::IS_BETWEEN => $main_editor,
                     FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::IN => $multi_value_select_editor,
+                    FilterConditionOperator::NOT_IN => $multi_value_select_editor,
                     FilterConditionOperator::IS_BLANK => null,
                     FilterConditionOperator::IS_NOT_BLANK => null
                 )
@@ -315,13 +326,10 @@
             $grid->AddViewColumn($column);
             
             //
-            // View column for id_CCB field
+            // View column for Ds_CCB field
             //
-            $column = new NumberViewColumn('id_CCB', 'id_CCB', 'Id CCB', $this->dataset);
+            $column = new TextViewColumn('id_CCB', 'id_CCB_Ds_CCB', 'Id CCB', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
             $column->SetFixedWidth(null);
@@ -365,18 +373,6 @@
             $column = new DateTimeViewColumn('Hr_Termino', 'Hr_Termino', 'Hr Termino', $this->dataset);
             $column->SetOrderable(true);
             $column->SetDateTimeFormat('H:i:s');
-            $column->setMinimalVisibility(ColumnVisibility::PHONE);
-            $column->SetDescription('');
-            $column->SetFixedWidth(null);
-            $grid->AddViewColumn($column);
-            
-            //
-            // View column for Ds_AtaEvento field
-            //
-            $column = new TextViewColumn('Ds_AtaEvento', 'Ds_AtaEvento', 'Ds Ata Evento', $this->dataset);
-            $column->SetOrderable(true);
-            $column->SetMaxLength(75);
-            $column->SetFullTextWindowHandlerName('eventos_Ds_AtaEvento_handler_list');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
             $column->SetFixedWidth(null);
@@ -396,13 +392,10 @@
             $grid->AddSingleRecordViewColumn($column);
             
             //
-            // View column for id_CCB field
+            // View column for Ds_CCB field
             //
-            $column = new NumberViewColumn('id_CCB', 'id_CCB', 'Id CCB', $this->dataset);
+            $column = new TextViewColumn('id_CCB', 'id_CCB_Ds_CCB', 'Id CCB', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
             $grid->AddSingleRecordViewColumn($column);
             
             //
@@ -435,34 +428,45 @@
             $column->SetOrderable(true);
             $column->SetDateTimeFormat('H:i:s');
             $grid->AddSingleRecordViewColumn($column);
-            
-            //
-            // View column for Ds_AtaEvento field
-            //
-            $column = new TextViewColumn('Ds_AtaEvento', 'Ds_AtaEvento', 'Ds Ata Evento', $this->dataset);
-            $column->SetOrderable(true);
-            $column->SetMaxLength(75);
-            $column->SetFullTextWindowHandlerName('eventos_Ds_AtaEvento_handler_view');
-            $grid->AddSingleRecordViewColumn($column);
         }
     
         protected function AddEditColumns(Grid $grid)
         {
             //
-            // Edit column for id_Evento field
-            //
-            $editor = new TextEdit('id_evento_edit');
-            $editColumn = new CustomEditColumn('Id Evento', 'id_Evento', $editor, $this->dataset);
-            $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
-            $editor->GetValidatorCollection()->AddValidator($validator);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddEditColumn($editColumn);
-            
-            //
             // Edit column for id_CCB field
             //
-            $editor = new TextEdit('id_ccb_edit');
-            $editColumn = new CustomEditColumn('Id CCB', 'id_CCB', $editor, $this->dataset);
+            $editor = new DynamicCombobox('id_ccb_edit', $this->CreateLinkBuilder());
+            $editor->setAllowClear(true);
+            $editor->setMinimumInputLength(0);
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`cadcongregacoes`');
+            $lookupDataset->addFields(
+                array(
+                    new StringField('Id_CCB', true, true),
+                    new StringField('Ds_CCB'),
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
+                )
+            );
+            $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
+            $editColumn = new DynamicLookupEditColumn('Id CCB', 'id_CCB', 'id_CCB_Ds_CCB', 'edit_eventos_id_CCB_search', $editor, $this->dataset, $lookupDataset, 'Id_CCB', 'Ds_CCB', '');
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddEditColumn($editColumn);
@@ -500,15 +504,6 @@
             //
             $editor = new TimeEdit('hr_termino_edit', 'H:i:s');
             $editColumn = new CustomEditColumn('Hr Termino', 'Hr_Termino', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddEditColumn($editColumn);
-            
-            //
-            // Edit column for Ds_AtaEvento field
-            //
-            $editor = new TextAreaEdit('ds_ataevento_edit', 50, 8);
-            $editColumn = new CustomEditColumn('Ds Ata Evento', 'Ds_AtaEvento', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddEditColumn($editColumn);
@@ -519,8 +514,38 @@
             //
             // Edit column for id_CCB field
             //
-            $editor = new TextEdit('id_ccb_edit');
-            $editColumn = new CustomEditColumn('Id CCB', 'id_CCB', $editor, $this->dataset);
+            $editor = new DynamicCombobox('id_ccb_edit', $this->CreateLinkBuilder());
+            $editor->setAllowClear(true);
+            $editor->setMinimumInputLength(0);
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`cadcongregacoes`');
+            $lookupDataset->addFields(
+                array(
+                    new StringField('Id_CCB', true, true),
+                    new StringField('Ds_CCB'),
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
+                )
+            );
+            $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
+            $editColumn = new DynamicLookupEditColumn('Id CCB', 'id_CCB', 'id_CCB_Ds_CCB', 'multi_edit_eventos_id_CCB_search', $editor, $this->dataset, $lookupDataset, 'Id_CCB', 'Ds_CCB', '');
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddMultiEditColumn($editColumn);
@@ -558,15 +583,6 @@
             //
             $editor = new TimeEdit('hr_termino_edit', 'H:i:s');
             $editColumn = new CustomEditColumn('Hr Termino', 'Hr_Termino', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddMultiEditColumn($editColumn);
-            
-            //
-            // Edit column for Ds_AtaEvento field
-            //
-            $editor = new TextAreaEdit('ds_ataevento_edit', 50, 8);
-            $editColumn = new CustomEditColumn('Ds Ata Evento', 'Ds_AtaEvento', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddMultiEditColumn($editColumn);
@@ -575,20 +591,40 @@
         protected function AddInsertColumns(Grid $grid)
         {
             //
-            // Edit column for id_Evento field
-            //
-            $editor = new TextEdit('id_evento_edit');
-            $editColumn = new CustomEditColumn('Id Evento', 'id_Evento', $editor, $this->dataset);
-            $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
-            $editor->GetValidatorCollection()->AddValidator($validator);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddInsertColumn($editColumn);
-            
-            //
             // Edit column for id_CCB field
             //
-            $editor = new TextEdit('id_ccb_edit');
-            $editColumn = new CustomEditColumn('Id CCB', 'id_CCB', $editor, $this->dataset);
+            $editor = new DynamicCombobox('id_ccb_edit', $this->CreateLinkBuilder());
+            $editor->setAllowClear(true);
+            $editor->setMinimumInputLength(0);
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`cadcongregacoes`');
+            $lookupDataset->addFields(
+                array(
+                    new StringField('Id_CCB', true, true),
+                    new StringField('Ds_CCB'),
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
+                )
+            );
+            $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
+            $editColumn = new DynamicLookupEditColumn('Id CCB', 'id_CCB', 'id_CCB_Ds_CCB', 'insert_eventos_id_CCB_search', $editor, $this->dataset, $lookupDataset, 'Id_CCB', 'Ds_CCB', '');
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddInsertColumn($editColumn);
@@ -626,15 +662,6 @@
             //
             $editor = new TimeEdit('hr_termino_edit', 'H:i:s');
             $editColumn = new CustomEditColumn('Hr Termino', 'Hr_Termino', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddInsertColumn($editColumn);
-            
-            //
-            // Edit column for Ds_AtaEvento field
-            //
-            $editor = new TextAreaEdit('ds_ataevento_edit', 50, 8);
-            $editColumn = new CustomEditColumn('Ds Ata Evento', 'Ds_AtaEvento', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddInsertColumn($editColumn);
@@ -659,13 +686,10 @@
             $grid->AddPrintColumn($column);
             
             //
-            // View column for id_CCB field
+            // View column for Ds_CCB field
             //
-            $column = new NumberViewColumn('id_CCB', 'id_CCB', 'Id CCB', $this->dataset);
+            $column = new TextViewColumn('id_CCB', 'id_CCB_Ds_CCB', 'Id CCB', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
             $grid->AddPrintColumn($column);
             
             //
@@ -722,13 +746,10 @@
             $grid->AddExportColumn($column);
             
             //
-            // View column for id_CCB field
+            // View column for Ds_CCB field
             //
-            $column = new NumberViewColumn('id_CCB', 'id_CCB', 'Id CCB', $this->dataset);
+            $column = new TextViewColumn('id_CCB', 'id_CCB_Ds_CCB', 'Id CCB', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
             $grid->AddExportColumn($column);
             
             //
@@ -785,13 +806,10 @@
             $grid->AddCompareColumn($column);
             
             //
-            // View column for id_CCB field
+            // View column for Ds_CCB field
             //
-            $column = new NumberViewColumn('id_CCB', 'id_CCB', 'Id CCB', $this->dataset);
+            $column = new TextViewColumn('id_CCB', 'id_CCB_Ds_CCB', 'Id CCB', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
             $grid->AddCompareColumn($column);
             
             //
@@ -929,14 +947,6 @@
             //
             $column = new TextViewColumn('Ds_AtaEvento', 'Ds_AtaEvento', 'Ds Ata Evento', $this->dataset);
             $column->SetOrderable(true);
-            $handler = new ShowTextBlobHandler($this->dataset, $this, 'eventos_Ds_AtaEvento_handler_list', $column);
-            GetApplication()->RegisterHTTPHandler($handler);
-            
-            //
-            // View column for Ds_AtaEvento field
-            //
-            $column = new TextViewColumn('Ds_AtaEvento', 'Ds_AtaEvento', 'Ds Ata Evento', $this->dataset);
-            $column->SetOrderable(true);
             $handler = new ShowTextBlobHandler($this->dataset, $this, 'eventos_Ds_AtaEvento_handler_print', $column);
             GetApplication()->RegisterHTTPHandler($handler);
             
@@ -948,12 +958,128 @@
             $handler = new ShowTextBlobHandler($this->dataset, $this, 'eventos_Ds_AtaEvento_handler_compare', $column);
             GetApplication()->RegisterHTTPHandler($handler);
             
-            //
-            // View column for Ds_AtaEvento field
-            //
-            $column = new TextViewColumn('Ds_AtaEvento', 'Ds_AtaEvento', 'Ds Ata Evento', $this->dataset);
-            $column->SetOrderable(true);
-            $handler = new ShowTextBlobHandler($this->dataset, $this, 'eventos_Ds_AtaEvento_handler_view', $column);
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`cadcongregacoes`');
+            $lookupDataset->addFields(
+                array(
+                    new StringField('Id_CCB', true, true),
+                    new StringField('Ds_CCB'),
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
+                )
+            );
+            $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'insert_eventos_id_CCB_search', 'Id_CCB', 'Ds_CCB', null, 20);
+            GetApplication()->RegisterHTTPHandler($handler);
+            
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`cadcongregacoes`');
+            $lookupDataset->addFields(
+                array(
+                    new StringField('Id_CCB', true, true),
+                    new StringField('Ds_CCB'),
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
+                )
+            );
+            $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'filter_builder_eventos_id_CCB_search', 'Id_CCB', 'Ds_CCB', null, 20);
+            GetApplication()->RegisterHTTPHandler($handler);
+            
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`cadcongregacoes`');
+            $lookupDataset->addFields(
+                array(
+                    new StringField('Id_CCB', true, true),
+                    new StringField('Ds_CCB'),
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
+                )
+            );
+            $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'edit_eventos_id_CCB_search', 'Id_CCB', 'Ds_CCB', null, 20);
+            GetApplication()->RegisterHTTPHandler($handler);
+            
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`cadcongregacoes`');
+            $lookupDataset->addFields(
+                array(
+                    new StringField('Id_CCB', true, true),
+                    new StringField('Ds_CCB'),
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
+                )
+            );
+            $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'multi_edit_eventos_id_CCB_search', 'Id_CCB', 'Ds_CCB', null, 20);
             GetApplication()->RegisterHTTPHandler($handler);
         }
        

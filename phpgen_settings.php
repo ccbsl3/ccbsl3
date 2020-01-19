@@ -71,7 +71,7 @@ function GetPageInfos()
     $result[] = array('caption' => 'Digitadores', 'short_caption' => 'Digitadores', 'filename' => 'caddigitadores.php', 'name' => 'caddigitadores', 'group_name' => 'Congregação', 'add_separator' => false, 'description' => '');
     $result[] = array('caption' => 'Minitério', 'short_caption' => 'Minitério', 'filename' => 'cadministerio.php', 'name' => 'cadministerio', 'group_name' => 'Congregação', 'add_separator' => false, 'description' => '');
     $result[] = array('caption' => 'Voluntários', 'short_caption' => 'Voluntários', 'filename' => 'cadvoluntarios.php', 'name' => 'cadvoluntarios', 'group_name' => 'Voluntários', 'add_separator' => false, 'description' => '');
-    $result[] = array('caption' => 'Convocacoeseventos', 'short_caption' => 'Convocacoeseventos', 'filename' => 'convocacoeseventos.php', 'name' => 'convocacoeseventos', 'group_name' => 'Voluntários', 'add_separator' => false, 'description' => '');
+    $result[] = array('caption' => 'Checkin Evento', 'short_caption' => 'Checkin Evento', 'filename' => 'convocacoeseventos.php', 'name' => 'convocacoeseventos', 'group_name' => 'Voluntários', 'add_separator' => false, 'description' => '');
     $result[] = array('caption' => 'Departamentos', 'short_caption' => 'Departamentos', 'filename' => 'departamentos.php', 'name' => 'departamentos', 'group_name' => 'Estoque', 'add_separator' => false, 'description' => '');
     $result[] = array('caption' => 'Estoqueprodutos', 'short_caption' => 'Estoqueprodutos', 'filename' => 'estoqueprodutos.php', 'name' => 'estoqueprodutos', 'group_name' => 'Estoque', 'add_separator' => false, 'description' => '');
     $result[] = array('caption' => 'Eventos', 'short_caption' => 'Eventos', 'filename' => 'eventos.php', 'name' => 'eventos', 'group_name' => 'Voluntários', 'add_separator' => false, 'description' => '');
@@ -82,8 +82,10 @@ function GetPageInfos()
     $result[] = array('caption' => 'Produtos', 'short_caption' => 'Produtos', 'filename' => 'produtos.php', 'name' => 'produtos', 'group_name' => 'Estoque', 'add_separator' => false, 'description' => '');
     $result[] = array('caption' => 'Santasceias', 'short_caption' => 'Santasceias', 'filename' => 'santasceias.php', 'name' => 'santasceias', 'group_name' => 'Congregação', 'add_separator' => false, 'description' => '');
     $result[] = array('caption' => 'Treinamentos', 'short_caption' => 'Treinamentos', 'filename' => 'treinamentos.php', 'name' => 'treinamentos', 'group_name' => 'Voluntários', 'add_separator' => false, 'description' => '');
-    $result[] = array('caption' => 'Grupo CCB', 'short_caption' => 'Grupo CCB', 'filename' => 'grupoccb.php', 'name' => 'grupoccb', 'group_name' => 'Congregação', 'add_separator' => false, 'description' => '');
+    $result[] = array('caption' => 'Grupo/Obra CCB', 'short_caption' => 'Grupo/Obra CCB', 'filename' => 'grupoccb.php', 'name' => 'grupoccb', 'group_name' => 'Congregação', 'add_separator' => false, 'description' => '');
     $result[] = array('caption' => 'Grupo Voluntários CCB', 'short_caption' => 'Grupo Voluntários CCB', 'filename' => 'grupovoluntarios.php', 'name' => 'grupovoluntarios', 'group_name' => 'Congregação', 'add_separator' => false, 'description' => '');
+    $result[] = array('caption' => 'Tipo Função', 'short_caption' => 'Tipo Função', 'filename' => 'tipofuncao.php', 'name' => 'tipofuncao', 'group_name' => 'Voluntários', 'add_separator' => false, 'description' => '');
+    $result[] = array('caption' => 'Consulta Voluntários', 'short_caption' => 'Consulta Voluntários', 'filename' => 'CONSULTAVOLUNTARIO.php', 'name' => 'CONSULTAVOLUNTARIO', 'group_name' => 'Voluntários', 'add_separator' => false, 'description' => '');
     return $result;
 }
 
@@ -96,7 +98,7 @@ function GetPagesHeader()
 function GetPagesFooter()
 {
     return
-        'e-mail: ccb.admsetorlestesp@gmail.com -- 2019';
+        'e-mail: suporte@ccbsl3.net.br -- 2020';
 }
 
 function ApplyCommonPageSettings(Page $page, Grid $grid)

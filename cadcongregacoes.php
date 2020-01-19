@@ -973,7 +973,23 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
         }
@@ -1008,7 +1024,23 @@
             return array(
                 new FilterColumn($this->dataset, 'Id_CCB', 'Id_CCB', 'Id CCB'),
                 new FilterColumn($this->dataset, 'Ds_CCB', 'Ds_CCB', 'CCB'),
-                new FilterColumn($this->dataset, 'Ds_SubSetor', 'Ds_SubSetor', 'Sub Setor')
+                new FilterColumn($this->dataset, 'Ds_SubSetor', 'Ds_SubSetor', 'Sub Setor'),
+                new FilterColumn($this->dataset, 'Ds_Endereco_CCB', 'Ds_Endereco_CCB', 'Ds Endereco CCB'),
+                new FilterColumn($this->dataset, 'Cep_CCB', 'Cep_CCB', 'Cep CCB'),
+                new FilterColumn($this->dataset, 'tel_CCB', 'tel_CCB', 'Tel CCB'),
+                new FilterColumn($this->dataset, 'Dia_Culto_1', 'Dia_Culto_1', 'Dia Culto 1'),
+                new FilterColumn($this->dataset, 'Hora_Culto_1', 'Hora_Culto_1', 'Hora Culto 1'),
+                new FilterColumn($this->dataset, 'Dia_Culto_2', 'Dia_Culto_2', 'Dia Culto 2'),
+                new FilterColumn($this->dataset, 'Hora_Culto_2', 'Hora_Culto_2', 'Hora Culto 2'),
+                new FilterColumn($this->dataset, 'Dia_Culto_3', 'Dia_Culto_3', 'Dia Culto 3'),
+                new FilterColumn($this->dataset, 'Hora_Culto_3', 'Hora_Culto_3', 'Hora Culto 3'),
+                new FilterColumn($this->dataset, 'Dia_Culto_4', 'Dia_Culto_4', 'Dia Culto 4'),
+                new FilterColumn($this->dataset, 'Hora_Culto_4', 'Hora_Culto_4', 'Hora Culto 4'),
+                new FilterColumn($this->dataset, 'Dia_RJM', 'Dia_RJM', 'Dia RJM'),
+                new FilterColumn($this->dataset, 'Hora_RJM', 'Hora_RJM', 'Hora RJM'),
+                new FilterColumn($this->dataset, 'Dia_Ensaio', 'Dia_Ensaio', 'Dia Ensaio'),
+                new FilterColumn($this->dataset, 'Hora_Ensaio', 'Hora_Ensaio', 'Hora Ensaio'),
+                new FilterColumn($this->dataset, 'Semana_ensaio', 'Semana_ensaio', 'Semana Ensaio')
             );
         }
     
@@ -1017,7 +1049,23 @@
             $quickFilter
                 ->addColumn($columns['Id_CCB'])
                 ->addColumn($columns['Ds_CCB'])
-                ->addColumn($columns['Ds_SubSetor']);
+                ->addColumn($columns['Ds_SubSetor'])
+                ->addColumn($columns['Ds_Endereco_CCB'])
+                ->addColumn($columns['Cep_CCB'])
+                ->addColumn($columns['tel_CCB'])
+                ->addColumn($columns['Dia_Culto_1'])
+                ->addColumn($columns['Hora_Culto_1'])
+                ->addColumn($columns['Dia_Culto_2'])
+                ->addColumn($columns['Hora_Culto_2'])
+                ->addColumn($columns['Dia_Culto_3'])
+                ->addColumn($columns['Hora_Culto_3'])
+                ->addColumn($columns['Dia_Culto_4'])
+                ->addColumn($columns['Hora_Culto_4'])
+                ->addColumn($columns['Dia_RJM'])
+                ->addColumn($columns['Hora_RJM'])
+                ->addColumn($columns['Dia_Ensaio'])
+                ->addColumn($columns['Hora_Ensaio'])
+                ->addColumn($columns['Semana_ensaio']);
         }
     
         protected function setupColumnFilter(ColumnFilter $columnFilter)
@@ -1112,6 +1160,406 @@
                     FilterConditionOperator::IS_NOT_BLANK => null
                 )
             );
+            
+            $main_editor = new TextEdit('ds_endereco_ccb_edit');
+            $main_editor->SetMaxLength(50);
+            
+            $filterBuilder->addColumn(
+                $columns['Ds_Endereco_CCB'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
+                    FilterConditionOperator::BEGINS_WITH => $main_editor,
+                    FilterConditionOperator::ENDS_WITH => $main_editor,
+                    FilterConditionOperator::IS_LIKE => $main_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('cep_ccb_edit');
+            $main_editor->SetMaxLength(9);
+            
+            $filterBuilder->addColumn(
+                $columns['Cep_CCB'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
+                    FilterConditionOperator::BEGINS_WITH => $main_editor,
+                    FilterConditionOperator::ENDS_WITH => $main_editor,
+                    FilterConditionOperator::IS_LIKE => $main_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('tel_ccb_edit');
+            $main_editor->SetMaxLength(21);
+            
+            $filterBuilder->addColumn(
+                $columns['tel_CCB'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
+                    FilterConditionOperator::BEGINS_WITH => $main_editor,
+                    FilterConditionOperator::ENDS_WITH => $main_editor,
+                    FilterConditionOperator::IS_LIKE => $main_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('dia_culto_1_edit');
+            $main_editor->SetMaxLength(3);
+            
+            $filterBuilder->addColumn(
+                $columns['Dia_Culto_1'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
+                    FilterConditionOperator::BEGINS_WITH => $main_editor,
+                    FilterConditionOperator::ENDS_WITH => $main_editor,
+                    FilterConditionOperator::IS_LIKE => $main_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('hora_culto_1_edit');
+            $main_editor->SetMaxLength(5);
+            
+            $filterBuilder->addColumn(
+                $columns['Hora_Culto_1'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
+                    FilterConditionOperator::BEGINS_WITH => $main_editor,
+                    FilterConditionOperator::ENDS_WITH => $main_editor,
+                    FilterConditionOperator::IS_LIKE => $main_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('dia_culto_2_edit');
+            $main_editor->SetMaxLength(3);
+            
+            $filterBuilder->addColumn(
+                $columns['Dia_Culto_2'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
+                    FilterConditionOperator::BEGINS_WITH => $main_editor,
+                    FilterConditionOperator::ENDS_WITH => $main_editor,
+                    FilterConditionOperator::IS_LIKE => $main_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('hora_culto_2_edit');
+            $main_editor->SetMaxLength(5);
+            
+            $filterBuilder->addColumn(
+                $columns['Hora_Culto_2'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
+                    FilterConditionOperator::BEGINS_WITH => $main_editor,
+                    FilterConditionOperator::ENDS_WITH => $main_editor,
+                    FilterConditionOperator::IS_LIKE => $main_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('dia_culto_3_edit');
+            $main_editor->SetMaxLength(3);
+            
+            $filterBuilder->addColumn(
+                $columns['Dia_Culto_3'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
+                    FilterConditionOperator::BEGINS_WITH => $main_editor,
+                    FilterConditionOperator::ENDS_WITH => $main_editor,
+                    FilterConditionOperator::IS_LIKE => $main_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('hora_culto_3_edit');
+            $main_editor->SetMaxLength(5);
+            
+            $filterBuilder->addColumn(
+                $columns['Hora_Culto_3'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
+                    FilterConditionOperator::BEGINS_WITH => $main_editor,
+                    FilterConditionOperator::ENDS_WITH => $main_editor,
+                    FilterConditionOperator::IS_LIKE => $main_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('dia_culto_4_edit');
+            $main_editor->SetMaxLength(3);
+            
+            $filterBuilder->addColumn(
+                $columns['Dia_Culto_4'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
+                    FilterConditionOperator::BEGINS_WITH => $main_editor,
+                    FilterConditionOperator::ENDS_WITH => $main_editor,
+                    FilterConditionOperator::IS_LIKE => $main_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('hora_culto_4_edit');
+            $main_editor->SetMaxLength(5);
+            
+            $filterBuilder->addColumn(
+                $columns['Hora_Culto_4'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
+                    FilterConditionOperator::BEGINS_WITH => $main_editor,
+                    FilterConditionOperator::ENDS_WITH => $main_editor,
+                    FilterConditionOperator::IS_LIKE => $main_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('dia_rjm_edit');
+            $main_editor->SetMaxLength(3);
+            
+            $filterBuilder->addColumn(
+                $columns['Dia_RJM'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
+                    FilterConditionOperator::BEGINS_WITH => $main_editor,
+                    FilterConditionOperator::ENDS_WITH => $main_editor,
+                    FilterConditionOperator::IS_LIKE => $main_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('hora_rjm_edit');
+            $main_editor->SetMaxLength(5);
+            
+            $filterBuilder->addColumn(
+                $columns['Hora_RJM'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
+                    FilterConditionOperator::BEGINS_WITH => $main_editor,
+                    FilterConditionOperator::ENDS_WITH => $main_editor,
+                    FilterConditionOperator::IS_LIKE => $main_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('dia_ensaio_edit');
+            $main_editor->SetMaxLength(3);
+            
+            $filterBuilder->addColumn(
+                $columns['Dia_Ensaio'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
+                    FilterConditionOperator::BEGINS_WITH => $main_editor,
+                    FilterConditionOperator::ENDS_WITH => $main_editor,
+                    FilterConditionOperator::IS_LIKE => $main_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('hora_ensaio_edit');
+            $main_editor->SetMaxLength(5);
+            
+            $filterBuilder->addColumn(
+                $columns['Hora_Ensaio'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
+                    FilterConditionOperator::BEGINS_WITH => $main_editor,
+                    FilterConditionOperator::ENDS_WITH => $main_editor,
+                    FilterConditionOperator::IS_LIKE => $main_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('semana_ensaio_edit');
+            $main_editor->SetMaxLength(20);
+            
+            $filterBuilder->addColumn(
+                $columns['Semana_ensaio'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
+                    FilterConditionOperator::BEGINS_WITH => $main_editor,
+                    FilterConditionOperator::ENDS_WITH => $main_editor,
+                    FilterConditionOperator::IS_LIKE => $main_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
         }
     
         protected function AddOperationsColumns(Grid $grid)
@@ -1198,6 +1646,166 @@
             $column->SetDescription('');
             $column->SetFixedWidth(null);
             $grid->AddViewColumn($column);
+            
+            //
+            // View column for Ds_Endereco_CCB field
+            //
+            $column = new TextViewColumn('Ds_Endereco_CCB', 'Ds_Endereco_CCB', 'Ds Endereco CCB', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for Cep_CCB field
+            //
+            $column = new TextViewColumn('Cep_CCB', 'Cep_CCB', 'Cep CCB', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for tel_CCB field
+            //
+            $column = new TextViewColumn('tel_CCB', 'tel_CCB', 'Tel CCB', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for Dia_Culto_1 field
+            //
+            $column = new TextViewColumn('Dia_Culto_1', 'Dia_Culto_1', 'Dia Culto 1', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for Hora_Culto_1 field
+            //
+            $column = new TextViewColumn('Hora_Culto_1', 'Hora_Culto_1', 'Hora Culto 1', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for Dia_Culto_2 field
+            //
+            $column = new TextViewColumn('Dia_Culto_2', 'Dia_Culto_2', 'Dia Culto 2', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for Hora_Culto_2 field
+            //
+            $column = new TextViewColumn('Hora_Culto_2', 'Hora_Culto_2', 'Hora Culto 2', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for Dia_Culto_3 field
+            //
+            $column = new TextViewColumn('Dia_Culto_3', 'Dia_Culto_3', 'Dia Culto 3', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for Hora_Culto_3 field
+            //
+            $column = new TextViewColumn('Hora_Culto_3', 'Hora_Culto_3', 'Hora Culto 3', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for Dia_Culto_4 field
+            //
+            $column = new TextViewColumn('Dia_Culto_4', 'Dia_Culto_4', 'Dia Culto 4', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for Hora_Culto_4 field
+            //
+            $column = new TextViewColumn('Hora_Culto_4', 'Hora_Culto_4', 'Hora Culto 4', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for Dia_RJM field
+            //
+            $column = new TextViewColumn('Dia_RJM', 'Dia_RJM', 'Dia RJM', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for Hora_RJM field
+            //
+            $column = new TextViewColumn('Hora_RJM', 'Hora_RJM', 'Hora RJM', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for Dia_Ensaio field
+            //
+            $column = new TextViewColumn('Dia_Ensaio', 'Dia_Ensaio', 'Dia Ensaio', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for Hora_Ensaio field
+            //
+            $column = new TextViewColumn('Hora_Ensaio', 'Hora_Ensaio', 'Hora Ensaio', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for Semana_ensaio field
+            //
+            $column = new TextViewColumn('Semana_ensaio', 'Semana_ensaio', 'Semana Ensaio', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
         }
     
         protected function AddSingleRecordViewColumns(Grid $grid)
@@ -1225,6 +1833,118 @@
             $column->SetOrderable(true);
             $column->SetMaxLength(75);
             $column->SetFullTextWindowHandlerName('cadcongregacoes_Ds_SubSetor_handler_view');
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Ds_Endereco_CCB field
+            //
+            $column = new TextViewColumn('Ds_Endereco_CCB', 'Ds_Endereco_CCB', 'Ds Endereco CCB', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Cep_CCB field
+            //
+            $column = new TextViewColumn('Cep_CCB', 'Cep_CCB', 'Cep CCB', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for tel_CCB field
+            //
+            $column = new TextViewColumn('tel_CCB', 'tel_CCB', 'Tel CCB', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Dia_Culto_1 field
+            //
+            $column = new TextViewColumn('Dia_Culto_1', 'Dia_Culto_1', 'Dia Culto 1', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Hora_Culto_1 field
+            //
+            $column = new TextViewColumn('Hora_Culto_1', 'Hora_Culto_1', 'Hora Culto 1', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Dia_Culto_2 field
+            //
+            $column = new TextViewColumn('Dia_Culto_2', 'Dia_Culto_2', 'Dia Culto 2', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Hora_Culto_2 field
+            //
+            $column = new TextViewColumn('Hora_Culto_2', 'Hora_Culto_2', 'Hora Culto 2', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Dia_Culto_3 field
+            //
+            $column = new TextViewColumn('Dia_Culto_3', 'Dia_Culto_3', 'Dia Culto 3', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Hora_Culto_3 field
+            //
+            $column = new TextViewColumn('Hora_Culto_3', 'Hora_Culto_3', 'Hora Culto 3', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Dia_Culto_4 field
+            //
+            $column = new TextViewColumn('Dia_Culto_4', 'Dia_Culto_4', 'Dia Culto 4', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Hora_Culto_4 field
+            //
+            $column = new TextViewColumn('Hora_Culto_4', 'Hora_Culto_4', 'Hora Culto 4', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Dia_RJM field
+            //
+            $column = new TextViewColumn('Dia_RJM', 'Dia_RJM', 'Dia RJM', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Hora_RJM field
+            //
+            $column = new TextViewColumn('Hora_RJM', 'Hora_RJM', 'Hora RJM', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Dia_Ensaio field
+            //
+            $column = new TextViewColumn('Dia_Ensaio', 'Dia_Ensaio', 'Dia Ensaio', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Hora_Ensaio field
+            //
+            $column = new TextViewColumn('Hora_Ensaio', 'Hora_Ensaio', 'Hora Ensaio', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Semana_ensaio field
+            //
+            $column = new TextViewColumn('Semana_ensaio', 'Semana_ensaio', 'Semana Ensaio', $this->dataset);
+            $column->SetOrderable(true);
             $grid->AddSingleRecordViewColumn($column);
         }
     
@@ -1263,6 +1983,166 @@
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Ds_Endereco_CCB field
+            //
+            $editor = new TextEdit('ds_endereco_ccb_edit');
+            $editor->SetMaxLength(50);
+            $editColumn = new CustomEditColumn('Ds Endereco CCB', 'Ds_Endereco_CCB', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Cep_CCB field
+            //
+            $editor = new TextEdit('cep_ccb_edit');
+            $editor->SetMaxLength(9);
+            $editColumn = new CustomEditColumn('Cep CCB', 'Cep_CCB', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for tel_CCB field
+            //
+            $editor = new TextEdit('tel_ccb_edit');
+            $editor->SetMaxLength(21);
+            $editColumn = new CustomEditColumn('Tel CCB', 'tel_CCB', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Dia_Culto_1 field
+            //
+            $editor = new TextEdit('dia_culto_1_edit');
+            $editor->SetMaxLength(3);
+            $editColumn = new CustomEditColumn('Dia Culto 1', 'Dia_Culto_1', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Hora_Culto_1 field
+            //
+            $editor = new TextEdit('hora_culto_1_edit');
+            $editor->SetMaxLength(5);
+            $editColumn = new CustomEditColumn('Hora Culto 1', 'Hora_Culto_1', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Dia_Culto_2 field
+            //
+            $editor = new TextEdit('dia_culto_2_edit');
+            $editor->SetMaxLength(3);
+            $editColumn = new CustomEditColumn('Dia Culto 2', 'Dia_Culto_2', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Hora_Culto_2 field
+            //
+            $editor = new TextEdit('hora_culto_2_edit');
+            $editor->SetMaxLength(5);
+            $editColumn = new CustomEditColumn('Hora Culto 2', 'Hora_Culto_2', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Dia_Culto_3 field
+            //
+            $editor = new TextEdit('dia_culto_3_edit');
+            $editor->SetMaxLength(3);
+            $editColumn = new CustomEditColumn('Dia Culto 3', 'Dia_Culto_3', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Hora_Culto_3 field
+            //
+            $editor = new TextEdit('hora_culto_3_edit');
+            $editor->SetMaxLength(5);
+            $editColumn = new CustomEditColumn('Hora Culto 3', 'Hora_Culto_3', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Dia_Culto_4 field
+            //
+            $editor = new TextEdit('dia_culto_4_edit');
+            $editor->SetMaxLength(3);
+            $editColumn = new CustomEditColumn('Dia Culto 4', 'Dia_Culto_4', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Hora_Culto_4 field
+            //
+            $editor = new TextEdit('hora_culto_4_edit');
+            $editor->SetMaxLength(5);
+            $editColumn = new CustomEditColumn('Hora Culto 4', 'Hora_Culto_4', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Dia_RJM field
+            //
+            $editor = new TextEdit('dia_rjm_edit');
+            $editor->SetMaxLength(3);
+            $editColumn = new CustomEditColumn('Dia RJM', 'Dia_RJM', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Hora_RJM field
+            //
+            $editor = new TextEdit('hora_rjm_edit');
+            $editor->SetMaxLength(5);
+            $editColumn = new CustomEditColumn('Hora RJM', 'Hora_RJM', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Dia_Ensaio field
+            //
+            $editor = new TextEdit('dia_ensaio_edit');
+            $editor->SetMaxLength(3);
+            $editColumn = new CustomEditColumn('Dia Ensaio', 'Dia_Ensaio', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Hora_Ensaio field
+            //
+            $editor = new TextEdit('hora_ensaio_edit');
+            $editor->SetMaxLength(5);
+            $editColumn = new CustomEditColumn('Hora Ensaio', 'Hora_Ensaio', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Semana_ensaio field
+            //
+            $editor = new TextEdit('semana_ensaio_edit');
+            $editor->SetMaxLength(20);
+            $editColumn = new CustomEditColumn('Semana Ensaio', 'Semana_ensaio', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
         }
     
         protected function AddMultiEditColumns(Grid $grid)
@@ -1286,6 +2166,166 @@
             $editor->addChoice('SAO MIGUEL', 'SAO MIGUEL');
             $editor->addChoice('TIRADENTES', 'TIRADENTES');
             $editColumn = new CustomEditColumn('Sub Setor', 'Ds_SubSetor', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Ds_Endereco_CCB field
+            //
+            $editor = new TextEdit('ds_endereco_ccb_edit');
+            $editor->SetMaxLength(50);
+            $editColumn = new CustomEditColumn('Ds Endereco CCB', 'Ds_Endereco_CCB', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Cep_CCB field
+            //
+            $editor = new TextEdit('cep_ccb_edit');
+            $editor->SetMaxLength(9);
+            $editColumn = new CustomEditColumn('Cep CCB', 'Cep_CCB', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for tel_CCB field
+            //
+            $editor = new TextEdit('tel_ccb_edit');
+            $editor->SetMaxLength(21);
+            $editColumn = new CustomEditColumn('Tel CCB', 'tel_CCB', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Dia_Culto_1 field
+            //
+            $editor = new TextEdit('dia_culto_1_edit');
+            $editor->SetMaxLength(3);
+            $editColumn = new CustomEditColumn('Dia Culto 1', 'Dia_Culto_1', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Hora_Culto_1 field
+            //
+            $editor = new TextEdit('hora_culto_1_edit');
+            $editor->SetMaxLength(5);
+            $editColumn = new CustomEditColumn('Hora Culto 1', 'Hora_Culto_1', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Dia_Culto_2 field
+            //
+            $editor = new TextEdit('dia_culto_2_edit');
+            $editor->SetMaxLength(3);
+            $editColumn = new CustomEditColumn('Dia Culto 2', 'Dia_Culto_2', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Hora_Culto_2 field
+            //
+            $editor = new TextEdit('hora_culto_2_edit');
+            $editor->SetMaxLength(5);
+            $editColumn = new CustomEditColumn('Hora Culto 2', 'Hora_Culto_2', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Dia_Culto_3 field
+            //
+            $editor = new TextEdit('dia_culto_3_edit');
+            $editor->SetMaxLength(3);
+            $editColumn = new CustomEditColumn('Dia Culto 3', 'Dia_Culto_3', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Hora_Culto_3 field
+            //
+            $editor = new TextEdit('hora_culto_3_edit');
+            $editor->SetMaxLength(5);
+            $editColumn = new CustomEditColumn('Hora Culto 3', 'Hora_Culto_3', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Dia_Culto_4 field
+            //
+            $editor = new TextEdit('dia_culto_4_edit');
+            $editor->SetMaxLength(3);
+            $editColumn = new CustomEditColumn('Dia Culto 4', 'Dia_Culto_4', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Hora_Culto_4 field
+            //
+            $editor = new TextEdit('hora_culto_4_edit');
+            $editor->SetMaxLength(5);
+            $editColumn = new CustomEditColumn('Hora Culto 4', 'Hora_Culto_4', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Dia_RJM field
+            //
+            $editor = new TextEdit('dia_rjm_edit');
+            $editor->SetMaxLength(3);
+            $editColumn = new CustomEditColumn('Dia RJM', 'Dia_RJM', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Hora_RJM field
+            //
+            $editor = new TextEdit('hora_rjm_edit');
+            $editor->SetMaxLength(5);
+            $editColumn = new CustomEditColumn('Hora RJM', 'Hora_RJM', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Dia_Ensaio field
+            //
+            $editor = new TextEdit('dia_ensaio_edit');
+            $editor->SetMaxLength(3);
+            $editColumn = new CustomEditColumn('Dia Ensaio', 'Dia_Ensaio', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Hora_Ensaio field
+            //
+            $editor = new TextEdit('hora_ensaio_edit');
+            $editor->SetMaxLength(5);
+            $editColumn = new CustomEditColumn('Hora Ensaio', 'Hora_Ensaio', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Semana_ensaio field
+            //
+            $editor = new TextEdit('semana_ensaio_edit');
+            $editor->SetMaxLength(20);
+            $editColumn = new CustomEditColumn('Semana Ensaio', 'Semana_ensaio', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddMultiEditColumn($editColumn);
@@ -1326,6 +2366,166 @@
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Ds_Endereco_CCB field
+            //
+            $editor = new TextEdit('ds_endereco_ccb_edit');
+            $editor->SetMaxLength(50);
+            $editColumn = new CustomEditColumn('Ds Endereco CCB', 'Ds_Endereco_CCB', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Cep_CCB field
+            //
+            $editor = new TextEdit('cep_ccb_edit');
+            $editor->SetMaxLength(9);
+            $editColumn = new CustomEditColumn('Cep CCB', 'Cep_CCB', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for tel_CCB field
+            //
+            $editor = new TextEdit('tel_ccb_edit');
+            $editor->SetMaxLength(21);
+            $editColumn = new CustomEditColumn('Tel CCB', 'tel_CCB', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Dia_Culto_1 field
+            //
+            $editor = new TextEdit('dia_culto_1_edit');
+            $editor->SetMaxLength(3);
+            $editColumn = new CustomEditColumn('Dia Culto 1', 'Dia_Culto_1', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Hora_Culto_1 field
+            //
+            $editor = new TextEdit('hora_culto_1_edit');
+            $editor->SetMaxLength(5);
+            $editColumn = new CustomEditColumn('Hora Culto 1', 'Hora_Culto_1', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Dia_Culto_2 field
+            //
+            $editor = new TextEdit('dia_culto_2_edit');
+            $editor->SetMaxLength(3);
+            $editColumn = new CustomEditColumn('Dia Culto 2', 'Dia_Culto_2', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Hora_Culto_2 field
+            //
+            $editor = new TextEdit('hora_culto_2_edit');
+            $editor->SetMaxLength(5);
+            $editColumn = new CustomEditColumn('Hora Culto 2', 'Hora_Culto_2', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Dia_Culto_3 field
+            //
+            $editor = new TextEdit('dia_culto_3_edit');
+            $editor->SetMaxLength(3);
+            $editColumn = new CustomEditColumn('Dia Culto 3', 'Dia_Culto_3', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Hora_Culto_3 field
+            //
+            $editor = new TextEdit('hora_culto_3_edit');
+            $editor->SetMaxLength(5);
+            $editColumn = new CustomEditColumn('Hora Culto 3', 'Hora_Culto_3', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Dia_Culto_4 field
+            //
+            $editor = new TextEdit('dia_culto_4_edit');
+            $editor->SetMaxLength(3);
+            $editColumn = new CustomEditColumn('Dia Culto 4', 'Dia_Culto_4', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Hora_Culto_4 field
+            //
+            $editor = new TextEdit('hora_culto_4_edit');
+            $editor->SetMaxLength(5);
+            $editColumn = new CustomEditColumn('Hora Culto 4', 'Hora_Culto_4', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Dia_RJM field
+            //
+            $editor = new TextEdit('dia_rjm_edit');
+            $editor->SetMaxLength(3);
+            $editColumn = new CustomEditColumn('Dia RJM', 'Dia_RJM', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Hora_RJM field
+            //
+            $editor = new TextEdit('hora_rjm_edit');
+            $editor->SetMaxLength(5);
+            $editColumn = new CustomEditColumn('Hora RJM', 'Hora_RJM', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Dia_Ensaio field
+            //
+            $editor = new TextEdit('dia_ensaio_edit');
+            $editor->SetMaxLength(3);
+            $editColumn = new CustomEditColumn('Dia Ensaio', 'Dia_Ensaio', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Hora_Ensaio field
+            //
+            $editor = new TextEdit('hora_ensaio_edit');
+            $editor->SetMaxLength(5);
+            $editColumn = new CustomEditColumn('Hora Ensaio', 'Hora_Ensaio', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Semana_ensaio field
+            //
+            $editor = new TextEdit('semana_ensaio_edit');
+            $editor->SetMaxLength(20);
+            $editColumn = new CustomEditColumn('Semana Ensaio', 'Semana_ensaio', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
             $grid->SetShowAddButton(true && $this->GetSecurityInfo()->HasAddGrant());
         }
     
@@ -1360,6 +2560,118 @@
             $column->SetMaxLength(75);
             $column->SetFullTextWindowHandlerName('cadcongregacoes_Ds_SubSetor_handler_print');
             $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Ds_Endereco_CCB field
+            //
+            $column = new TextViewColumn('Ds_Endereco_CCB', 'Ds_Endereco_CCB', 'Ds Endereco CCB', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Cep_CCB field
+            //
+            $column = new TextViewColumn('Cep_CCB', 'Cep_CCB', 'Cep CCB', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for tel_CCB field
+            //
+            $column = new TextViewColumn('tel_CCB', 'tel_CCB', 'Tel CCB', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Dia_Culto_1 field
+            //
+            $column = new TextViewColumn('Dia_Culto_1', 'Dia_Culto_1', 'Dia Culto 1', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Hora_Culto_1 field
+            //
+            $column = new TextViewColumn('Hora_Culto_1', 'Hora_Culto_1', 'Hora Culto 1', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Dia_Culto_2 field
+            //
+            $column = new TextViewColumn('Dia_Culto_2', 'Dia_Culto_2', 'Dia Culto 2', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Hora_Culto_2 field
+            //
+            $column = new TextViewColumn('Hora_Culto_2', 'Hora_Culto_2', 'Hora Culto 2', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Dia_Culto_3 field
+            //
+            $column = new TextViewColumn('Dia_Culto_3', 'Dia_Culto_3', 'Dia Culto 3', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Hora_Culto_3 field
+            //
+            $column = new TextViewColumn('Hora_Culto_3', 'Hora_Culto_3', 'Hora Culto 3', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Dia_Culto_4 field
+            //
+            $column = new TextViewColumn('Dia_Culto_4', 'Dia_Culto_4', 'Dia Culto 4', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Hora_Culto_4 field
+            //
+            $column = new TextViewColumn('Hora_Culto_4', 'Hora_Culto_4', 'Hora Culto 4', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Dia_RJM field
+            //
+            $column = new TextViewColumn('Dia_RJM', 'Dia_RJM', 'Dia RJM', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Hora_RJM field
+            //
+            $column = new TextViewColumn('Hora_RJM', 'Hora_RJM', 'Hora RJM', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Dia_Ensaio field
+            //
+            $column = new TextViewColumn('Dia_Ensaio', 'Dia_Ensaio', 'Dia Ensaio', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Hora_Ensaio field
+            //
+            $column = new TextViewColumn('Hora_Ensaio', 'Hora_Ensaio', 'Hora Ensaio', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Semana_ensaio field
+            //
+            $column = new TextViewColumn('Semana_ensaio', 'Semana_ensaio', 'Semana Ensaio', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
         }
     
         protected function AddExportColumns(Grid $grid)
@@ -1388,6 +2700,118 @@
             $column->SetMaxLength(75);
             $column->SetFullTextWindowHandlerName('cadcongregacoes_Ds_SubSetor_handler_export');
             $grid->AddExportColumn($column);
+            
+            //
+            // View column for Ds_Endereco_CCB field
+            //
+            $column = new TextViewColumn('Ds_Endereco_CCB', 'Ds_Endereco_CCB', 'Ds Endereco CCB', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for Cep_CCB field
+            //
+            $column = new TextViewColumn('Cep_CCB', 'Cep_CCB', 'Cep CCB', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for tel_CCB field
+            //
+            $column = new TextViewColumn('tel_CCB', 'tel_CCB', 'Tel CCB', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for Dia_Culto_1 field
+            //
+            $column = new TextViewColumn('Dia_Culto_1', 'Dia_Culto_1', 'Dia Culto 1', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for Hora_Culto_1 field
+            //
+            $column = new TextViewColumn('Hora_Culto_1', 'Hora_Culto_1', 'Hora Culto 1', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for Dia_Culto_2 field
+            //
+            $column = new TextViewColumn('Dia_Culto_2', 'Dia_Culto_2', 'Dia Culto 2', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for Hora_Culto_2 field
+            //
+            $column = new TextViewColumn('Hora_Culto_2', 'Hora_Culto_2', 'Hora Culto 2', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for Dia_Culto_3 field
+            //
+            $column = new TextViewColumn('Dia_Culto_3', 'Dia_Culto_3', 'Dia Culto 3', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for Hora_Culto_3 field
+            //
+            $column = new TextViewColumn('Hora_Culto_3', 'Hora_Culto_3', 'Hora Culto 3', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for Dia_Culto_4 field
+            //
+            $column = new TextViewColumn('Dia_Culto_4', 'Dia_Culto_4', 'Dia Culto 4', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for Hora_Culto_4 field
+            //
+            $column = new TextViewColumn('Hora_Culto_4', 'Hora_Culto_4', 'Hora Culto 4', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for Dia_RJM field
+            //
+            $column = new TextViewColumn('Dia_RJM', 'Dia_RJM', 'Dia RJM', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for Hora_RJM field
+            //
+            $column = new TextViewColumn('Hora_RJM', 'Hora_RJM', 'Hora RJM', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for Dia_Ensaio field
+            //
+            $column = new TextViewColumn('Dia_Ensaio', 'Dia_Ensaio', 'Dia Ensaio', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for Hora_Ensaio field
+            //
+            $column = new TextViewColumn('Hora_Ensaio', 'Hora_Ensaio', 'Hora Ensaio', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for Semana_ensaio field
+            //
+            $column = new TextViewColumn('Semana_ensaio', 'Semana_ensaio', 'Semana Ensaio', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
         }
     
         private function AddCompareColumns(Grid $grid)
@@ -1415,6 +2839,118 @@
             $column->SetOrderable(true);
             $column->SetMaxLength(75);
             $column->SetFullTextWindowHandlerName('cadcongregacoes_Ds_SubSetor_handler_compare');
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Ds_Endereco_CCB field
+            //
+            $column = new TextViewColumn('Ds_Endereco_CCB', 'Ds_Endereco_CCB', 'Ds Endereco CCB', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Cep_CCB field
+            //
+            $column = new TextViewColumn('Cep_CCB', 'Cep_CCB', 'Cep CCB', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for tel_CCB field
+            //
+            $column = new TextViewColumn('tel_CCB', 'tel_CCB', 'Tel CCB', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Dia_Culto_1 field
+            //
+            $column = new TextViewColumn('Dia_Culto_1', 'Dia_Culto_1', 'Dia Culto 1', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Hora_Culto_1 field
+            //
+            $column = new TextViewColumn('Hora_Culto_1', 'Hora_Culto_1', 'Hora Culto 1', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Dia_Culto_2 field
+            //
+            $column = new TextViewColumn('Dia_Culto_2', 'Dia_Culto_2', 'Dia Culto 2', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Hora_Culto_2 field
+            //
+            $column = new TextViewColumn('Hora_Culto_2', 'Hora_Culto_2', 'Hora Culto 2', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Dia_Culto_3 field
+            //
+            $column = new TextViewColumn('Dia_Culto_3', 'Dia_Culto_3', 'Dia Culto 3', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Hora_Culto_3 field
+            //
+            $column = new TextViewColumn('Hora_Culto_3', 'Hora_Culto_3', 'Hora Culto 3', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Dia_Culto_4 field
+            //
+            $column = new TextViewColumn('Dia_Culto_4', 'Dia_Culto_4', 'Dia Culto 4', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Hora_Culto_4 field
+            //
+            $column = new TextViewColumn('Hora_Culto_4', 'Hora_Culto_4', 'Hora Culto 4', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Dia_RJM field
+            //
+            $column = new TextViewColumn('Dia_RJM', 'Dia_RJM', 'Dia RJM', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Hora_RJM field
+            //
+            $column = new TextViewColumn('Hora_RJM', 'Hora_RJM', 'Hora RJM', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Dia_Ensaio field
+            //
+            $column = new TextViewColumn('Dia_Ensaio', 'Dia_Ensaio', 'Dia Ensaio', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Hora_Ensaio field
+            //
+            $column = new TextViewColumn('Hora_Ensaio', 'Hora_Ensaio', 'Hora Ensaio', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Semana_ensaio field
+            //
+            $column = new TextViewColumn('Semana_ensaio', 'Semana_ensaio', 'Semana Ensaio', $this->dataset);
+            $column->SetOrderable(true);
             $grid->AddCompareColumn($column);
         }
     

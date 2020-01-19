@@ -47,7 +47,8 @@
             $this->dataset->addFields(
                 array(
                     new IntegerField('Id_User', true, true),
-                    new StringField('ID_CCB', true, true)
+                    new StringField('ID_CCB', true, true),
+                    new StringField('Ds_SubSetor', true)
                 )
             );
             $this->dataset->AddLookupField('Id_User', 'usuario', new IntegerField('idusuario'), new StringField('nome', false, false, false, false, 'Id_User_nome', 'Id_User_nome_usuario'), 'Id_User_nome_usuario');
@@ -83,7 +84,8 @@
         {
             return array(
                 new FilterColumn($this->dataset, 'Id_User', 'Id_User_nome', 'Usuário'),
-                new FilterColumn($this->dataset, 'ID_CCB', 'ID_CCB_Ds_CCB', 'CCB')
+                new FilterColumn($this->dataset, 'ID_CCB', 'ID_CCB_Ds_CCB', 'CCB'),
+                new FilterColumn($this->dataset, 'Ds_SubSetor', 'Ds_SubSetor', 'Ds Sub Setor')
             );
         }
     
@@ -91,7 +93,8 @@
         {
             $quickFilter
                 ->addColumn($columns['Id_User'])
-                ->addColumn($columns['ID_CCB']);
+                ->addColumn($columns['ID_CCB'])
+                ->addColumn($columns['Ds_SubSetor']);
         }
     
         protected function setupColumnFilter(ColumnFilter $columnFilter)
@@ -164,6 +167,30 @@
                     FilterConditionOperator::IS_NOT_BLANK => null
                 )
             );
+            
+            $main_editor = new TextEdit('Ds_SubSetor');
+            
+            $filterBuilder->addColumn(
+                $columns['Ds_SubSetor'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
+                    FilterConditionOperator::BEGINS_WITH => $main_editor,
+                    FilterConditionOperator::ENDS_WITH => $main_editor,
+                    FilterConditionOperator::IS_LIKE => $main_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
         }
     
         protected function AddOperationsColumns(Grid $grid)
@@ -226,6 +253,18 @@
             $column->SetDescription('');
             $column->SetFixedWidth(null);
             $grid->AddViewColumn($column);
+            
+            //
+            // View column for Ds_SubSetor field
+            //
+            $column = new TextViewColumn('Ds_SubSetor', 'Ds_SubSetor', 'Ds Sub Setor', $this->dataset);
+            $column->SetOrderable(true);
+            $column->SetMaxLength(75);
+            $column->SetFullTextWindowHandlerName('permissao_ccb_Ds_SubSetor_handler_list');
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
         }
     
         protected function AddSingleRecordViewColumns(Grid $grid)
@@ -242,6 +281,15 @@
             //
             $column = new TextViewColumn('ID_CCB', 'ID_CCB_Ds_CCB', 'CCB', $this->dataset);
             $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Ds_SubSetor field
+            //
+            $column = new TextViewColumn('Ds_SubSetor', 'Ds_SubSetor', 'Ds Sub Setor', $this->dataset);
+            $column->SetOrderable(true);
+            $column->SetMaxLength(75);
+            $column->SetFullTextWindowHandlerName('permissao_ccb_Ds_SubSetor_handler_view');
             $grid->AddSingleRecordViewColumn($column);
         }
     
@@ -292,7 +340,23 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
@@ -301,11 +365,29 @@
             $editor->GetValidatorCollection()->AddValidator($validator);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Ds_SubSetor field
+            //
+            $editor = new TextAreaEdit('ds_subsetor_edit', 50, 8);
+            $editColumn = new CustomEditColumn('Ds Sub Setor', 'Ds_SubSetor', $editor, $this->dataset);
+            $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
+            $editor->GetValidatorCollection()->AddValidator($validator);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
         }
     
         protected function AddMultiEditColumns(Grid $grid)
         {
-    
+            //
+            // Edit column for Ds_SubSetor field
+            //
+            $editor = new TextAreaEdit('ds_subsetor_edit', 50, 8);
+            $editColumn = new CustomEditColumn('Ds Sub Setor', 'Ds_SubSetor', $editor, $this->dataset);
+            $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
+            $editor->GetValidatorCollection()->AddValidator($validator);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
         }
     
         protected function AddInsertColumns(Grid $grid)
@@ -355,11 +437,37 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
             $editColumn = new DynamicLookupEditColumn('CCB', 'ID_CCB', 'ID_CCB_Ds_CCB', 'insert_permissao_ccb_ID_CCB_search', $editor, $this->dataset, $lookupDataset, 'Id_CCB', 'Ds_CCB', '');
+            $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
+            $editor->GetValidatorCollection()->AddValidator($validator);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Ds_SubSetor field
+            //
+            $editor = new TextAreaEdit('ds_subsetor_edit', 50, 8);
+            $editColumn = new CustomEditColumn('Ds Sub Setor', 'Ds_SubSetor', $editor, $this->dataset);
             $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
             $editor->GetValidatorCollection()->AddValidator($validator);
             $this->ApplyCommonColumnEditProperties($editColumn);
@@ -387,6 +495,15 @@
             $column = new TextViewColumn('ID_CCB', 'ID_CCB_Ds_CCB', 'CCB', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Ds_SubSetor field
+            //
+            $column = new TextViewColumn('Ds_SubSetor', 'Ds_SubSetor', 'Ds Sub Setor', $this->dataset);
+            $column->SetOrderable(true);
+            $column->SetMaxLength(75);
+            $column->SetFullTextWindowHandlerName('permissao_ccb_Ds_SubSetor_handler_print');
+            $grid->AddPrintColumn($column);
         }
     
         protected function AddExportColumns(Grid $grid)
@@ -404,6 +521,15 @@
             $column = new TextViewColumn('ID_CCB', 'ID_CCB_Ds_CCB', 'CCB', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddExportColumn($column);
+            
+            //
+            // View column for Ds_SubSetor field
+            //
+            $column = new TextViewColumn('Ds_SubSetor', 'Ds_SubSetor', 'Ds Sub Setor', $this->dataset);
+            $column->SetOrderable(true);
+            $column->SetMaxLength(75);
+            $column->SetFullTextWindowHandlerName('permissao_ccb_Ds_SubSetor_handler_export');
+            $grid->AddExportColumn($column);
         }
     
         private function AddCompareColumns(Grid $grid)
@@ -420,6 +546,15 @@
             //
             $column = new TextViewColumn('ID_CCB', 'ID_CCB_Ds_CCB', 'CCB', $this->dataset);
             $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Ds_SubSetor field
+            //
+            $column = new TextViewColumn('Ds_SubSetor', 'Ds_SubSetor', 'Ds Sub Setor', $this->dataset);
+            $column->SetOrderable(true);
+            $column->SetMaxLength(75);
+            $column->SetFullTextWindowHandlerName('permissao_ccb_Ds_SubSetor_handler_compare');
             $grid->AddCompareColumn($column);
         }
     
@@ -512,6 +647,30 @@
         }
     
         protected function doRegisterHandlers() {
+            //
+            // View column for Ds_SubSetor field
+            //
+            $column = new TextViewColumn('Ds_SubSetor', 'Ds_SubSetor', 'Ds Sub Setor', $this->dataset);
+            $column->SetOrderable(true);
+            $handler = new ShowTextBlobHandler($this->dataset, $this, 'permissao_ccb_Ds_SubSetor_handler_list', $column);
+            GetApplication()->RegisterHTTPHandler($handler);
+            
+            //
+            // View column for Ds_SubSetor field
+            //
+            $column = new TextViewColumn('Ds_SubSetor', 'Ds_SubSetor', 'Ds Sub Setor', $this->dataset);
+            $column->SetOrderable(true);
+            $handler = new ShowTextBlobHandler($this->dataset, $this, 'permissao_ccb_Ds_SubSetor_handler_print', $column);
+            GetApplication()->RegisterHTTPHandler($handler);
+            
+            //
+            // View column for Ds_SubSetor field
+            //
+            $column = new TextViewColumn('Ds_SubSetor', 'Ds_SubSetor', 'Ds Sub Setor', $this->dataset);
+            $column->SetOrderable(true);
+            $handler = new ShowTextBlobHandler($this->dataset, $this, 'permissao_ccb_Ds_SubSetor_handler_compare', $column);
+            GetApplication()->RegisterHTTPHandler($handler);
+            
             $lookupDataset = new TableDataset(
                 MySqlIConnectionFactory::getInstance(),
                 GetConnectionOptions(),
@@ -542,7 +701,23 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
@@ -579,11 +754,66 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
             $handler = new DynamicSearchHandler($lookupDataset, $this, 'filter_builder_permissao_ccb_ID_CCB_search', 'Id_CCB', 'Ds_CCB', null, 20);
+            GetApplication()->RegisterHTTPHandler($handler);
+            
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`cadcongregacoes`');
+            $lookupDataset->addFields(
+                array(
+                    new StringField('Id_CCB', true, true),
+                    new StringField('Ds_CCB'),
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
+                )
+            );
+            $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'filter_builder_permissao_ccb_ID_CCB_search', 'Id_CCB', 'Ds_CCB', null, 20);
+            GetApplication()->RegisterHTTPHandler($handler);
+            
+            //
+            // View column for Ds_SubSetor field
+            //
+            $column = new TextViewColumn('Ds_SubSetor', 'Ds_SubSetor', 'Ds Sub Setor', $this->dataset);
+            $column->SetOrderable(true);
+            $handler = new ShowTextBlobHandler($this->dataset, $this, 'permissao_ccb_Ds_SubSetor_handler_view', $column);
             GetApplication()->RegisterHTTPHandler($handler);
             
             $lookupDataset = new TableDataset(
@@ -616,7 +846,23 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');

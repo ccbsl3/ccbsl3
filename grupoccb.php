@@ -272,14 +272,17 @@
                     new StringField('Id_CCB'),
                     new StringField('NM_COMUM_CCB'),
                     new StringField('DS_ENDERECO_VOLUNTARIO'),
-                    new StringField('NM_BAIRRO_CEP_CIDADE_VOLUNTARIO'),
-                    new StringField('CD_TEL_COM_VOLUNTARIO'),
-                    new StringField('CD_TEL_RES_VOLUNTARIO'),
-                    new StringField('CD_CELULAR'),
+                    new StringField('CEP_VOLUNTARIO'),
+                    new StringField('TEL1_VOLUNTARIO'),
+                    new StringField('TEL2_VOLUNTARIO'),
+                    new StringField('TEL3_VOLUNTARIO'),
                     new StringField('CD_SEXO'),
+                    new StringField('EST_CIVIL'),
                     new StringField('DS_DISPONIBILIDADE_VOLUNTARIO'),
                     new StringField('DS_EMAIL_VOLUNTARIO'),
-                    new StringField('DS_FUNCAO_NA_COMUM'),
+                    new IntegerField('ID_FUNCAO1'),
+                    new IntegerField('ID_FUNCAO2'),
+                    new IntegerField('ID_FUNCAO3'),
                     new StringField('DS_HABILIDADES'),
                     new StringField('DT_APRESENTACAO'),
                     new StringField('DT_BATISMO_VOLUNTARIO'),
@@ -310,7 +313,10 @@
                     new StringField('thumb_carta'),
                     new StringField('thumb_nr35'),
                     new StringField('thumb_tst'),
-                    new StringField('thumb_aso')
+                    new StringField('thumb_aso'),
+                    new StringField('Ds_SubSetor'),
+                    new StringField('CPF_VOLUNTARIO'),
+                    new DateTimeField('DT_ALTERACAO')
                 )
             );
             $lookupDataset->setOrderByField('NM_VOLUNTARIO', 'ASC');
@@ -357,14 +363,17 @@
                     new StringField('Id_CCB'),
                     new StringField('NM_COMUM_CCB'),
                     new StringField('DS_ENDERECO_VOLUNTARIO'),
-                    new StringField('NM_BAIRRO_CEP_CIDADE_VOLUNTARIO'),
-                    new StringField('CD_TEL_COM_VOLUNTARIO'),
-                    new StringField('CD_TEL_RES_VOLUNTARIO'),
-                    new StringField('CD_CELULAR'),
+                    new StringField('CEP_VOLUNTARIO'),
+                    new StringField('TEL1_VOLUNTARIO'),
+                    new StringField('TEL2_VOLUNTARIO'),
+                    new StringField('TEL3_VOLUNTARIO'),
                     new StringField('CD_SEXO'),
+                    new StringField('EST_CIVIL'),
                     new StringField('DS_DISPONIBILIDADE_VOLUNTARIO'),
                     new StringField('DS_EMAIL_VOLUNTARIO'),
-                    new StringField('DS_FUNCAO_NA_COMUM'),
+                    new IntegerField('ID_FUNCAO1'),
+                    new IntegerField('ID_FUNCAO2'),
+                    new IntegerField('ID_FUNCAO3'),
                     new StringField('DS_HABILIDADES'),
                     new StringField('DT_APRESENTACAO'),
                     new StringField('DT_BATISMO_VOLUNTARIO'),
@@ -395,7 +404,10 @@
                     new StringField('thumb_carta'),
                     new StringField('thumb_nr35'),
                     new StringField('thumb_tst'),
-                    new StringField('thumb_aso')
+                    new StringField('thumb_aso'),
+                    new StringField('Ds_SubSetor'),
+                    new StringField('CPF_VOLUNTARIO'),
+                    new DateTimeField('DT_ALTERACAO')
                 )
             );
             $lookupDataset->setOrderByField('NM_VOLUNTARIO', 'ASC');
@@ -574,14 +586,17 @@
                     new StringField('Id_CCB'),
                     new StringField('NM_COMUM_CCB'),
                     new StringField('DS_ENDERECO_VOLUNTARIO'),
-                    new StringField('NM_BAIRRO_CEP_CIDADE_VOLUNTARIO'),
-                    new StringField('CD_TEL_COM_VOLUNTARIO'),
-                    new StringField('CD_TEL_RES_VOLUNTARIO'),
-                    new StringField('CD_CELULAR'),
+                    new StringField('CEP_VOLUNTARIO'),
+                    new StringField('TEL1_VOLUNTARIO'),
+                    new StringField('TEL2_VOLUNTARIO'),
+                    new StringField('TEL3_VOLUNTARIO'),
                     new StringField('CD_SEXO'),
+                    new StringField('EST_CIVIL'),
                     new StringField('DS_DISPONIBILIDADE_VOLUNTARIO'),
                     new StringField('DS_EMAIL_VOLUNTARIO'),
-                    new StringField('DS_FUNCAO_NA_COMUM'),
+                    new IntegerField('ID_FUNCAO1'),
+                    new IntegerField('ID_FUNCAO2'),
+                    new IntegerField('ID_FUNCAO3'),
                     new StringField('DS_HABILIDADES'),
                     new StringField('DT_APRESENTACAO'),
                     new StringField('DT_BATISMO_VOLUNTARIO'),
@@ -612,7 +627,10 @@
                     new StringField('thumb_carta'),
                     new StringField('thumb_nr35'),
                     new StringField('thumb_tst'),
-                    new StringField('thumb_aso')
+                    new StringField('thumb_aso'),
+                    new StringField('Ds_SubSetor'),
+                    new StringField('CPF_VOLUNTARIO'),
+                    new DateTimeField('DT_ALTERACAO')
                 )
             );
             $lookupDataset->setOrderByField('NM_VOLUNTARIO', 'ASC');
@@ -632,14 +650,17 @@
                     new StringField('Id_CCB'),
                     new StringField('NM_COMUM_CCB'),
                     new StringField('DS_ENDERECO_VOLUNTARIO'),
-                    new StringField('NM_BAIRRO_CEP_CIDADE_VOLUNTARIO'),
-                    new StringField('CD_TEL_COM_VOLUNTARIO'),
-                    new StringField('CD_TEL_RES_VOLUNTARIO'),
-                    new StringField('CD_CELULAR'),
+                    new StringField('CEP_VOLUNTARIO'),
+                    new StringField('TEL1_VOLUNTARIO'),
+                    new StringField('TEL2_VOLUNTARIO'),
+                    new StringField('TEL3_VOLUNTARIO'),
                     new StringField('CD_SEXO'),
+                    new StringField('EST_CIVIL'),
                     new StringField('DS_DISPONIBILIDADE_VOLUNTARIO'),
                     new StringField('DS_EMAIL_VOLUNTARIO'),
-                    new StringField('DS_FUNCAO_NA_COMUM'),
+                    new IntegerField('ID_FUNCAO1'),
+                    new IntegerField('ID_FUNCAO2'),
+                    new IntegerField('ID_FUNCAO3'),
                     new StringField('DS_HABILIDADES'),
                     new StringField('DT_APRESENTACAO'),
                     new StringField('DT_BATISMO_VOLUNTARIO'),
@@ -670,7 +691,10 @@
                     new StringField('thumb_carta'),
                     new StringField('thumb_nr35'),
                     new StringField('thumb_tst'),
-                    new StringField('thumb_aso')
+                    new StringField('thumb_aso'),
+                    new StringField('Ds_SubSetor'),
+                    new StringField('CPF_VOLUNTARIO'),
+                    new DateTimeField('DT_ALTERACAO')
                 )
             );
             $lookupDataset->setOrderByField('NM_VOLUNTARIO', 'ASC');
@@ -690,14 +714,17 @@
                     new StringField('Id_CCB'),
                     new StringField('NM_COMUM_CCB'),
                     new StringField('DS_ENDERECO_VOLUNTARIO'),
-                    new StringField('NM_BAIRRO_CEP_CIDADE_VOLUNTARIO'),
-                    new StringField('CD_TEL_COM_VOLUNTARIO'),
-                    new StringField('CD_TEL_RES_VOLUNTARIO'),
-                    new StringField('CD_CELULAR'),
+                    new StringField('CEP_VOLUNTARIO'),
+                    new StringField('TEL1_VOLUNTARIO'),
+                    new StringField('TEL2_VOLUNTARIO'),
+                    new StringField('TEL3_VOLUNTARIO'),
                     new StringField('CD_SEXO'),
+                    new StringField('EST_CIVIL'),
                     new StringField('DS_DISPONIBILIDADE_VOLUNTARIO'),
                     new StringField('DS_EMAIL_VOLUNTARIO'),
-                    new StringField('DS_FUNCAO_NA_COMUM'),
+                    new IntegerField('ID_FUNCAO1'),
+                    new IntegerField('ID_FUNCAO2'),
+                    new IntegerField('ID_FUNCAO3'),
                     new StringField('DS_HABILIDADES'),
                     new StringField('DT_APRESENTACAO'),
                     new StringField('DT_BATISMO_VOLUNTARIO'),
@@ -728,7 +755,10 @@
                     new StringField('thumb_carta'),
                     new StringField('thumb_nr35'),
                     new StringField('thumb_tst'),
-                    new StringField('thumb_aso')
+                    new StringField('thumb_aso'),
+                    new StringField('Ds_SubSetor'),
+                    new StringField('CPF_VOLUNTARIO'),
+                    new DateTimeField('DT_ALTERACAO')
                 )
             );
             $lookupDataset->setOrderByField('NM_VOLUNTARIO', 'ASC');
@@ -886,8 +916,8 @@
     {
         protected function DoBeforeCreate()
         {
-            $this->SetTitle('Grupo CCB');
-            $this->SetMenuLabel('Grupo CCB');
+            $this->SetTitle('Grupo/Obra CCB');
+            $this->SetMenuLabel('Grupo/Obra CCB');
             $this->SetHeader(GetPagesHeader());
             $this->SetFooter(GetPagesFooter());
     
@@ -899,7 +929,11 @@
                 array(
                     new IntegerField('Id_grupo', true, true, true),
                     new StringField('Ds_grupo'),
-                    new StringField('Id_CCB')
+                    new StringField('Id_CCB'),
+                    new StringField('Tipo'),
+                    new StringField('Status'),
+                    new DateField('Dt_Inicio'),
+                    new DateField('Ft_Fim')
                 )
             );
             $this->dataset->AddLookupField('Id_CCB', 'cadcongregacoes', new StringField('Id_CCB'), new StringField('Ds_CCB', false, false, false, false, 'Id_CCB_Ds_CCB', 'Id_CCB_Ds_CCB_cadcongregacoes'), 'Id_CCB_Ds_CCB_cadcongregacoes');
@@ -933,9 +967,13 @@
         protected function getFiltersColumns()
         {
             return array(
-                new FilterColumn($this->dataset, 'Id_grupo', 'Id_grupo', 'Id Grupo'),
-                new FilterColumn($this->dataset, 'Ds_grupo', 'Ds_grupo', 'Ds Grupo'),
-                new FilterColumn($this->dataset, 'Id_CCB', 'Id_CCB_Ds_CCB', 'Id CCB')
+                new FilterColumn($this->dataset, 'Id_grupo', 'Id_grupo', 'Id Grupo/Obra'),
+                new FilterColumn($this->dataset, 'Ds_grupo', 'Ds_grupo', 'Ds Grupo/Obra'),
+                new FilterColumn($this->dataset, 'Id_CCB', 'Id_CCB_Ds_CCB', 'CCB'),
+                new FilterColumn($this->dataset, 'Tipo', 'Tipo', 'Tipo'),
+                new FilterColumn($this->dataset, 'Status', 'Status', 'Status/Andamento'),
+                new FilterColumn($this->dataset, 'Dt_Inicio', 'Dt_Inicio', 'Data Início'),
+                new FilterColumn($this->dataset, 'Ft_Fim', 'Ft_Fim', 'Data Fim')
             );
         }
     
@@ -944,13 +982,19 @@
             $quickFilter
                 ->addColumn($columns['Id_grupo'])
                 ->addColumn($columns['Ds_grupo'])
-                ->addColumn($columns['Id_CCB']);
+                ->addColumn($columns['Id_CCB'])
+                ->addColumn($columns['Tipo'])
+                ->addColumn($columns['Status'])
+                ->addColumn($columns['Dt_Inicio'])
+                ->addColumn($columns['Ft_Fim']);
         }
     
         protected function setupColumnFilter(ColumnFilter $columnFilter)
         {
             $columnFilter
-                ->setOptionsFor('Id_CCB');
+                ->setOptionsFor('Id_CCB')
+                ->setOptionsFor('Dt_Inicio')
+                ->setOptionsFor('Ft_Fim');
         }
     
         protected function setupFilterBuilder(FilterBuilder $filterBuilder, FixedKeysArray $columns)
@@ -1032,6 +1076,119 @@
                     FilterConditionOperator::IS_NOT_BLANK => null
                 )
             );
+            
+            $main_editor = new ComboBox('tipo_edit', $this->GetLocalizerCaptions()->GetMessageString('PleaseSelect'));
+            $main_editor->addChoice('REFORMA', 'REFORMA');
+            $main_editor->addChoice('CONSTRUÇÃO', 'CONSTRUÇÃO');
+            $main_editor->SetAllowNullValue(false);
+            
+            $multi_value_select_editor = new MultiValueSelect('Tipo');
+            $multi_value_select_editor->setChoices($main_editor->getChoices());
+            
+            $text_editor = new TextEdit('Tipo');
+            
+            $filterBuilder->addColumn(
+                $columns['Tipo'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $text_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $text_editor,
+                    FilterConditionOperator::BEGINS_WITH => $text_editor,
+                    FilterConditionOperator::ENDS_WITH => $text_editor,
+                    FilterConditionOperator::IS_LIKE => $text_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $text_editor,
+                    FilterConditionOperator::IN => $multi_value_select_editor,
+                    FilterConditionOperator::NOT_IN => $multi_value_select_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new ComboBox('status_edit', $this->GetLocalizerCaptions()->GetMessageString('PleaseSelect'));
+            $main_editor->addChoice('INICIADO', 'INICIADO');
+            $main_editor->addChoice('EM ANDAMENTO', 'EM ANDAMENTO');
+            $main_editor->addChoice('PENDENTE DOCUMENTAÇÃO', 'PENDENTE DOCUMENTAÇÃO');
+            $main_editor->addChoice('PARALIZADO', 'PARALIZADO');
+            $main_editor->addChoice('FINALIZADO', 'FINALIZADO');
+            $main_editor->SetAllowNullValue(false);
+            
+            $multi_value_select_editor = new MultiValueSelect('Status');
+            $multi_value_select_editor->setChoices($main_editor->getChoices());
+            
+            $text_editor = new TextEdit('Status');
+            
+            $filterBuilder->addColumn(
+                $columns['Status'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $text_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $text_editor,
+                    FilterConditionOperator::BEGINS_WITH => $text_editor,
+                    FilterConditionOperator::ENDS_WITH => $text_editor,
+                    FilterConditionOperator::IS_LIKE => $text_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $text_editor,
+                    FilterConditionOperator::IN => $multi_value_select_editor,
+                    FilterConditionOperator::NOT_IN => $multi_value_select_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new DateTimeEdit('dt_inicio_edit', false, 'Y-m-d');
+            
+            $filterBuilder->addColumn(
+                $columns['Dt_Inicio'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::DATE_EQUALS => $main_editor,
+                    FilterConditionOperator::DATE_DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::TODAY => null,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new DateTimeEdit('ft_fim_edit', false, 'Y-m-d');
+            
+            $filterBuilder->addColumn(
+                $columns['Ft_Fim'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::DATE_EQUALS => $main_editor,
+                    FilterConditionOperator::DATE_DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::TODAY => null,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
         }
     
         protected function AddOperationsColumns(Grid $grid)
@@ -1088,7 +1245,7 @@
             //
             // View column for Id_grupo field
             //
-            $column = new NumberViewColumn('Id_grupo', 'Id_grupo', 'Id Grupo', $this->dataset);
+            $column = new NumberViewColumn('Id_grupo', 'Id_grupo', 'Id Grupo/Obra', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
             $column->setThousandsSeparator(',');
@@ -1101,7 +1258,7 @@
             //
             // View column for Ds_grupo field
             //
-            $column = new TextViewColumn('Ds_grupo', 'Ds_grupo', 'Ds Grupo', $this->dataset);
+            $column = new TextViewColumn('Ds_grupo', 'Ds_grupo', 'Ds Grupo/Obra', $this->dataset);
             $column->SetOrderable(true);
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
@@ -1111,10 +1268,52 @@
             //
             // View column for Ds_CCB field
             //
-            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'Id CCB', $this->dataset);
+            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'CCB', $this->dataset);
             $column->SetOrderable(true);
             $column->SetMaxLength(75);
             $column->SetFullTextWindowHandlerName('grupoccb_Id_CCB_Ds_CCB_handler_list');
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for Tipo field
+            //
+            $column = new TextViewColumn('Tipo', 'Tipo', 'Tipo', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for Status field
+            //
+            $column = new TextViewColumn('Status', 'Status', 'Status/Andamento', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for Dt_Inicio field
+            //
+            $column = new DateTimeViewColumn('Dt_Inicio', 'Dt_Inicio', 'Data Início', $this->dataset);
+            $column->SetOrderable(true);
+            $column->SetDateTimeFormat('Y-m-d');
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for Ft_Fim field
+            //
+            $column = new DateTimeViewColumn('Ft_Fim', 'Ft_Fim', 'Data Fim', $this->dataset);
+            $column->SetOrderable(true);
+            $column->SetDateTimeFormat('Y-m-d');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
             $column->SetFixedWidth(null);
@@ -1126,7 +1325,7 @@
             //
             // View column for Id_grupo field
             //
-            $column = new NumberViewColumn('Id_grupo', 'Id_grupo', 'Id Grupo', $this->dataset);
+            $column = new NumberViewColumn('Id_grupo', 'Id_grupo', 'Id Grupo/Obra', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
             $column->setThousandsSeparator(',');
@@ -1136,17 +1335,47 @@
             //
             // View column for Ds_grupo field
             //
-            $column = new TextViewColumn('Ds_grupo', 'Ds_grupo', 'Ds Grupo', $this->dataset);
+            $column = new TextViewColumn('Ds_grupo', 'Ds_grupo', 'Ds Grupo/Obra', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddSingleRecordViewColumn($column);
             
             //
             // View column for Ds_CCB field
             //
-            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'Id CCB', $this->dataset);
+            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'CCB', $this->dataset);
             $column->SetOrderable(true);
             $column->SetMaxLength(75);
             $column->SetFullTextWindowHandlerName('grupoccb_Id_CCB_Ds_CCB_handler_view');
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Tipo field
+            //
+            $column = new TextViewColumn('Tipo', 'Tipo', 'Tipo', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Status field
+            //
+            $column = new TextViewColumn('Status', 'Status', 'Status/Andamento', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Dt_Inicio field
+            //
+            $column = new DateTimeViewColumn('Dt_Inicio', 'Dt_Inicio', 'Data Início', $this->dataset);
+            $column->SetOrderable(true);
+            $column->SetDateTimeFormat('Y-m-d');
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for Ft_Fim field
+            //
+            $column = new DateTimeViewColumn('Ft_Fim', 'Ft_Fim', 'Data Fim', $this->dataset);
+            $column->SetOrderable(true);
+            $column->SetDateTimeFormat('Y-m-d');
             $grid->AddSingleRecordViewColumn($column);
         }
     
@@ -1157,7 +1386,7 @@
             //
             $editor = new TextEdit('ds_grupo_edit');
             $editor->SetMaxLength(45);
-            $editColumn = new CustomEditColumn('Ds Grupo', 'Ds_grupo', $editor, $this->dataset);
+            $editColumn = new CustomEditColumn('Ds Grupo/Obra', 'Ds_grupo', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddEditColumn($editColumn);
@@ -1176,11 +1405,70 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
-            $editColumn = new DynamicLookupEditColumn('Id CCB', 'Id_CCB', 'Id_CCB_Ds_CCB', 'edit_grupoccb_Id_CCB_search', $editor, $this->dataset, $lookupDataset, 'Id_CCB', 'Ds_CCB', '');
+            $editColumn = new DynamicLookupEditColumn('CCB', 'Id_CCB', 'Id_CCB_Ds_CCB', 'edit_grupoccb_Id_CCB_search', $editor, $this->dataset, $lookupDataset, 'Id_CCB', 'Ds_CCB', '');
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Tipo field
+            //
+            $editor = new ComboBox('tipo_edit', $this->GetLocalizerCaptions()->GetMessageString('PleaseSelect'));
+            $editor->addChoice('REFORMA', 'REFORMA');
+            $editor->addChoice('CONSTRUÇÃO', 'CONSTRUÇÃO');
+            $editColumn = new CustomEditColumn('Tipo', 'Tipo', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Status field
+            //
+            $editor = new ComboBox('status_edit', $this->GetLocalizerCaptions()->GetMessageString('PleaseSelect'));
+            $editor->addChoice('INICIADO', 'INICIADO');
+            $editor->addChoice('EM ANDAMENTO', 'EM ANDAMENTO');
+            $editor->addChoice('PENDENTE DOCUMENTAÇÃO', 'PENDENTE DOCUMENTAÇÃO');
+            $editor->addChoice('PARALIZADO', 'PARALIZADO');
+            $editor->addChoice('FINALIZADO', 'FINALIZADO');
+            $editColumn = new CustomEditColumn('Status/Andamento', 'Status', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Dt_Inicio field
+            //
+            $editor = new DateTimeEdit('dt_inicio_edit', false, 'Y-m-d');
+            $editColumn = new CustomEditColumn('Data Início', 'Dt_Inicio', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Ft_Fim field
+            //
+            $editor = new DateTimeEdit('ft_fim_edit', false, 'Y-m-d');
+            $editColumn = new CustomEditColumn('Data Fim', 'Ft_Fim', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddEditColumn($editColumn);
@@ -1193,7 +1481,7 @@
             //
             $editor = new TextEdit('ds_grupo_edit');
             $editor->SetMaxLength(45);
-            $editColumn = new CustomEditColumn('Ds Grupo', 'Ds_grupo', $editor, $this->dataset);
+            $editColumn = new CustomEditColumn('Ds Grupo/Obra', 'Ds_grupo', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddMultiEditColumn($editColumn);
@@ -1212,11 +1500,70 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
-            $editColumn = new DynamicLookupEditColumn('Id CCB', 'Id_CCB', 'Id_CCB_Ds_CCB', 'multi_edit_grupoccb_Id_CCB_search', $editor, $this->dataset, $lookupDataset, 'Id_CCB', 'Ds_CCB', '');
+            $editColumn = new DynamicLookupEditColumn('CCB', 'Id_CCB', 'Id_CCB_Ds_CCB', 'multi_edit_grupoccb_Id_CCB_search', $editor, $this->dataset, $lookupDataset, 'Id_CCB', 'Ds_CCB', '');
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Tipo field
+            //
+            $editor = new ComboBox('tipo_edit', $this->GetLocalizerCaptions()->GetMessageString('PleaseSelect'));
+            $editor->addChoice('REFORMA', 'REFORMA');
+            $editor->addChoice('CONSTRUÇÃO', 'CONSTRUÇÃO');
+            $editColumn = new CustomEditColumn('Tipo', 'Tipo', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Status field
+            //
+            $editor = new ComboBox('status_edit', $this->GetLocalizerCaptions()->GetMessageString('PleaseSelect'));
+            $editor->addChoice('INICIADO', 'INICIADO');
+            $editor->addChoice('EM ANDAMENTO', 'EM ANDAMENTO');
+            $editor->addChoice('PENDENTE DOCUMENTAÇÃO', 'PENDENTE DOCUMENTAÇÃO');
+            $editor->addChoice('PARALIZADO', 'PARALIZADO');
+            $editor->addChoice('FINALIZADO', 'FINALIZADO');
+            $editColumn = new CustomEditColumn('Status/Andamento', 'Status', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Dt_Inicio field
+            //
+            $editor = new DateTimeEdit('dt_inicio_edit', false, 'Y-m-d');
+            $editColumn = new CustomEditColumn('Data Início', 'Dt_Inicio', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Ft_Fim field
+            //
+            $editor = new DateTimeEdit('ft_fim_edit', false, 'Y-m-d');
+            $editColumn = new CustomEditColumn('Data Fim', 'Ft_Fim', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddMultiEditColumn($editColumn);
@@ -1229,7 +1576,7 @@
             //
             $editor = new TextEdit('ds_grupo_edit');
             $editor->SetMaxLength(45);
-            $editColumn = new CustomEditColumn('Ds Grupo', 'Ds_grupo', $editor, $this->dataset);
+            $editColumn = new CustomEditColumn('Ds Grupo/Obra', 'Ds_grupo', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddInsertColumn($editColumn);
@@ -1248,11 +1595,70 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
-            $editColumn = new DynamicLookupEditColumn('Id CCB', 'Id_CCB', 'Id_CCB_Ds_CCB', 'insert_grupoccb_Id_CCB_search', $editor, $this->dataset, $lookupDataset, 'Id_CCB', 'Ds_CCB', '');
+            $editColumn = new DynamicLookupEditColumn('CCB', 'Id_CCB', 'Id_CCB_Ds_CCB', 'insert_grupoccb_Id_CCB_search', $editor, $this->dataset, $lookupDataset, 'Id_CCB', 'Ds_CCB', '');
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Tipo field
+            //
+            $editor = new ComboBox('tipo_edit', $this->GetLocalizerCaptions()->GetMessageString('PleaseSelect'));
+            $editor->addChoice('REFORMA', 'REFORMA');
+            $editor->addChoice('CONSTRUÇÃO', 'CONSTRUÇÃO');
+            $editColumn = new CustomEditColumn('Tipo', 'Tipo', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Status field
+            //
+            $editor = new ComboBox('status_edit', $this->GetLocalizerCaptions()->GetMessageString('PleaseSelect'));
+            $editor->addChoice('INICIADO', 'INICIADO');
+            $editor->addChoice('EM ANDAMENTO', 'EM ANDAMENTO');
+            $editor->addChoice('PENDENTE DOCUMENTAÇÃO', 'PENDENTE DOCUMENTAÇÃO');
+            $editor->addChoice('PARALIZADO', 'PARALIZADO');
+            $editor->addChoice('FINALIZADO', 'FINALIZADO');
+            $editColumn = new CustomEditColumn('Status/Andamento', 'Status', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Dt_Inicio field
+            //
+            $editor = new DateTimeEdit('dt_inicio_edit', false, 'Y-m-d');
+            $editColumn = new CustomEditColumn('Data Início', 'Dt_Inicio', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Ft_Fim field
+            //
+            $editor = new DateTimeEdit('ft_fim_edit', false, 'Y-m-d');
+            $editColumn = new CustomEditColumn('Data Fim', 'Ft_Fim', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddInsertColumn($editColumn);
@@ -1269,7 +1675,7 @@
             //
             // View column for Id_grupo field
             //
-            $column = new NumberViewColumn('Id_grupo', 'Id_grupo', 'Id Grupo', $this->dataset);
+            $column = new NumberViewColumn('Id_grupo', 'Id_grupo', 'Id Grupo/Obra', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
             $column->setThousandsSeparator(',');
@@ -1279,17 +1685,47 @@
             //
             // View column for Ds_grupo field
             //
-            $column = new TextViewColumn('Ds_grupo', 'Ds_grupo', 'Ds Grupo', $this->dataset);
+            $column = new TextViewColumn('Ds_grupo', 'Ds_grupo', 'Ds Grupo/Obra', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddPrintColumn($column);
             
             //
             // View column for Ds_CCB field
             //
-            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'Id CCB', $this->dataset);
+            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'CCB', $this->dataset);
             $column->SetOrderable(true);
             $column->SetMaxLength(75);
             $column->SetFullTextWindowHandlerName('grupoccb_Id_CCB_Ds_CCB_handler_print');
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Tipo field
+            //
+            $column = new TextViewColumn('Tipo', 'Tipo', 'Tipo', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Status field
+            //
+            $column = new TextViewColumn('Status', 'Status', 'Status/Andamento', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Dt_Inicio field
+            //
+            $column = new DateTimeViewColumn('Dt_Inicio', 'Dt_Inicio', 'Data Início', $this->dataset);
+            $column->SetOrderable(true);
+            $column->SetDateTimeFormat('Y-m-d');
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for Ft_Fim field
+            //
+            $column = new DateTimeViewColumn('Ft_Fim', 'Ft_Fim', 'Data Fim', $this->dataset);
+            $column->SetOrderable(true);
+            $column->SetDateTimeFormat('Y-m-d');
             $grid->AddPrintColumn($column);
         }
     
@@ -1298,7 +1734,7 @@
             //
             // View column for Id_grupo field
             //
-            $column = new NumberViewColumn('Id_grupo', 'Id_grupo', 'Id Grupo', $this->dataset);
+            $column = new NumberViewColumn('Id_grupo', 'Id_grupo', 'Id Grupo/Obra', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
             $column->setThousandsSeparator(',');
@@ -1308,17 +1744,47 @@
             //
             // View column for Ds_grupo field
             //
-            $column = new TextViewColumn('Ds_grupo', 'Ds_grupo', 'Ds Grupo', $this->dataset);
+            $column = new TextViewColumn('Ds_grupo', 'Ds_grupo', 'Ds Grupo/Obra', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddExportColumn($column);
             
             //
             // View column for Ds_CCB field
             //
-            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'Id CCB', $this->dataset);
+            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'CCB', $this->dataset);
             $column->SetOrderable(true);
             $column->SetMaxLength(75);
             $column->SetFullTextWindowHandlerName('grupoccb_Id_CCB_Ds_CCB_handler_export');
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for Tipo field
+            //
+            $column = new TextViewColumn('Tipo', 'Tipo', 'Tipo', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for Status field
+            //
+            $column = new TextViewColumn('Status', 'Status', 'Status/Andamento', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for Dt_Inicio field
+            //
+            $column = new DateTimeViewColumn('Dt_Inicio', 'Dt_Inicio', 'Data Início', $this->dataset);
+            $column->SetOrderable(true);
+            $column->SetDateTimeFormat('Y-m-d');
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for Ft_Fim field
+            //
+            $column = new DateTimeViewColumn('Ft_Fim', 'Ft_Fim', 'Data Fim', $this->dataset);
+            $column->SetOrderable(true);
+            $column->SetDateTimeFormat('Y-m-d');
             $grid->AddExportColumn($column);
         }
     
@@ -1327,17 +1793,47 @@
             //
             // View column for Ds_grupo field
             //
-            $column = new TextViewColumn('Ds_grupo', 'Ds_grupo', 'Ds Grupo', $this->dataset);
+            $column = new TextViewColumn('Ds_grupo', 'Ds_grupo', 'Ds Grupo/Obra', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddCompareColumn($column);
             
             //
             // View column for Ds_CCB field
             //
-            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'Id CCB', $this->dataset);
+            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'CCB', $this->dataset);
             $column->SetOrderable(true);
             $column->SetMaxLength(75);
             $column->SetFullTextWindowHandlerName('grupoccb_Id_CCB_Ds_CCB_handler_compare');
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Tipo field
+            //
+            $column = new TextViewColumn('Tipo', 'Tipo', 'Tipo', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Status field
+            //
+            $column = new TextViewColumn('Status', 'Status', 'Status/Andamento', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Dt_Inicio field
+            //
+            $column = new DateTimeViewColumn('Dt_Inicio', 'Dt_Inicio', 'Data Início', $this->dataset);
+            $column->SetOrderable(true);
+            $column->SetDateTimeFormat('Y-m-d');
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for Ft_Fim field
+            //
+            $column = new DateTimeViewColumn('Ft_Fim', 'Ft_Fim', 'Data Fim', $this->dataset);
+            $column->SetOrderable(true);
+            $column->SetDateTimeFormat('Y-m-d');
             $grid->AddCompareColumn($column);
         }
     
@@ -1461,7 +1957,7 @@
             //
             // View column for Ds_CCB field
             //
-            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'Id CCB', $this->dataset);
+            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'CCB', $this->dataset);
             $column->SetOrderable(true);
             $handler = new ShowTextBlobHandler($this->dataset, $this, 'grupoccb_Id_CCB_Ds_CCB_handler_list', $column);
             GetApplication()->RegisterHTTPHandler($handler);
@@ -1469,7 +1965,7 @@
             //
             // View column for Ds_CCB field
             //
-            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'Id CCB', $this->dataset);
+            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'CCB', $this->dataset);
             $column->SetOrderable(true);
             $handler = new ShowTextBlobHandler($this->dataset, $this, 'grupoccb_Id_CCB_Ds_CCB_handler_print', $column);
             GetApplication()->RegisterHTTPHandler($handler);
@@ -1477,7 +1973,7 @@
             //
             // View column for Ds_CCB field
             //
-            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'Id CCB', $this->dataset);
+            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'CCB', $this->dataset);
             $column->SetOrderable(true);
             $handler = new ShowTextBlobHandler($this->dataset, $this, 'grupoccb_Id_CCB_Ds_CCB_handler_compare', $column);
             GetApplication()->RegisterHTTPHandler($handler);
@@ -1490,7 +1986,23 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
@@ -1505,7 +2017,23 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
@@ -1515,7 +2043,7 @@
             //
             // View column for Ds_CCB field
             //
-            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'Id CCB', $this->dataset);
+            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'CCB', $this->dataset);
             $column->SetOrderable(true);
             $handler = new ShowTextBlobHandler($this->dataset, $this, 'grupoccb_Id_CCB_Ds_CCB_handler_view', $column);
             GetApplication()->RegisterHTTPHandler($handler);
@@ -1528,7 +2056,23 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
@@ -1543,7 +2087,23 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');

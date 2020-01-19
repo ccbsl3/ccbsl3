@@ -530,7 +530,23 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
@@ -573,7 +589,8 @@
             $lookupDataset->addFields(
                 array(
                     new IntegerField('Id_Funcao', true, true, true),
-                    new StringField('Ds_Funcao')
+                    new StringField('Ds_Funcao'),
+                    new IntegerField('id_tipofuncao')
                 )
             );
             $lookupDataset->setOrderByField('Ds_Funcao', 'ASC');
@@ -639,7 +656,23 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
@@ -682,7 +715,8 @@
             $lookupDataset->addFields(
                 array(
                     new IntegerField('Id_Funcao', true, true, true),
-                    new StringField('Ds_Funcao')
+                    new StringField('Ds_Funcao'),
+                    new IntegerField('id_tipofuncao')
                 )
             );
             $lookupDataset->setOrderByField('Ds_Funcao', 'ASC');
@@ -748,7 +782,23 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
@@ -791,7 +841,8 @@
             $lookupDataset->addFields(
                 array(
                     new IntegerField('Id_Funcao', true, true, true),
-                    new StringField('Ds_Funcao')
+                    new StringField('Ds_Funcao'),
+                    new IntegerField('id_tipofuncao')
                 )
             );
             $lookupDataset->setOrderByField('Ds_Funcao', 'ASC');
@@ -1209,7 +1260,23 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
@@ -1223,7 +1290,8 @@
             $lookupDataset->addFields(
                 array(
                     new IntegerField('Id_Funcao', true, true, true),
-                    new StringField('Ds_Funcao')
+                    new StringField('Ds_Funcao'),
+                    new IntegerField('id_tipofuncao')
                 )
             );
             $lookupDataset->setOrderByField('Ds_Funcao', 'ASC');
@@ -1259,7 +1327,23 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
@@ -1274,7 +1358,23 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
@@ -1288,7 +1388,8 @@
             $lookupDataset->addFields(
                 array(
                     new IntegerField('Id_Funcao', true, true, true),
-                    new StringField('Ds_Funcao')
+                    new StringField('Ds_Funcao'),
+                    new IntegerField('id_tipofuncao')
                 )
             );
             $lookupDataset->setOrderByField('Ds_Funcao', 'ASC');
@@ -1356,7 +1457,23 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
@@ -1370,7 +1487,8 @@
             $lookupDataset->addFields(
                 array(
                     new IntegerField('Id_Funcao', true, true, true),
-                    new StringField('Ds_Funcao')
+                    new StringField('Ds_Funcao'),
+                    new IntegerField('id_tipofuncao')
                 )
             );
             $lookupDataset->setOrderByField('Ds_Funcao', 'ASC');
@@ -1406,7 +1524,23 @@
                 array(
                     new StringField('Id_CCB', true, true),
                     new StringField('Ds_CCB'),
-                    new StringField('Ds_SubSetor')
+                    new StringField('Ds_SubSetor'),
+                    new StringField('Ds_Endereco_CCB'),
+                    new StringField('Cep_CCB'),
+                    new StringField('tel_CCB'),
+                    new StringField('Dia_Culto_1'),
+                    new StringField('Hora_Culto_1'),
+                    new StringField('Dia_Culto_2'),
+                    new StringField('Hora_Culto_2'),
+                    new StringField('Dia_Culto_3'),
+                    new StringField('Hora_Culto_3'),
+                    new StringField('Dia_Culto_4'),
+                    new StringField('Hora_Culto_4'),
+                    new StringField('Dia_RJM'),
+                    new StringField('Hora_RJM'),
+                    new StringField('Dia_Ensaio'),
+                    new StringField('Hora_Ensaio'),
+                    new StringField('Semana_ensaio')
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
@@ -1420,7 +1554,8 @@
             $lookupDataset->addFields(
                 array(
                     new IntegerField('Id_Funcao', true, true, true),
-                    new StringField('Ds_Funcao')
+                    new StringField('Ds_Funcao'),
+                    new IntegerField('id_tipofuncao')
                 )
             );
             $lookupDataset->setOrderByField('Ds_Funcao', 'ASC');

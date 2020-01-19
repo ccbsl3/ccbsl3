@@ -26,6 +26,101 @@
 
     
     
+    class funcoes_id_tipofuncaoNestedPage extends NestedFormPage
+    {
+        protected function DoBeforeCreate()
+        {
+            $this->dataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`tipofuncao`');
+            $this->dataset->addFields(
+                array(
+                    new IntegerField('id_tipofuncao', true, true, true),
+                    new StringField('tp_funcao')
+                )
+            );
+        }
+    
+        protected function DoPrepare() {
+    
+        }
+    
+        protected function AddInsertColumns(Grid $grid)
+        {
+            //
+            // Edit column for tp_funcao field
+            //
+            $editor = new TextEdit('tp_funcao_edit');
+            $editor->SetMaxLength(45);
+            $editColumn = new CustomEditColumn('Tp Funcao', 'tp_funcao', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+        }
+    
+        function GetCustomClientScript()
+        {
+            return ;
+        }
+        
+        function GetOnPageLoadedClientScript()
+        {
+            return ;
+        }
+    
+        protected function setClientSideEvents(Grid $grid) {
+    
+        }
+    
+        protected function ApplyCommonColumnEditProperties(CustomEditColumn $column)
+        {
+            $column->SetDisplaySetToNullCheckBox(false);
+            $column->SetDisplaySetToDefaultCheckBox(false);
+            $column->SetVariableContainer($this->GetColumnVariableContainer());
+        }
+    
+       static public function getNestedInsertHandlerName()
+        {
+            return get_class() . '_form_insert';
+        }
+    
+        public function GetGridInsertHandler()
+        {
+            return self::getNestedInsertHandlerName();
+        }
+    
+        protected function doGetCustomTemplate($type, $part, $mode, &$result, &$params)
+        {
+    
+        }
+    
+        protected function doGetCustomFormLayout($mode, FixedKeysArray $columns, FormLayout $layout)
+        {
+    
+        }
+    
+        protected function doFileUpload($fieldName, $rowData, &$result, &$accept, $originalFileName, $originalFileExtension, $fileSize, $tempFileName)
+        {
+    
+        }
+    
+        public function doCustomDefaultValues(&$values, &$handled) 
+        {
+    
+        }
+    
+        protected function doBeforeInsertRecord($page, &$rowData, $tableName, &$cancel, &$message, &$messageDisplayTime)
+        {
+    
+        }
+    
+        protected function doAfterInsertRecord($page, $rowData, $tableName, &$success, &$message, &$messageDisplayTime)
+        {
+    
+        }
+    
+    }
     
     // OnBeforePageExecute event handler
     
@@ -47,9 +142,11 @@
             $this->dataset->addFields(
                 array(
                     new IntegerField('Id_Funcao', true, true, true),
-                    new StringField('Ds_Funcao')
+                    new StringField('Ds_Funcao'),
+                    new IntegerField('id_tipofuncao')
                 )
             );
+            $this->dataset->AddLookupField('id_tipofuncao', 'tipofuncao', new IntegerField('id_tipofuncao'), new StringField('tp_funcao', false, false, false, false, 'id_tipofuncao_tp_funcao', 'id_tipofuncao_tp_funcao_tipofuncao'), 'id_tipofuncao_tp_funcao_tipofuncao');
         }
     
         protected function DoPrepare() {
@@ -81,7 +178,8 @@
         {
             return array(
                 new FilterColumn($this->dataset, 'Id_Funcao', 'Id_Funcao', 'Id Funcao'),
-                new FilterColumn($this->dataset, 'Ds_Funcao', 'Ds_Funcao', 'Ds Funcao')
+                new FilterColumn($this->dataset, 'Ds_Funcao', 'Ds_Funcao', 'Ds Funcao'),
+                new FilterColumn($this->dataset, 'id_tipofuncao', 'id_tipofuncao_tp_funcao', 'Tipo Função')
             );
         }
     
@@ -89,12 +187,14 @@
         {
             $quickFilter
                 ->addColumn($columns['Id_Funcao'])
-                ->addColumn($columns['Ds_Funcao']);
+                ->addColumn($columns['Ds_Funcao'])
+                ->addColumn($columns['id_tipofuncao']);
         }
     
         protected function setupColumnFilter(ColumnFilter $columnFilter)
         {
-    
+            $columnFilter
+                ->setOptionsFor('id_tipofuncao');
         }
     
         protected function setupFilterBuilder(FilterBuilder $filterBuilder, FixedKeysArray $columns)
@@ -137,6 +237,33 @@
                     FilterConditionOperator::ENDS_WITH => $main_editor,
                     FilterConditionOperator::IS_LIKE => $main_editor,
                     FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new DynamicCombobox('id_tipofuncao_edit', $this->CreateLinkBuilder());
+            $main_editor->setAllowClear(true);
+            $main_editor->setMinimumInputLength(0);
+            $main_editor->SetAllowNullValue(false);
+            $main_editor->SetHandlerName('filter_builder_funcoes_id_tipofuncao_search');
+            
+            $multi_value_select_editor = new RemoteMultiValueSelect('id_tipofuncao', $this->CreateLinkBuilder());
+            $multi_value_select_editor->SetHandlerName('filter_builder_funcoes_id_tipofuncao_search');
+            
+            $filterBuilder->addColumn(
+                $columns['id_tipofuncao'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::IN => $multi_value_select_editor,
+                    FilterConditionOperator::NOT_IN => $multi_value_select_editor,
                     FilterConditionOperator::IS_BLANK => null,
                     FilterConditionOperator::IS_NOT_BLANK => null
                 )
@@ -206,6 +333,16 @@
             $column->SetDescription('');
             $column->SetFixedWidth(null);
             $grid->AddViewColumn($column);
+            
+            //
+            // View column for tp_funcao field
+            //
+            $column = new TextViewColumn('id_tipofuncao', 'id_tipofuncao_tp_funcao', 'Tipo Função', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
         }
     
         protected function AddSingleRecordViewColumns(Grid $grid)
@@ -224,6 +361,13 @@
             // View column for Ds_Funcao field
             //
             $column = new TextViewColumn('Ds_Funcao', 'Ds_Funcao', 'Ds Funcao', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for tp_funcao field
+            //
+            $column = new TextViewColumn('id_tipofuncao', 'id_tipofuncao_tp_funcao', 'Tipo Função', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddSingleRecordViewColumn($column);
         }
@@ -249,6 +393,31 @@
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for id_tipofuncao field
+            //
+            $editor = new DynamicCombobox('id_tipofuncao_edit', $this->CreateLinkBuilder());
+            $editor->setAllowClear(true);
+            $editor->setMinimumInputLength(0);
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`tipofuncao`');
+            $lookupDataset->addFields(
+                array(
+                    new IntegerField('id_tipofuncao', true, true, true),
+                    new StringField('tp_funcao')
+                )
+            );
+            $lookupDataset->setOrderByField('tp_funcao', 'ASC');
+            $editColumn = new DynamicLookupEditColumn('Tipo Função', 'id_tipofuncao', 'id_tipofuncao_tp_funcao', 'edit_funcoes_id_tipofuncao_search', $editor, $this->dataset, $lookupDataset, 'id_tipofuncao', 'tp_funcao', '');
+            $editColumn->setNestedInsertFormLink(
+                $this->GetHandlerLink(funcoes_id_tipofuncaoNestedPage::getNestedInsertHandlerName())
+            );
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
         }
     
         protected function AddMultiEditColumns(Grid $grid)
@@ -259,6 +428,31 @@
             $editor = new TextEdit('ds_funcao_edit');
             $editor->SetMaxLength(45);
             $editColumn = new CustomEditColumn('Ds Funcao', 'Ds_Funcao', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for id_tipofuncao field
+            //
+            $editor = new DynamicCombobox('id_tipofuncao_edit', $this->CreateLinkBuilder());
+            $editor->setAllowClear(true);
+            $editor->setMinimumInputLength(0);
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`tipofuncao`');
+            $lookupDataset->addFields(
+                array(
+                    new IntegerField('id_tipofuncao', true, true, true),
+                    new StringField('tp_funcao')
+                )
+            );
+            $lookupDataset->setOrderByField('tp_funcao', 'ASC');
+            $editColumn = new DynamicLookupEditColumn('Tipo Função', 'id_tipofuncao', 'id_tipofuncao_tp_funcao', 'multi_edit_funcoes_id_tipofuncao_search', $editor, $this->dataset, $lookupDataset, 'id_tipofuncao', 'tp_funcao', '');
+            $editColumn->setNestedInsertFormLink(
+                $this->GetHandlerLink(funcoes_id_tipofuncaoNestedPage::getNestedInsertHandlerName())
+            );
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddMultiEditColumn($editColumn);
@@ -282,6 +476,31 @@
             $editor = new TextEdit('ds_funcao_edit');
             $editor->SetMaxLength(45);
             $editColumn = new CustomEditColumn('Ds Funcao', 'Ds_Funcao', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for id_tipofuncao field
+            //
+            $editor = new DynamicCombobox('id_tipofuncao_edit', $this->CreateLinkBuilder());
+            $editor->setAllowClear(true);
+            $editor->setMinimumInputLength(0);
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`tipofuncao`');
+            $lookupDataset->addFields(
+                array(
+                    new IntegerField('id_tipofuncao', true, true, true),
+                    new StringField('tp_funcao')
+                )
+            );
+            $lookupDataset->setOrderByField('tp_funcao', 'ASC');
+            $editColumn = new DynamicLookupEditColumn('Tipo Função', 'id_tipofuncao', 'id_tipofuncao_tp_funcao', 'insert_funcoes_id_tipofuncao_search', $editor, $this->dataset, $lookupDataset, 'id_tipofuncao', 'tp_funcao', '');
+            $editColumn->setNestedInsertFormLink(
+                $this->GetHandlerLink(funcoes_id_tipofuncaoNestedPage::getNestedInsertHandlerName())
+            );
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddInsertColumn($editColumn);
@@ -311,6 +530,13 @@
             $column = new TextViewColumn('Ds_Funcao', 'Ds_Funcao', 'Ds Funcao', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddPrintColumn($column);
+            
+            //
+            // View column for tp_funcao field
+            //
+            $column = new TextViewColumn('id_tipofuncao', 'id_tipofuncao_tp_funcao', 'Tipo Função', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
         }
     
         protected function AddExportColumns(Grid $grid)
@@ -331,6 +557,13 @@
             $column = new TextViewColumn('Ds_Funcao', 'Ds_Funcao', 'Ds Funcao', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddExportColumn($column);
+            
+            //
+            // View column for tp_funcao field
+            //
+            $column = new TextViewColumn('id_tipofuncao', 'id_tipofuncao_tp_funcao', 'Tipo Função', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
         }
     
         private function AddCompareColumns(Grid $grid)
@@ -349,6 +582,13 @@
             // View column for Ds_Funcao field
             //
             $column = new TextViewColumn('Ds_Funcao', 'Ds_Funcao', 'Ds Funcao', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for tp_funcao field
+            //
+            $column = new TextViewColumn('id_tipofuncao', 'id_tipofuncao_tp_funcao', 'Tipo Função', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddCompareColumn($column);
         }
@@ -442,8 +682,65 @@
         }
     
         protected function doRegisterHandlers() {
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`tipofuncao`');
+            $lookupDataset->addFields(
+                array(
+                    new IntegerField('id_tipofuncao', true, true, true),
+                    new StringField('tp_funcao')
+                )
+            );
+            $lookupDataset->setOrderByField('tp_funcao', 'ASC');
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'insert_funcoes_id_tipofuncao_search', 'id_tipofuncao', 'tp_funcao', null, 20);
+            GetApplication()->RegisterHTTPHandler($handler);
+            
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`tipofuncao`');
+            $lookupDataset->addFields(
+                array(
+                    new IntegerField('id_tipofuncao', true, true, true),
+                    new StringField('tp_funcao')
+                )
+            );
+            $lookupDataset->setOrderByField('tp_funcao', 'ASC');
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'filter_builder_funcoes_id_tipofuncao_search', 'id_tipofuncao', 'tp_funcao', null, 20);
+            GetApplication()->RegisterHTTPHandler($handler);
+            
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`tipofuncao`');
+            $lookupDataset->addFields(
+                array(
+                    new IntegerField('id_tipofuncao', true, true, true),
+                    new StringField('tp_funcao')
+                )
+            );
+            $lookupDataset->setOrderByField('tp_funcao', 'ASC');
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'edit_funcoes_id_tipofuncao_search', 'id_tipofuncao', 'tp_funcao', null, 20);
+            GetApplication()->RegisterHTTPHandler($handler);
+            
+            $lookupDataset = new TableDataset(
+                MySqlIConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`tipofuncao`');
+            $lookupDataset->addFields(
+                array(
+                    new IntegerField('id_tipofuncao', true, true, true),
+                    new StringField('tp_funcao')
+                )
+            );
+            $lookupDataset->setOrderByField('tp_funcao', 'ASC');
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'multi_edit_funcoes_id_tipofuncao_search', 'id_tipofuncao', 'tp_funcao', null, 20);
+            GetApplication()->RegisterHTTPHandler($handler);
             
             
+            
+            new funcoes_id_tipofuncaoNestedPage($this, GetCurrentUserPermissionSetForDataSource('funcoes.id_tipofuncao'));
         }
        
         protected function doCustomRenderColumn($fieldName, $fieldData, $rowData, &$customText, &$handled)
