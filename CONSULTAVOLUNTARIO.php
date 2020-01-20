@@ -68,7 +68,7 @@
             thumb_voluntario = :thumb_voluntario,
             dt_alteracao = now()
             where id_aux = :old_id_aux');
-            $deleteQuery = array();
+            $deleteQuery = array('DELETE FROM cadvoluntarios WHERE id_aux = :old_id_aux');
             $this->dataset = new QueryDataset(
               MySqlIConnectionFactory::getInstance(), 
               GetConnectionOptions(),

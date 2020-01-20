@@ -47,15 +47,16 @@
             $this->dataset->addFields(
                 array(
                     new IntegerField('id_Evento', true, true),
-                    new IntegerField('id_CCB'),
+                    new StringField('Id_CCB'),
                     new StringField('Ds_Evento'),
                     new DateTimeField('Dt_Evento'),
                     new TimeField('Hr_Inicio'),
                     new TimeField('Hr_Termino'),
-                    new StringField('Ds_AtaEvento')
+                    new StringField('Ds_AtaEvento'),
+                    new StringField('anexo_evento')
                 )
             );
-            $this->dataset->AddLookupField('id_CCB', 'cadcongregacoes', new StringField('Id_CCB'), new StringField('Ds_CCB', false, false, false, false, 'id_CCB_Ds_CCB', 'id_CCB_Ds_CCB_cadcongregacoes'), 'id_CCB_Ds_CCB_cadcongregacoes');
+            $this->dataset->AddLookupField('Id_CCB', 'cadcongregacoes', new StringField('Id_CCB'), new StringField('Ds_CCB', false, false, false, false, 'Id_CCB_Ds_CCB', 'Id_CCB_Ds_CCB_cadcongregacoes'), 'Id_CCB_Ds_CCB_cadcongregacoes');
         }
     
         protected function DoPrepare() {
@@ -87,12 +88,13 @@
         {
             return array(
                 new FilterColumn($this->dataset, 'id_Evento', 'id_Evento', 'Id Evento'),
-                new FilterColumn($this->dataset, 'id_CCB', 'id_CCB_Ds_CCB', 'Id CCB'),
-                new FilterColumn($this->dataset, 'Ds_Evento', 'Ds_Evento', 'Ds Evento'),
-                new FilterColumn($this->dataset, 'Dt_Evento', 'Dt_Evento', 'Dt Evento'),
-                new FilterColumn($this->dataset, 'Hr_Inicio', 'Hr_Inicio', 'Hr Inicio'),
-                new FilterColumn($this->dataset, 'Hr_Termino', 'Hr_Termino', 'Hr Termino'),
-                new FilterColumn($this->dataset, 'Ds_AtaEvento', 'Ds_AtaEvento', 'Ds Ata Evento')
+                new FilterColumn($this->dataset, 'Ds_Evento', 'Ds_Evento', 'Descrição'),
+                new FilterColumn($this->dataset, 'Id_CCB', 'Id_CCB_Ds_CCB', 'CCB'),
+                new FilterColumn($this->dataset, 'Dt_Evento', 'Dt_Evento', 'Data Evento'),
+                new FilterColumn($this->dataset, 'Hr_Inicio', 'Hr_Inicio', 'Hora Início'),
+                new FilterColumn($this->dataset, 'Hr_Termino', 'Hr_Termino', 'Hora Fim'),
+                new FilterColumn($this->dataset, 'Ds_AtaEvento', 'Ds_AtaEvento', 'Ds Ata Evento'),
+                new FilterColumn($this->dataset, 'anexo_evento', 'anexo_evento', 'ATA')
             );
         }
     
@@ -100,18 +102,19 @@
         {
             $quickFilter
                 ->addColumn($columns['id_Evento'])
-                ->addColumn($columns['id_CCB'])
                 ->addColumn($columns['Ds_Evento'])
+                ->addColumn($columns['Id_CCB'])
                 ->addColumn($columns['Dt_Evento'])
                 ->addColumn($columns['Hr_Inicio'])
                 ->addColumn($columns['Hr_Termino'])
-                ->addColumn($columns['Ds_AtaEvento']);
+                ->addColumn($columns['Ds_AtaEvento'])
+                ->addColumn($columns['anexo_evento']);
         }
     
         protected function setupColumnFilter(ColumnFilter $columnFilter)
         {
             $columnFilter
-                ->setOptionsFor('id_CCB')
+                ->setOptionsFor('Id_CCB')
                 ->setOptionsFor('Dt_Evento')
                 ->setOptionsFor('Hr_Inicio')
                 ->setOptionsFor('Hr_Termino');
@@ -132,33 +135,6 @@
                     FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
                     FilterConditionOperator::IS_BETWEEN => $main_editor,
                     FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
-                    FilterConditionOperator::IS_BLANK => null,
-                    FilterConditionOperator::IS_NOT_BLANK => null
-                )
-            );
-            
-            $main_editor = new DynamicCombobox('id_ccb_edit', $this->CreateLinkBuilder());
-            $main_editor->setAllowClear(true);
-            $main_editor->setMinimumInputLength(0);
-            $main_editor->SetAllowNullValue(false);
-            $main_editor->SetHandlerName('filter_builder_eventos_id_CCB_search');
-            
-            $multi_value_select_editor = new RemoteMultiValueSelect('id_CCB', $this->CreateLinkBuilder());
-            $multi_value_select_editor->SetHandlerName('filter_builder_eventos_id_CCB_search');
-            
-            $filterBuilder->addColumn(
-                $columns['id_CCB'],
-                array(
-                    FilterConditionOperator::EQUALS => $main_editor,
-                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
-                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
-                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
-                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
-                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
-                    FilterConditionOperator::IS_BETWEEN => $main_editor,
-                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
-                    FilterConditionOperator::IN => $multi_value_select_editor,
-                    FilterConditionOperator::NOT_IN => $multi_value_select_editor,
                     FilterConditionOperator::IS_BLANK => null,
                     FilterConditionOperator::IS_NOT_BLANK => null
                 )
@@ -189,7 +165,42 @@
                 )
             );
             
-            $main_editor = new DateTimeEdit('dt_evento_edit', false, 'Y-m-d H:i:s');
+            $main_editor = new DynamicCombobox('id_ccb_edit', $this->CreateLinkBuilder());
+            $main_editor->setAllowClear(true);
+            $main_editor->setMinimumInputLength(0);
+            $main_editor->SetAllowNullValue(false);
+            $main_editor->SetHandlerName('filter_builder_eventos_Id_CCB_search');
+            
+            $multi_value_select_editor = new RemoteMultiValueSelect('Id_CCB', $this->CreateLinkBuilder());
+            $multi_value_select_editor->SetHandlerName('filter_builder_eventos_Id_CCB_search');
+            
+            $text_editor = new TextEdit('Id_CCB');
+            
+            $filterBuilder->addColumn(
+                $columns['Id_CCB'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $text_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $text_editor,
+                    FilterConditionOperator::BEGINS_WITH => $text_editor,
+                    FilterConditionOperator::ENDS_WITH => $text_editor,
+                    FilterConditionOperator::IS_LIKE => $text_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $text_editor,
+                    FilterConditionOperator::IN => $multi_value_select_editor,
+                    FilterConditionOperator::NOT_IN => $multi_value_select_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new DateTimeEdit('dt_evento_edit', false, 'd.m.Y H:i:s');
             
             $filterBuilder->addColumn(
                 $columns['Dt_Evento'],
@@ -269,6 +280,30 @@
                     FilterConditionOperator::IS_NOT_BLANK => null
                 )
             );
+            
+            $main_editor = new TextEdit('anexo_evento');
+            
+            $filterBuilder->addColumn(
+                $columns['anexo_evento'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
+                    FilterConditionOperator::BEGINS_WITH => $main_editor,
+                    FilterConditionOperator::ENDS_WITH => $main_editor,
+                    FilterConditionOperator::IS_LIKE => $main_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
         }
     
         protected function AddOperationsColumns(Grid $grid)
@@ -326,9 +361,9 @@
             $grid->AddViewColumn($column);
             
             //
-            // View column for Ds_CCB field
+            // View column for Ds_Evento field
             //
-            $column = new TextViewColumn('id_CCB', 'id_CCB_Ds_CCB', 'Id CCB', $this->dataset);
+            $column = new TextViewColumn('Ds_Evento', 'Ds_Evento', 'Descrição', $this->dataset);
             $column->SetOrderable(true);
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
@@ -336,9 +371,9 @@
             $grid->AddViewColumn($column);
             
             //
-            // View column for Ds_Evento field
+            // View column for Ds_CCB field
             //
-            $column = new TextViewColumn('Ds_Evento', 'Ds_Evento', 'Ds Evento', $this->dataset);
+            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'CCB', $this->dataset);
             $column->SetOrderable(true);
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
@@ -348,9 +383,9 @@
             //
             // View column for Dt_Evento field
             //
-            $column = new DateTimeViewColumn('Dt_Evento', 'Dt_Evento', 'Dt Evento', $this->dataset);
+            $column = new DateTimeViewColumn('Dt_Evento', 'Dt_Evento', 'Data Evento', $this->dataset);
             $column->SetOrderable(true);
-            $column->SetDateTimeFormat('Y-m-d H:i:s');
+            $column->SetDateTimeFormat('d.m.Y H:i:s');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
             $column->SetFixedWidth(null);
@@ -359,7 +394,7 @@
             //
             // View column for Hr_Inicio field
             //
-            $column = new DateTimeViewColumn('Hr_Inicio', 'Hr_Inicio', 'Hr Inicio', $this->dataset);
+            $column = new DateTimeViewColumn('Hr_Inicio', 'Hr_Inicio', 'Hora Início', $this->dataset);
             $column->SetOrderable(true);
             $column->SetDateTimeFormat('H:i:s');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
@@ -370,9 +405,19 @@
             //
             // View column for Hr_Termino field
             //
-            $column = new DateTimeViewColumn('Hr_Termino', 'Hr_Termino', 'Hr Termino', $this->dataset);
+            $column = new DateTimeViewColumn('Hr_Termino', 'Hr_Termino', 'Hora Fim', $this->dataset);
             $column->SetOrderable(true);
             $column->SetDateTimeFormat('H:i:s');
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for anexo_evento field
+            //
+            $column = new DownloadExternalDataColumn('anexo_evento', 'anexo_evento', 'ATA', $this->dataset, '');
+            $column->SetOrderable(true);
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
             $column->SetFixedWidth(null);
@@ -392,31 +437,31 @@
             $grid->AddSingleRecordViewColumn($column);
             
             //
-            // View column for Ds_CCB field
+            // View column for Ds_Evento field
             //
-            $column = new TextViewColumn('id_CCB', 'id_CCB_Ds_CCB', 'Id CCB', $this->dataset);
+            $column = new TextViewColumn('Ds_Evento', 'Ds_Evento', 'Descrição', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddSingleRecordViewColumn($column);
             
             //
-            // View column for Ds_Evento field
+            // View column for Ds_CCB field
             //
-            $column = new TextViewColumn('Ds_Evento', 'Ds_Evento', 'Ds Evento', $this->dataset);
+            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'CCB', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddSingleRecordViewColumn($column);
             
             //
             // View column for Dt_Evento field
             //
-            $column = new DateTimeViewColumn('Dt_Evento', 'Dt_Evento', 'Dt Evento', $this->dataset);
+            $column = new DateTimeViewColumn('Dt_Evento', 'Dt_Evento', 'Data Evento', $this->dataset);
             $column->SetOrderable(true);
-            $column->SetDateTimeFormat('Y-m-d H:i:s');
+            $column->SetDateTimeFormat('d.m.Y H:i:s');
             $grid->AddSingleRecordViewColumn($column);
             
             //
             // View column for Hr_Inicio field
             //
-            $column = new DateTimeViewColumn('Hr_Inicio', 'Hr_Inicio', 'Hr Inicio', $this->dataset);
+            $column = new DateTimeViewColumn('Hr_Inicio', 'Hr_Inicio', 'Hora Início', $this->dataset);
             $column->SetOrderable(true);
             $column->SetDateTimeFormat('H:i:s');
             $grid->AddSingleRecordViewColumn($column);
@@ -424,16 +469,33 @@
             //
             // View column for Hr_Termino field
             //
-            $column = new DateTimeViewColumn('Hr_Termino', 'Hr_Termino', 'Hr Termino', $this->dataset);
+            $column = new DateTimeViewColumn('Hr_Termino', 'Hr_Termino', 'Hora Fim', $this->dataset);
             $column->SetOrderable(true);
             $column->SetDateTimeFormat('H:i:s');
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for anexo_evento field
+            //
+            $column = new DownloadExternalDataColumn('anexo_evento', 'anexo_evento', 'ATA', $this->dataset, '');
+            $column->SetOrderable(true);
             $grid->AddSingleRecordViewColumn($column);
         }
     
         protected function AddEditColumns(Grid $grid)
         {
             //
-            // Edit column for id_CCB field
+            // Edit column for Ds_Evento field
+            //
+            $editor = new TextEdit('ds_evento_edit');
+            $editor->SetMaxLength(45);
+            $editColumn = new CustomEditColumn('Descrição', 'Ds_Evento', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for Id_CCB field
             //
             $editor = new DynamicCombobox('id_ccb_edit', $this->CreateLinkBuilder());
             $editor->setAllowClear(true);
@@ -466,17 +528,7 @@
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
-            $editColumn = new DynamicLookupEditColumn('Id CCB', 'id_CCB', 'id_CCB_Ds_CCB', 'edit_eventos_id_CCB_search', $editor, $this->dataset, $lookupDataset, 'Id_CCB', 'Ds_CCB', '');
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddEditColumn($editColumn);
-            
-            //
-            // Edit column for Ds_Evento field
-            //
-            $editor = new TextEdit('ds_evento_edit');
-            $editor->SetMaxLength(45);
-            $editColumn = new CustomEditColumn('Ds Evento', 'Ds_Evento', $editor, $this->dataset);
+            $editColumn = new DynamicLookupEditColumn('CCB', 'Id_CCB', 'Id_CCB_Ds_CCB', 'edit_eventos_Id_CCB_search', $editor, $this->dataset, $lookupDataset, 'Id_CCB', 'Ds_CCB', '');
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddEditColumn($editColumn);
@@ -484,8 +536,8 @@
             //
             // Edit column for Dt_Evento field
             //
-            $editor = new DateTimeEdit('dt_evento_edit', false, 'Y-m-d H:i:s');
-            $editColumn = new CustomEditColumn('Dt Evento', 'Dt_Evento', $editor, $this->dataset);
+            $editor = new DateTimeEdit('dt_evento_edit', false, 'd.m.Y H:i:s');
+            $editColumn = new CustomEditColumn('Data Evento', 'Dt_Evento', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddEditColumn($editColumn);
@@ -494,7 +546,7 @@
             // Edit column for Hr_Inicio field
             //
             $editor = new TimeEdit('hr_inicio_edit', 'H:i:s');
-            $editColumn = new CustomEditColumn('Hr Inicio', 'Hr_Inicio', $editor, $this->dataset);
+            $editColumn = new CustomEditColumn('Hora Início', 'Hr_Inicio', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddEditColumn($editColumn);
@@ -503,7 +555,18 @@
             // Edit column for Hr_Termino field
             //
             $editor = new TimeEdit('hr_termino_edit', 'H:i:s');
-            $editColumn = new CustomEditColumn('Hr Termino', 'Hr_Termino', $editor, $this->dataset);
+            $editColumn = new CustomEditColumn('Hora Fim', 'Hr_Termino', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for anexo_evento field
+            //
+            $editor = new ImageUploader('anexo_evento_edit');
+            $editor->SetShowImage(false);
+            $editColumn = new UploadFileToFolderColumn('ATA', 'anexo_evento', $editor, $this->dataset, false, false, 'ataevento/', '%random%.%original_file_extension%', $this->OnFileUpload, false);
+            $editColumn->SetReplaceUploadedFileIfExist(true);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddEditColumn($editColumn);
@@ -512,7 +575,17 @@
         protected function AddMultiEditColumns(Grid $grid)
         {
             //
-            // Edit column for id_CCB field
+            // Edit column for Ds_Evento field
+            //
+            $editor = new TextEdit('ds_evento_edit');
+            $editor->SetMaxLength(45);
+            $editColumn = new CustomEditColumn('Descrição', 'Ds_Evento', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for Id_CCB field
             //
             $editor = new DynamicCombobox('id_ccb_edit', $this->CreateLinkBuilder());
             $editor->setAllowClear(true);
@@ -545,17 +618,7 @@
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
-            $editColumn = new DynamicLookupEditColumn('Id CCB', 'id_CCB', 'id_CCB_Ds_CCB', 'multi_edit_eventos_id_CCB_search', $editor, $this->dataset, $lookupDataset, 'Id_CCB', 'Ds_CCB', '');
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddMultiEditColumn($editColumn);
-            
-            //
-            // Edit column for Ds_Evento field
-            //
-            $editor = new TextEdit('ds_evento_edit');
-            $editor->SetMaxLength(45);
-            $editColumn = new CustomEditColumn('Ds Evento', 'Ds_Evento', $editor, $this->dataset);
+            $editColumn = new DynamicLookupEditColumn('CCB', 'Id_CCB', 'Id_CCB_Ds_CCB', 'multi_edit_eventos_Id_CCB_search', $editor, $this->dataset, $lookupDataset, 'Id_CCB', 'Ds_CCB', '');
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddMultiEditColumn($editColumn);
@@ -563,8 +626,8 @@
             //
             // Edit column for Dt_Evento field
             //
-            $editor = new DateTimeEdit('dt_evento_edit', false, 'Y-m-d H:i:s');
-            $editColumn = new CustomEditColumn('Dt Evento', 'Dt_Evento', $editor, $this->dataset);
+            $editor = new DateTimeEdit('dt_evento_edit', false, 'd.m.Y H:i:s');
+            $editColumn = new CustomEditColumn('Data Evento', 'Dt_Evento', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddMultiEditColumn($editColumn);
@@ -573,7 +636,7 @@
             // Edit column for Hr_Inicio field
             //
             $editor = new TimeEdit('hr_inicio_edit', 'H:i:s');
-            $editColumn = new CustomEditColumn('Hr Inicio', 'Hr_Inicio', $editor, $this->dataset);
+            $editColumn = new CustomEditColumn('Hora Início', 'Hr_Inicio', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddMultiEditColumn($editColumn);
@@ -582,7 +645,18 @@
             // Edit column for Hr_Termino field
             //
             $editor = new TimeEdit('hr_termino_edit', 'H:i:s');
-            $editColumn = new CustomEditColumn('Hr Termino', 'Hr_Termino', $editor, $this->dataset);
+            $editColumn = new CustomEditColumn('Hora Fim', 'Hr_Termino', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for anexo_evento field
+            //
+            $editor = new ImageUploader('anexo_evento_edit');
+            $editor->SetShowImage(false);
+            $editColumn = new UploadFileToFolderColumn('ATA', 'anexo_evento', $editor, $this->dataset, false, false, 'ataevento/', '%random%.%original_file_extension%', $this->OnFileUpload, false);
+            $editColumn->SetReplaceUploadedFileIfExist(true);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddMultiEditColumn($editColumn);
@@ -591,7 +665,17 @@
         protected function AddInsertColumns(Grid $grid)
         {
             //
-            // Edit column for id_CCB field
+            // Edit column for Ds_Evento field
+            //
+            $editor = new TextEdit('ds_evento_edit');
+            $editor->SetMaxLength(45);
+            $editColumn = new CustomEditColumn('Descrição', 'Ds_Evento', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for Id_CCB field
             //
             $editor = new DynamicCombobox('id_ccb_edit', $this->CreateLinkBuilder());
             $editor->setAllowClear(true);
@@ -624,17 +708,7 @@
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
-            $editColumn = new DynamicLookupEditColumn('Id CCB', 'id_CCB', 'id_CCB_Ds_CCB', 'insert_eventos_id_CCB_search', $editor, $this->dataset, $lookupDataset, 'Id_CCB', 'Ds_CCB', '');
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddInsertColumn($editColumn);
-            
-            //
-            // Edit column for Ds_Evento field
-            //
-            $editor = new TextEdit('ds_evento_edit');
-            $editor->SetMaxLength(45);
-            $editColumn = new CustomEditColumn('Ds Evento', 'Ds_Evento', $editor, $this->dataset);
+            $editColumn = new DynamicLookupEditColumn('CCB', 'Id_CCB', 'Id_CCB_Ds_CCB', 'insert_eventos_Id_CCB_search', $editor, $this->dataset, $lookupDataset, 'Id_CCB', 'Ds_CCB', '');
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddInsertColumn($editColumn);
@@ -642,8 +716,8 @@
             //
             // Edit column for Dt_Evento field
             //
-            $editor = new DateTimeEdit('dt_evento_edit', false, 'Y-m-d H:i:s');
-            $editColumn = new CustomEditColumn('Dt Evento', 'Dt_Evento', $editor, $this->dataset);
+            $editor = new DateTimeEdit('dt_evento_edit', false, 'd.m.Y H:i:s');
+            $editColumn = new CustomEditColumn('Data Evento', 'Dt_Evento', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddInsertColumn($editColumn);
@@ -652,7 +726,7 @@
             // Edit column for Hr_Inicio field
             //
             $editor = new TimeEdit('hr_inicio_edit', 'H:i:s');
-            $editColumn = new CustomEditColumn('Hr Inicio', 'Hr_Inicio', $editor, $this->dataset);
+            $editColumn = new CustomEditColumn('Hora Início', 'Hr_Inicio', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddInsertColumn($editColumn);
@@ -661,7 +735,18 @@
             // Edit column for Hr_Termino field
             //
             $editor = new TimeEdit('hr_termino_edit', 'H:i:s');
-            $editColumn = new CustomEditColumn('Hr Termino', 'Hr_Termino', $editor, $this->dataset);
+            $editColumn = new CustomEditColumn('Hora Fim', 'Hr_Termino', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for anexo_evento field
+            //
+            $editor = new ImageUploader('anexo_evento_edit');
+            $editor->SetShowImage(false);
+            $editColumn = new UploadFileToFolderColumn('ATA', 'anexo_evento', $editor, $this->dataset, false, false, 'ataevento/', '%random%.%original_file_extension%', $this->OnFileUpload, false);
+            $editColumn->SetReplaceUploadedFileIfExist(true);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddInsertColumn($editColumn);
@@ -686,31 +771,31 @@
             $grid->AddPrintColumn($column);
             
             //
-            // View column for Ds_CCB field
+            // View column for Ds_Evento field
             //
-            $column = new TextViewColumn('id_CCB', 'id_CCB_Ds_CCB', 'Id CCB', $this->dataset);
+            $column = new TextViewColumn('Ds_Evento', 'Ds_Evento', 'Descrição', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddPrintColumn($column);
             
             //
-            // View column for Ds_Evento field
+            // View column for Ds_CCB field
             //
-            $column = new TextViewColumn('Ds_Evento', 'Ds_Evento', 'Ds Evento', $this->dataset);
+            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'CCB', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddPrintColumn($column);
             
             //
             // View column for Dt_Evento field
             //
-            $column = new DateTimeViewColumn('Dt_Evento', 'Dt_Evento', 'Dt Evento', $this->dataset);
+            $column = new DateTimeViewColumn('Dt_Evento', 'Dt_Evento', 'Data Evento', $this->dataset);
             $column->SetOrderable(true);
-            $column->SetDateTimeFormat('Y-m-d H:i:s');
+            $column->SetDateTimeFormat('d.m.Y H:i:s');
             $grid->AddPrintColumn($column);
             
             //
             // View column for Hr_Inicio field
             //
-            $column = new DateTimeViewColumn('Hr_Inicio', 'Hr_Inicio', 'Hr Inicio', $this->dataset);
+            $column = new DateTimeViewColumn('Hr_Inicio', 'Hr_Inicio', 'Hora Início', $this->dataset);
             $column->SetOrderable(true);
             $column->SetDateTimeFormat('H:i:s');
             $grid->AddPrintColumn($column);
@@ -718,7 +803,7 @@
             //
             // View column for Hr_Termino field
             //
-            $column = new DateTimeViewColumn('Hr_Termino', 'Hr_Termino', 'Hr Termino', $this->dataset);
+            $column = new DateTimeViewColumn('Hr_Termino', 'Hr_Termino', 'Hora Fim', $this->dataset);
             $column->SetOrderable(true);
             $column->SetDateTimeFormat('H:i:s');
             $grid->AddPrintColumn($column);
@@ -730,6 +815,13 @@
             $column->SetOrderable(true);
             $column->SetMaxLength(75);
             $column->SetFullTextWindowHandlerName('eventos_Ds_AtaEvento_handler_print');
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for anexo_evento field
+            //
+            $column = new DownloadExternalDataColumn('anexo_evento', 'anexo_evento', 'ATA', $this->dataset, '');
+            $column->SetOrderable(true);
             $grid->AddPrintColumn($column);
         }
     
@@ -746,31 +838,31 @@
             $grid->AddExportColumn($column);
             
             //
-            // View column for Ds_CCB field
+            // View column for Ds_Evento field
             //
-            $column = new TextViewColumn('id_CCB', 'id_CCB_Ds_CCB', 'Id CCB', $this->dataset);
+            $column = new TextViewColumn('Ds_Evento', 'Ds_Evento', 'Descrição', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddExportColumn($column);
             
             //
-            // View column for Ds_Evento field
+            // View column for Ds_CCB field
             //
-            $column = new TextViewColumn('Ds_Evento', 'Ds_Evento', 'Ds Evento', $this->dataset);
+            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'CCB', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddExportColumn($column);
             
             //
             // View column for Dt_Evento field
             //
-            $column = new DateTimeViewColumn('Dt_Evento', 'Dt_Evento', 'Dt Evento', $this->dataset);
+            $column = new DateTimeViewColumn('Dt_Evento', 'Dt_Evento', 'Data Evento', $this->dataset);
             $column->SetOrderable(true);
-            $column->SetDateTimeFormat('Y-m-d H:i:s');
+            $column->SetDateTimeFormat('d.m.Y H:i:s');
             $grid->AddExportColumn($column);
             
             //
             // View column for Hr_Inicio field
             //
-            $column = new DateTimeViewColumn('Hr_Inicio', 'Hr_Inicio', 'Hr Inicio', $this->dataset);
+            $column = new DateTimeViewColumn('Hr_Inicio', 'Hr_Inicio', 'Hora Início', $this->dataset);
             $column->SetOrderable(true);
             $column->SetDateTimeFormat('H:i:s');
             $grid->AddExportColumn($column);
@@ -778,7 +870,7 @@
             //
             // View column for Hr_Termino field
             //
-            $column = new DateTimeViewColumn('Hr_Termino', 'Hr_Termino', 'Hr Termino', $this->dataset);
+            $column = new DateTimeViewColumn('Hr_Termino', 'Hr_Termino', 'Hora Fim', $this->dataset);
             $column->SetOrderable(true);
             $column->SetDateTimeFormat('H:i:s');
             $grid->AddExportColumn($column);
@@ -790,6 +882,13 @@
             $column->SetOrderable(true);
             $column->SetMaxLength(75);
             $column->SetFullTextWindowHandlerName('eventos_Ds_AtaEvento_handler_export');
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for anexo_evento field
+            //
+            $column = new DownloadExternalDataColumn('anexo_evento', 'anexo_evento', 'ATA', $this->dataset, '');
+            $column->SetOrderable(true);
             $grid->AddExportColumn($column);
         }
     
@@ -806,31 +905,31 @@
             $grid->AddCompareColumn($column);
             
             //
-            // View column for Ds_CCB field
+            // View column for Ds_Evento field
             //
-            $column = new TextViewColumn('id_CCB', 'id_CCB_Ds_CCB', 'Id CCB', $this->dataset);
+            $column = new TextViewColumn('Ds_Evento', 'Ds_Evento', 'Descrição', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddCompareColumn($column);
             
             //
-            // View column for Ds_Evento field
+            // View column for Ds_CCB field
             //
-            $column = new TextViewColumn('Ds_Evento', 'Ds_Evento', 'Ds Evento', $this->dataset);
+            $column = new TextViewColumn('Id_CCB', 'Id_CCB_Ds_CCB', 'CCB', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddCompareColumn($column);
             
             //
             // View column for Dt_Evento field
             //
-            $column = new DateTimeViewColumn('Dt_Evento', 'Dt_Evento', 'Dt Evento', $this->dataset);
+            $column = new DateTimeViewColumn('Dt_Evento', 'Dt_Evento', 'Data Evento', $this->dataset);
             $column->SetOrderable(true);
-            $column->SetDateTimeFormat('Y-m-d H:i:s');
+            $column->SetDateTimeFormat('d.m.Y H:i:s');
             $grid->AddCompareColumn($column);
             
             //
             // View column for Hr_Inicio field
             //
-            $column = new DateTimeViewColumn('Hr_Inicio', 'Hr_Inicio', 'Hr Inicio', $this->dataset);
+            $column = new DateTimeViewColumn('Hr_Inicio', 'Hr_Inicio', 'Hora Início', $this->dataset);
             $column->SetOrderable(true);
             $column->SetDateTimeFormat('H:i:s');
             $grid->AddCompareColumn($column);
@@ -838,7 +937,7 @@
             //
             // View column for Hr_Termino field
             //
-            $column = new DateTimeViewColumn('Hr_Termino', 'Hr_Termino', 'Hr Termino', $this->dataset);
+            $column = new DateTimeViewColumn('Hr_Termino', 'Hr_Termino', 'Hora Fim', $this->dataset);
             $column->SetOrderable(true);
             $column->SetDateTimeFormat('H:i:s');
             $grid->AddCompareColumn($column);
@@ -850,6 +949,13 @@
             $column->SetOrderable(true);
             $column->SetMaxLength(75);
             $column->SetFullTextWindowHandlerName('eventos_Ds_AtaEvento_handler_compare');
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for anexo_evento field
+            //
+            $column = new DownloadExternalDataColumn('anexo_evento', 'anexo_evento', 'ATA', $this->dataset, '');
+            $column->SetOrderable(true);
             $grid->AddCompareColumn($column);
         }
     
@@ -986,7 +1092,7 @@
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
-            $handler = new DynamicSearchHandler($lookupDataset, $this, 'insert_eventos_id_CCB_search', 'Id_CCB', 'Ds_CCB', null, 20);
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'insert_eventos_Id_CCB_search', 'Id_CCB', 'Ds_CCB', null, 20);
             GetApplication()->RegisterHTTPHandler($handler);
             
             $lookupDataset = new TableDataset(
@@ -1017,7 +1123,7 @@
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
-            $handler = new DynamicSearchHandler($lookupDataset, $this, 'filter_builder_eventos_id_CCB_search', 'Id_CCB', 'Ds_CCB', null, 20);
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'filter_builder_eventos_Id_CCB_search', 'Id_CCB', 'Ds_CCB', null, 20);
             GetApplication()->RegisterHTTPHandler($handler);
             
             $lookupDataset = new TableDataset(
@@ -1048,7 +1154,7 @@
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
-            $handler = new DynamicSearchHandler($lookupDataset, $this, 'edit_eventos_id_CCB_search', 'Id_CCB', 'Ds_CCB', null, 20);
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'edit_eventos_Id_CCB_search', 'Id_CCB', 'Ds_CCB', null, 20);
             GetApplication()->RegisterHTTPHandler($handler);
             
             $lookupDataset = new TableDataset(
@@ -1079,7 +1185,7 @@
                 )
             );
             $lookupDataset->setOrderByField('Ds_CCB', 'ASC');
-            $handler = new DynamicSearchHandler($lookupDataset, $this, 'multi_edit_eventos_id_CCB_search', 'Id_CCB', 'Ds_CCB', null, 20);
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'multi_edit_eventos_Id_CCB_search', 'Id_CCB', 'Ds_CCB', null, 20);
             GetApplication()->RegisterHTTPHandler($handler);
         }
        
