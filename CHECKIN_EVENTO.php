@@ -46,15 +46,15 @@
             FROM sl3.convocacoeseventos cv
             join sl3.cadvoluntarios v on cv.ID_AUX = v.ID_AUX
             join sl3.cadcongregacoes c on v.Id_CCB = c.Id_CCB';
-            $insertQuery = array('INSERT INTO sl3.convocacoeseventos
+            $insertQuery = array('INSERT INTO convocacoeseventos
             (Id_Evento,Id_Voluntario,St_VoluntarioCompareceu,Dt_Hr_Chegada,Dt_Hr_Saida,ID_AUX) values
             (:Id_Evento,:Id_Voluntario,\'SIM\',NOW(),NOW(),:ID_AUX)');
-            $updateQuery = array('UPDATE sl3.convocacoeseventos
+            $updateQuery = array('UPDATE convocacoeseventos
             SET Id_Evento = :Id_Evento,
             Id_Voluntario = :Id_Voluntario,
             ID_AUX = :ID_AUX
             WHERE Id_Convocacao = :OLD_Id_Convocacao');
-            $deleteQuery = array('DELETE sl3.convocacoeseventos WHERE Id_Convocacao = :OLD_Id_Convocacao');
+            $deleteQuery = array('DELETE FROM convocacoeseventos WHERE Id_Convocacao = :OLD_Id_Convocacao');
             $this->dataset = new QueryDataset(
               MySqlIConnectionFactory::getInstance(), 
               GetConnectionOptions(),
@@ -103,28 +103,7 @@
     
         protected function setupCharts()
         {
-            $sql = 'SELECT 
-                   count(*) as total,
-                   Ds_SubSetor
-            FROM (%source%) c
-            GROUP BY Ds_SubSetor';$chart = new Chart('CCB', Chart::TYPE_PIE, $this->dataset, $sql);
-            $chart->setTitle('CCB');
-            $chart->setHeight(300);
-            $chart->setDomainColumn('Ds_SubSetor', 'SubSetor', 'string');
-            $chart->addDataColumn('total', 'total', 'int')
-                  ->setTooltipColumn('total')
-                  ->setAnnotationColumn('total')
-                  ->setAnnotationTextColumn('total');
-            $this->addChart($chart, 0, ChartPosition::BEFORE_GRID, 12);$sql = 'SELECT 
-                   count(*) as total,
-                   ID_FUNCAO1
-            FROM (%source%) c
-            GROUP BY ID_FUNCAO1';$chart = new Chart('Fun', Chart::TYPE_COLUMN, $this->dataset, $sql);
-            $chart->setTitle('Fun');
-            $chart->setDomainColumn('ID_FUNCAO1', 'ID_FUNCAO1', 'int');
-            $chart->addDataColumn('total', 'total', 'int');
-            $chart->addDataColumn('ID_FUNCAO1', 'Função', 'int');
-            $this->addChart($chart, 1, ChartPosition::BEFORE_GRID, 12);
+    
         }
     
         protected function getFiltersColumns()

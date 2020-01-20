@@ -420,7 +420,22 @@
     
         protected function setupCharts()
         {
-    
+            $sql = 'select f.ds_funcao as ds_funcao,
+            count(*) as total_funcao
+            from (%source%) a
+            join funcoes f on a.id_funcao1 = f.id_Funcao
+            group by f.ds_funcao';$chart = new Chart('Chart01', Chart::TYPE_COLUMN, $this->dataset, $sql);
+            $chart->setTitle('Chart01');
+            $chart->setDomainColumn('ds_funcao', 'ds_funcao', 'string');
+            $chart->addDataColumn('total_funcao', 'TOTAL', 'int');
+            $this->addChart($chart, 0, ChartPosition::BEFORE_GRID, 12);$sql = 'SELECT NM_PROFISSAO,
+            COUNT(*) TOTAL
+            FROM (%source%) c
+            GROUP BY NM_PROFISSAO';$chart = new Chart('Chart02', Chart::TYPE_COLUMN, $this->dataset, $sql);
+            $chart->setTitle('Chart02');
+            $chart->setDomainColumn('NM_PROFISSAO', 'NM_PROFISSAO', 'string');
+            $chart->addDataColumn('TOTAL', 'TOTAL', 'int');
+            $this->addChart($chart, 1, ChartPosition::BEFORE_GRID, 12);
         }
     
         protected function getFiltersColumns()

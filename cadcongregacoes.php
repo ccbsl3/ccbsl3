@@ -1186,8 +1186,9 @@
                 )
             );
             
-            $main_editor = new TextEdit('cep_ccb_edit');
-            $main_editor->SetMaxLength(9);
+            $main_editor = new MaskedEdit('cep_ccb_edit', '99999-999');
+            
+            $text_editor = new TextEdit('Cep_CCB');
             
             $filterBuilder->addColumn(
                 $columns['Cep_CCB'],
@@ -1200,12 +1201,12 @@
                     FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
                     FilterConditionOperator::IS_BETWEEN => $main_editor,
                     FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
-                    FilterConditionOperator::CONTAINS => $main_editor,
-                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
-                    FilterConditionOperator::BEGINS_WITH => $main_editor,
-                    FilterConditionOperator::ENDS_WITH => $main_editor,
-                    FilterConditionOperator::IS_LIKE => $main_editor,
-                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::CONTAINS => $text_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $text_editor,
+                    FilterConditionOperator::BEGINS_WITH => $text_editor,
+                    FilterConditionOperator::ENDS_WITH => $text_editor,
+                    FilterConditionOperator::IS_LIKE => $text_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $text_editor,
                     FilterConditionOperator::IS_BLANK => null,
                     FilterConditionOperator::IS_NOT_BLANK => null
                 )
@@ -1997,8 +1998,7 @@
             //
             // Edit column for Cep_CCB field
             //
-            $editor = new TextEdit('cep_ccb_edit');
-            $editor->SetMaxLength(9);
+            $editor = new MaskedEdit('cep_ccb_edit', '99999-999');
             $editColumn = new CustomEditColumn('Cep CCB', 'Cep_CCB', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
@@ -2183,8 +2183,7 @@
             //
             // Edit column for Cep_CCB field
             //
-            $editor = new TextEdit('cep_ccb_edit');
-            $editor->SetMaxLength(9);
+            $editor = new MaskedEdit('cep_ccb_edit', '99999-999');
             $editColumn = new CustomEditColumn('Cep CCB', 'Cep_CCB', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
@@ -2380,8 +2379,7 @@
             //
             // Edit column for Cep_CCB field
             //
-            $editor = new TextEdit('cep_ccb_edit');
-            $editor->SetMaxLength(9);
+            $editor = new MaskedEdit('cep_ccb_edit', '99999-999');
             $editColumn = new CustomEditColumn('Cep CCB', 'Cep_CCB', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);

@@ -35,8 +35,8 @@
     {
         protected function DoBeforeCreate()
         {
-            $this->SetTitle('Minitério');
-            $this->SetMenuLabel('Minitério');
+            $this->SetTitle('Ministério');
+            $this->SetMenuLabel('Ministério');
             $this->SetHeader(GetPagesHeader());
             $this->SetFooter(GetPagesFooter());
     
