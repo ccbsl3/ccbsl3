@@ -85,9 +85,9 @@ function GetPageInfos()
     $result[] = array('caption' => 'Grupo/Obra CCB', 'short_caption' => 'Grupo/Obra CCB', 'filename' => 'grupoccb.php', 'name' => 'grupoccb', 'group_name' => 'Congregação', 'add_separator' => false, 'description' => '');
     $result[] = array('caption' => 'Grupo Voluntários CCB', 'short_caption' => 'Grupo Voluntários CCB', 'filename' => 'grupovoluntarios.php', 'name' => 'grupovoluntarios', 'group_name' => 'Congregação', 'add_separator' => false, 'description' => '');
     $result[] = array('caption' => 'Tipo Função', 'short_caption' => 'Tipo Função', 'filename' => 'tipofuncao.php', 'name' => 'tipofuncao', 'group_name' => 'Voluntários', 'add_separator' => false, 'description' => '');
-    $result[] = array('caption' => 'Consulta Voluntários', 'short_caption' => 'Consulta Voluntários', 'filename' => 'CONSULTAVOLUNTARIO.php', 'name' => 'CONSULTAVOLUNTARIO', 'group_name' => 'Voluntários', 'add_separator' => false, 'description' => '');
     $result[] = array('caption' => 'Checkin Evento', 'short_caption' => 'Checkin Evento', 'filename' => 'CHECKIN_EVENTO.php', 'name' => 'CHECKIN_EVENTO', 'group_name' => 'Voluntários', 'add_separator' => false, 'description' => '');
     $result[] = array('caption' => 'Checkin Evento Ministério', 'short_caption' => 'Checkin Evento Ministério', 'filename' => 'CHECKIN_EVENTO_MINISTERIO.php', 'name' => 'CHECKIN_EVENTO_MINISTERIO', 'group_name' => 'Voluntários', 'add_separator' => false, 'description' => '');
+    $result[] = array('caption' => 'Consulta Voluntários', 'short_caption' => 'Consulta Voluntários', 'filename' => 'CONSULTAVOLUNTARIO.php', 'name' => 'CONSULTAVOLUNTARIO', 'group_name' => 'Voluntários', 'add_separator' => false, 'description' => '');
     return $result;
 }
 
@@ -214,7 +214,7 @@ function GetOfflineMode()
 
 function GetInactivityTimeout()
 {
-    return 600;
+    return 0;
 }
 
 function GetMailer()

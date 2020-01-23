@@ -44,9 +44,9 @@ $tableCaptions = array('assistenciaministerio' => 'Assistência Ministério',
 'grupovoluntarios' => 'Grupo Voluntários CCB',
 'CCB_MINISTERIO' => 'CCB MINISTERIO',
 'tipofuncao' => 'Tipo Função',
-'CONSULTAVOLUNTARIO' => 'Consulta Voluntários',
 'CHECKIN_EVENTO' => 'Checkin Evento',
-'CHECKIN_EVENTO_MINISTERIO' => 'Checkin Evento Ministério');
+'CHECKIN_EVENTO_MINISTERIO' => 'Checkin Evento Ministério',
+'CONSULTAVOLUNTARIO' => 'Consulta Voluntários');
 
 $usersTableInfo = array(
     'TableName' => 'usuario',

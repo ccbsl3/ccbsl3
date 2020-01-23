@@ -1075,8 +1075,9 @@
     
         protected function setupFilterBuilder(FilterBuilder $filterBuilder, FixedKeysArray $columns)
         {
-            $main_editor = new TextEdit('id_ccb_edit');
-            $main_editor->SetMaxLength(7);
+            $main_editor = new MaskedEdit('id_ccb_edit', '99-9999');
+            
+            $text_editor = new TextEdit('Id_CCB');
             
             $filterBuilder->addColumn(
                 $columns['Id_CCB'],
@@ -1089,12 +1090,12 @@
                     FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
                     FilterConditionOperator::IS_BETWEEN => $main_editor,
                     FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
-                    FilterConditionOperator::CONTAINS => $main_editor,
-                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
-                    FilterConditionOperator::BEGINS_WITH => $main_editor,
-                    FilterConditionOperator::ENDS_WITH => $main_editor,
-                    FilterConditionOperator::IS_LIKE => $main_editor,
-                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::CONTAINS => $text_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $text_editor,
+                    FilterConditionOperator::BEGINS_WITH => $text_editor,
+                    FilterConditionOperator::ENDS_WITH => $text_editor,
+                    FilterConditionOperator::IS_LIKE => $text_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $text_editor,
                     FilterConditionOperator::IS_BLANK => null,
                     FilterConditionOperator::IS_NOT_BLANK => null
                 )
@@ -1130,6 +1131,7 @@
             $main_editor->addChoice('SALETE', 'SALETE');
             $main_editor->addChoice('SAO MIGUEL', 'SAO MIGUEL');
             $main_editor->addChoice('TIRADENTES', 'TIRADENTES');
+            $main_editor->addChoice('OUTROS', 'OUTROS');
             $main_editor->SetAllowNullValue(false);
             
             $multi_value_select_editor = new MultiValueSelect('Ds_SubSetor');
@@ -1954,8 +1956,7 @@
             //
             // Edit column for Id_CCB field
             //
-            $editor = new TextEdit('id_ccb_edit');
-            $editor->SetMaxLength(7);
+            $editor = new MaskedEdit('id_ccb_edit', '99-9999');
             $editColumn = new CustomEditColumn('Id CCB', 'Id_CCB', $editor, $this->dataset);
             $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
             $editor->GetValidatorCollection()->AddValidator($validator);
@@ -1967,7 +1968,8 @@
             //
             $editor = new TextEdit('ds_ccb_edit');
             $editColumn = new CustomEditColumn('CCB', 'Ds_CCB', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
+            $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
+            $editor->GetValidatorCollection()->AddValidator($validator);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddEditColumn($editColumn);
             
@@ -1980,8 +1982,10 @@
             $editor->addChoice('SALETE', 'SALETE');
             $editor->addChoice('SAO MIGUEL', 'SAO MIGUEL');
             $editor->addChoice('TIRADENTES', 'TIRADENTES');
+            $editor->addChoice('OUTROS', 'OUTROS');
             $editColumn = new CustomEditColumn('Sub Setor', 'Ds_SubSetor', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
+            $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
+            $editor->GetValidatorCollection()->AddValidator($validator);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddEditColumn($editColumn);
             
@@ -2152,7 +2156,8 @@
             //
             $editor = new TextEdit('ds_ccb_edit');
             $editColumn = new CustomEditColumn('CCB', 'Ds_CCB', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
+            $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
+            $editor->GetValidatorCollection()->AddValidator($validator);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddMultiEditColumn($editColumn);
             
@@ -2165,8 +2170,10 @@
             $editor->addChoice('SALETE', 'SALETE');
             $editor->addChoice('SAO MIGUEL', 'SAO MIGUEL');
             $editor->addChoice('TIRADENTES', 'TIRADENTES');
+            $editor->addChoice('OUTROS', 'OUTROS');
             $editColumn = new CustomEditColumn('Sub Setor', 'Ds_SubSetor', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
+            $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
+            $editor->GetValidatorCollection()->AddValidator($validator);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddMultiEditColumn($editColumn);
             
@@ -2335,8 +2342,7 @@
             //
             // Edit column for Id_CCB field
             //
-            $editor = new TextEdit('id_ccb_edit');
-            $editor->SetMaxLength(7);
+            $editor = new MaskedEdit('id_ccb_edit', '99-9999');
             $editColumn = new CustomEditColumn('Id CCB', 'Id_CCB', $editor, $this->dataset);
             $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
             $editor->GetValidatorCollection()->AddValidator($validator);
@@ -2348,7 +2354,8 @@
             //
             $editor = new TextEdit('ds_ccb_edit');
             $editColumn = new CustomEditColumn('CCB', 'Ds_CCB', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
+            $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
+            $editor->GetValidatorCollection()->AddValidator($validator);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddInsertColumn($editColumn);
             
@@ -2361,8 +2368,10 @@
             $editor->addChoice('SALETE', 'SALETE');
             $editor->addChoice('SAO MIGUEL', 'SAO MIGUEL');
             $editor->addChoice('TIRADENTES', 'TIRADENTES');
+            $editor->addChoice('OUTROS', 'OUTROS');
             $editColumn = new CustomEditColumn('Sub Setor', 'Ds_SubSetor', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
+            $validator = new RequiredValidator(StringUtils::Format($this->GetLocalizerCaptions()->GetMessageString('RequiredValidationMessage'), $editColumn->GetCaption()));
+            $editor->GetValidatorCollection()->AddValidator($validator);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddInsertColumn($editColumn);
             
